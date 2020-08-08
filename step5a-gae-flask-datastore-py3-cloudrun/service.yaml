@@ -1,0 +1,15 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: default
+  labels:
+    migrated-from: app-engine
+    cloud.googleapis.com/location: us-west1
+spec:
+  template:
+    metadata:
+      annotations: {}
+    spec:
+      containers:
+        - image: gcr.io/wescpy-gae3/image
+      serviceAccountName: docker-client1@wescpy-gae3.iam.gserviceaccount.com
