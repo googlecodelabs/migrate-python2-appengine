@@ -32,37 +32,7 @@ handlers:
 
 ---
 
-## Summary
-
-For the sample app in this tutorial, the overall contextual set of `diff`s (skipping this `README.md` and nonessential files) looks like this:
-
-    $ diff -c step3-flask-datastore-py?
-    diff -c step3-flask-datastore-py2/app.yaml step3-flask-datastore-py3/app.yaml
-    *** step3-flask-datastore-py2/app.yaml  2020-08-05 00:09:42.000000000 -0700
-    --- step3-flask-datastore-py3/app.yaml  2020-07-24 23:59:03.000000000 -0700
-    ***************
-    *** 1,13 ****
-    ! runtime: python27
-    ! threadsafe: yes
-    ! api_version: 1
-      
-      handlers:
-      - url: /.*
-    !   script: main.app
-    ! 
-    ! libraries:
-    ! - name: grpcio
-    !   version: 1.0.0
-    ! - name: setuptools
-    !   version: 36.6.0
-    --- 1,5 ----
-    ! runtime: python38
-      
-      handlers:
-      - url: /.*
-    !   script: auto
-    Only in step3-flask-datastore-py2: appengine_config.py
-    Common subdirectories: step3-flask-datastore-py2/templates and step3-flask-datastore-py3/templates
+## Next
 
 From here, your options are:
 

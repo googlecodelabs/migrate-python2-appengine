@@ -21,7 +21,7 @@ Use of Google Cloud Platform (GCP) products & APIs is not free. While you may no
 
 It's important to note that for App Engine (Standard), Python 2 is only supported as a first-generation ("Gen1") runtime whereas Python3 is only supported as a second-generation ("Gen2") runtime. This means that porting application from Python 2 to 3 also means migrating from Gen1 to Gen2 where things are different.
 
-The most notable changes for developers are that bundled App Engine built-in services are absent from Gen2. The Gen1 bundled services have "grown-up" to become standalone products or have been deprecated. Gen2 also expects web apps to perform their own routing.
+The most notable changes for developers are that bundled App Engine built-in services are absent from Gen2. The Gen1 bundled services have "grown-up" to become standalone products or have been deprecated. Gen2 also expects web apps to perform their own application (not network) routing.
 
 > **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a Gen2 service but is not within the scope of these tutorials. Developers who curious can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments).
 
@@ -33,7 +33,7 @@ The sample app does not address complexities in your apps but serves as a guide 
 
 > **NOTE:**
 > 1. It is also possible your app does not have a user interface, i.e., mobile backends, etc., so migrating the web framework (step 1) can be skipped.
-> 1. Users interested in bringing back their dead apps that originally ran on the [deprecated Python 2.5 runtime](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) (shutdown in 2017) need to [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before attempting this tutorial.
+> 1. Users interested in bringing back their dead apps that originally ran on the [deprecated Python 2.5 runtime](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) (shutdown in 2017) need to [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before attempting the techniques shown in this tutorial.
 
 As mentioned above, some steps are more critical while others are *optional*. We recommend incremental updates. We designed each step to be relatively easy, so you experience each migration individually. However, there are some of you for whom the migration process may be easier where you may be able to take larger migration leaps.
 
@@ -44,7 +44,7 @@ We suggest considering where you want to end up eventually, playing with each mi
 Each of the migration steps have their own codelabs & corresponding overview videos:
 
 1. Migrate from `webapp2` to Flask
-    - Recommended if you have a web UI
+    - Stongly recommended if you have a web UI
     - You can use another web framework as long as it supports routing
 1. Migrate from App Engine NDB to Cloud NDB
     - Stongly recommended
@@ -52,10 +52,13 @@ Each of the migration steps have their own codelabs & corresponding overview vid
     - Can migrate directly to Cloud Run after this step (see Step "2a" below)
     - Remaining datastore migration steps optional
 1. Migrate from Cloud NDB to Cloud Datastore
-    - Recommended if you have non-App Engine code accessing Cloud Datastore
+    - Cloud NDB works on both Python 2 & 3 App Engine runtimes (old & new), so it is optional
+    - Recommended if already using Cloud Datastore in other (App Engine *and* non-App Engine) apps & want a consistent/reusable codebase plus reduce maintenance costs
+    - If all you have are App Engine apps using Cloud NDB, there's no need to do this migration
 1. Migrate from Cloud Datastore to (native) Cloud Firestore
-    - Recommended if you have mobile apps using Firebase+Cloud Firestore
+    - If your app (Cloud project) uses Datastore, you cannot use Firestore.
     - Requires new project as Cloud Datastore & Cloud Firestore mutually-exclusive
+    - Most developers will NOT do this migration unless you *must have* Firestore's Firebase features
 1. Migrate from App Engine to Cloud Run (using Cloud Datastore)
     - Migrate your app to a container with Docker
     - Alternative container migration with Buildpacks (see Step "5a" below)

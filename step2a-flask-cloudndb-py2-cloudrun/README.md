@@ -42,36 +42,7 @@ if __name__ == '__main__':
 
 ---
 
-## Summary
-
-For the sample app in this tutorial, the overall contextual set of `diff`s (skipping this `README.md` and nonessential files) looks like this:
-
-    $ diff -c step2*py2*
-    Only in step2a-flask-cloudndb-py2-cloudrun: .dockerignore
-    Only in step2a-flask-cloudndb-py2-cloudrun: Dockerfile
-    Only in step2-flask-cloudndb-py2: app.yaml
-    Only in step2-flask-cloudndb-py2: appengine_config.py
-    diff -c step2-flask-cloudndb-py2/main.py step2a-flask-cloudndb-py2-cloudrun/main.py
-    *** step2-flask-cloudndb-py2/main.py    2020-07-25 14:00:56.000000000 -0700
-    --- step2a-flask-cloudndb-py2-cloudrun/main.py  2020-08-11 19:17:15.000000000 -0700
-    ***************
-    *** 1,3 ****
-    --- 1,4 ----
-    + import os
-      from flask import Flask, render_template, request
-      from google.cloud import ndb
-      
-    ***************
-    *** 22,24 ****
-    --- 23,29 ----
-          store_visit(request.remote_addr, request.user_agent)
-          visits = fetch_visits(10) or ()  # empty sequence if None
-          return render_template('index.html', visits=visits)
-    + 
-    + if __name__ == '__main__':
-    +     app.run(debug=True, threaded=True, host='0.0.0.0',
-    +             port=int(os.environ.get('PORT', 8080)))
-    Common subdirectories: step2-flask-cloudndb-py2/templates and step2a-flask-cloudndb-py2-cloudrun/templates
+## Next
 
 From here, you have some flexibility as to your next move. You can...
 

@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
 ---
 
-## Summary
+## Next
 
 The main `diff`s users will encounter:
 

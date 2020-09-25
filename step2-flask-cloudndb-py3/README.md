@@ -2,7 +2,7 @@
 
 ## Introduction
 
-We recommend developers migrate to Python 3 to access the latest App Engine runtimes & features. Developers can make this migration as soon as they've migrated to Cloud NDB (now). However since this is a large undertaking, you can move to Py3 after any of the datastore migration steps, not just this one. One of the outstanding features of the App Engine second generation runtimes (Gen2) is that neither "vendored" nor bundled 3rd-party packages are required to be uploaded to the service. They are automatically installed directly from `requirements.txt`.
+We recommend developers migrate to Python 3 to access the latest App Engine runtimes & features. Developers can make this migration as soon as they've migrated to Cloud NDB (now). However since this can be a large undertaking, you can move to Py3 after any of the datastore migration steps, not just this one. One of the outstanding features of the App Engine second generation runtimes (Gen2) is that neither "vendored" nor bundled 3rd-party packages are required to be uploaded to the service. They are automatically installed directly from `requirements.txt`.
 
 ---
 
@@ -31,37 +31,7 @@ handlers:
 
 ---
 
-## Summary
-
-For the sample app in this tutorial, the overall contextual set of `diff`s (skipping this `README.md` and nonessential files) looks like this:
-
-    $ diff -c step2-flask-cloudndb-py?
-    diff -c step2-flask-cloudndb-py2/app.yaml step2-flask-cloudndb-py3/app.yaml
-    *** step2-flask-cloudndb-py2/app.yaml   2020-08-05 00:09:42.000000000 -0700
-    --- step2-flask-cloudndb-py3/app.yaml   2020-07-24 23:59:03.000000000 -0700
-    ***************
-    *** 1,13 ****
-    ! runtime: python27
-    ! threadsafe: yes
-    ! api_version: 1
-      
-      handlers:
-      - url: /.*
-    !   script: main.app
-    ! 
-    ! libraries:
-    ! - name: grpcio
-    !   version: 1.0.0
-    ! - name: setuptools
-    !   version: 36.6.0
-    --- 1,5 ----
-    ! runtime: python38
-      
-      handlers:
-      - url: /.*
-    !   script: auto
-    Only in step2-flask-cloudndb-py2: appengine_config.py
-    Common subdirectories: step2-flask-cloudndb-py2/templates and step2-flask-cloudndb-py3/templates
+## Next
 
 From here, your options are:
 

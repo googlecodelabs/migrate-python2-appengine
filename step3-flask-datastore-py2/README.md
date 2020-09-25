@@ -2,7 +2,11 @@
 
 ## Introduction
 
-While [Cloud NDB](https://cloud.google.com/appengine/docs/standard/python3/migrating-to-cloud-ndb) is a great solution for long-time App Engine developers, it is *not* the primary way all other users access [Cloud Datastore](https://cloud.google.com/datastore). Instead, they use the standard [Cloud Datastore client library](https://cloud.google.com/datastore/docs/reference/libraries). This step shows developers how to migrate from Cloud NDB to Cloud Datastore.
+While [Cloud NDB](https://cloud.google.com/appengine/docs/standard/python3/migrating-to-cloud-ndb) is a great solution for long-time App Engine developers, it is *not* the primary way all other (non-App Engine) users access [Cloud Datastore](https://cloud.google.com/datastore). Instead, they usually use the standard [Cloud Datastore client library](https://cloud.google.com/datastore/docs/reference/libraries).
+
+Since Cloud NDB is a standalone library and is available for both Python 2 & 3, really *anyone* can use it, but its main purpose is to help original App Engine runtime developers migrate, *not* serve as the expected approach for new code. If you *are* an App Engine developer, perhaps with apps running on both the original and next generation runtimes, and don't plan to use Datastore outside of App Engine, you do *not* need to perform this migration and can happily stay with Cloud NDB.
+
+On the other hand, if you have other apps that use Cloud Datastore, you may consider migrating your App Engine apps from Cloud NDB to Datastore. It'll bring consistency to your codebase, enable code reuse, and hopefully lower the overall maintenance cost because you'll just have the single way to access Datastore (vs. two). Please continue if you fall into this group and wish to migrate from Cloud NDB to Cloud Datastore.
 
 ---
 
@@ -188,71 +192,7 @@ def fetch_visits(limit):
 
 ---
 
-## Summary
-
-For the sample app in this tutorial, the overall contextual set of `diff`s look like this:
-
-    $ diff -c step[23]*-py2
-    diff -c step2-flask-cloudndb-py2/main.py step3-flask-datastore-py2/main.py
-    *** step2-flask-cloudndb-py2/main.py    2020-07-25 14:00:56.000000000 -0700
-    --- step3-flask-datastore-py2/main.py   2020-08-13 16:04:27.000000000 -0700
-    ***************
-    *** 1,21 ****
-      from flask import Flask, render_template, request
-    ! from google.cloud import ndb
-      
-      app = Flask(__name__)
-    ! ds_client = ndb.Client()
-    ! 
-    ! class Visit(ndb.Model):
-    !     visitor   = ndb.StringProperty()
-    !     timestamp = ndb.DateTimeProperty(auto_now_add=True)
-      
-      def store_visit(remote_addr, user_agent):
-    !     with ds_client.context():
-    !         Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
-      
-      def fetch_visits(limit):
-    !     with ds_client.context():
-    !         return (v.to_dict() for v in Visit.query().order(
-    !                 -Visit.timestamp).fetch_page(limit)[0])
-      
-      @app.route('/')
-      def root():
-    --- 1,22 ----
-    + from datetime import datetime
-      from flask import Flask, render_template, request
-    ! from google.cloud import datastore
-      
-      app = Flask(__name__)
-    ! ds_client = datastore.Client()
-      
-      def store_visit(remote_addr, user_agent):
-    !     entity = datastore.Entity(key=ds_client.key('Visit'))
-    !     entity.update({
-    !         'timestamp': datetime.now(),
-    !         'visitor': '{}: {}'.format(remote_addr, user_agent),
-    !     })
-    !     ds_client.put(entity)
-      
-      def fetch_visits(limit):
-    !     query = ds_client.query(kind='Visit')
-    !     query.order = ['-timestamp']
-    !     return query.fetch(limit=limit)
-      
-      @app.route('/')
-      def root():
-    diff -c step2-flask-cloudndb-py2/requirements.txt step3-flask-datastore-py2/requirements.txt
-    *** step2-flask-cloudndb-py2/requirements.txt   2020-07-24 21:59:58.000000000 -0700
-    --- step3-flask-datastore-py2/requirements.txt  2020-07-24 23:20:49.000000000 -0700
-    ***************
-    *** 1,2 ****
-      Flask
-    ! google-cloud-ndb
-    --- 1,2 ----
-      Flask
-    ! google-cloud-datastore
-    Common subdirectories: step2-flask-cloudndb-py2/templates and step3-flask-datastore-py2/templates
+## Next
 
 From here, you have some several options... you can:
 
