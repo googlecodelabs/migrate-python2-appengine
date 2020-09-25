@@ -77,15 +77,17 @@ Python 2 | Next | Python 3 | Description
 
 ### Alternatives
 
-We recommend users complete what we consider the minimum migration (Step 2) on Gen1. If there's no further interest in upgrading Datastore access nor migrating to Python 3, users can containerize their Python 2 apps for Cloud Run immediately (see Step 2a below). Who would you consider this? If you want to keep your app mostly as-is without additional migrations and want to containerize the app to make it more portable.
+We recommend users complete what we consider the minimum migration (Steps 1 &amp; 2). If there's no further interest in upgrading Datastore access nor migrating to Python 3, users can containerize their Python 2 apps for Cloud Run immediately (see Step 2a below). Why would you consider this? If you want to keep your app mostly as-is with minimal code changes otherwise (prefer no additional migrations) and want to containerize the app to make it more portable. This is Step 2a (and only Python 2 as expected).
 
-There are two ways to deploy containerized apps to Cloud Run, traditionally with Docker, or with the more recent [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) (no Docker knowledge needed). Going from Step 3 to 5 uses Docker while going from Step 3 to 5a uses Cloud Buildpacks. (Step 4a is only available in Python 3.)
+Cloud Firestore is the next generation of Cloud Datastore, inheriting features from the Firebase real-time database. However, use of Cloud Datastore and Cloud Firestore are mutually-exclusive, meaning applications (Google Cloud projects) can only use one, and once data has been entered, it cannot switch to the other, so migrating to Firestore requires you to "host" your application on a completely different project. It is only for users where those new Firebase features are a **must-have**. This migration's tutorial is Step 3a.
+
+There are two ways to deploy containerized apps to Cloud Run, traditionally with Docker, or with the more recent [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) (no Docker knowledge needed). Both Step 4 tutorials use Docker while Step 4a represents the alternative using Cloud Buildpacks. (Step 4a is only available in Python 3.)
 
 Python 2 | Next | Python 3 | Description
 --- | --- | --- | ---
-*`step2a-flask-cloudndb-py2-cloudrun` | _N/A_ | _N/A_ | Migrate (Python 2, Flask, Cloud NDB app) to Cloud Run (with Docker)
+*`step2a-flask-cloudndb-cloudrun-py2` | _N/A_ | _N/A_ | Migrate (Python 2, Flask, Cloud NDB app) to Cloud Run (with Docker)
 _N/A_ | _N/A_ | º`step3a-flask-firestore-py3` | Migrate to Cloud Firestore (uncommon)
-_N/A_ | _N/A_ | +`step4a-flask-datastore-py3-cloudrun` | Migrate to Cloud Run (with Cloud Buildpacks)
+_N/A_ | _N/A_ | +`step4a-flask-cloudrun-bldpks-py3` | Migrate to Cloud Run (with Cloud Buildpacks)
 
 ### Canonical code samples
 
