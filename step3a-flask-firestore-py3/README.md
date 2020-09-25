@@ -217,6 +217,6 @@ def fetch_visits(limit):
 
 From here, you have some flexibility as to your next move. You can...
 
-1. Migrate your app to Cloud Run (`step5-flask-cloudrun-py2`).
-1. Port your app to Python 3 (see `step4-flask-firestore-py3`)
+1. Migrate your app to Cloud Run (`step4-flask-cloudrun-py2`).
+1. Port your app to Python 3 (see `step4a-flask-firestore-py3`)
 1. Combine both of the above steps (migrate to Python 3 *and* Cloud Run; no example provided but extrapolate from above)

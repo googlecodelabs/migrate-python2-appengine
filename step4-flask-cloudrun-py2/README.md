@@ -1,4 +1,4 @@
-# Step 5 - Migrate from Google App Engine to Cloud Run (with Docker)
+# Step 4 - Migrate from Google App Engine to Cloud Run (with Docker)
 
 ## Introduction
 
@@ -11,17 +11,15 @@ The next (but still optional) step of migrating from App Engine to an explicit c
 
 Regardless of whether you take this step, recognize your app is containerized anyway. If sticking with App Engine, the product hides all the container details from users so they don't need to think about containers. But those willing to trade-in some convenience for more flexibility can do so here.
 
-**NOTE:** Since migrating to Firestore is less likely for established applications with a sizeable amount of data in Datastore, this sample uses Datastore. If you have moved to Firestore, you would make a similar migration as what you did moving from Step 3 to 4.
-
 ---
 
 ## Background
 
-App Engine existed before the concept of containers. Since Docker's launch, containers have become the de facto standard in packaging applications & dependencies into a single transportable & deployable unit. Users can imagine that App Engine apps were custom containers created by Google engineers, and the migration in this step & Step 5 help users move further away from vendor lock-in and continues the messaging of Google Cloud being an open platform to its customers and offering them more flexibility than ever before.
+App Engine existed before the concept of containers. Since Docker's launch, containers have become the de facto standard in packaging applications & dependencies into a single transportable & deployable unit. Users can imagine that App Engine apps were custom containers created by Google engineers, and the migration in this step help users move further away from vendor lock-in and continues the messaging of Google Cloud being an open platform to its customers and offering them more flexibility than ever before.
 
 There are two options for users when migrating to a container, and it hinges upon what generation runtime your app is on as well as your [Docker](http://docker.com/) experience. Those on a newer runtime can use [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) to containerize apps so they can be deployed to Cloud Run or other Google Cloud container platforms ([GCE](https://cloud.google.com/compute), [GKE](https://cloud.google.com/kubernetes-engine), [Anthos](http://cloud.google.com/anthos), etc.).
 
-See Step 5a (see `step5a-flask-datastore-py3-cloudrun`) if interested in using Buildpacks over Docker. However, if you're on a first generation runtime or prefer to use Docker, you're in the right place.
+See Step 4a (see `step4a-flask-datastore-py3-cloudrun`) if interested in using Buildpacks over Docker. However, if you're on a first generation runtime or prefer to use Docker, you're in the right place.
 
 ---
 
@@ -83,6 +81,6 @@ The main `diff`s users will encounter:
 
 1. New lines in `main.py`
 1. Old App Engine configuration files deleted
-1. A few new files (`Dockerfile`, `.dockerignore`) or (`service.yaml`, `Procfile` for Step 5a)
+1. A few new files (`Dockerfile`, `.dockerignore`) or (`service.yaml`, `Procfile` for Step 4a)
 
 If you haven't migrated to Python 3, that's your only option here, as otherwise that concludes this tutorial.

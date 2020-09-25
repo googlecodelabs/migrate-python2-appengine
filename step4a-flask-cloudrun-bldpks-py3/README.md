@@ -1,14 +1,14 @@
-# Step 5 (EXTRA) - Migrate from Google App Engine to Cloud Run (with Cloud Buildpacks)
+# Step 4 (EXTRA) - Migrate from Google App Engine to Cloud Run (with Cloud Buildpacks)
 
 ## Introduction
 
-This codelab represents an alternative to Step 5 (just the Python 3 version) where you're migrating your App Engine app to Cloud Run, but using Cloud Buildpacks instead of Docker. As Docker is an industry standard for containers, users choosing to follow this path are those who don't want to be dependent on a single company (and its control) or do not wish to become familiar with the Docker product and instead, opting for a more standardized approach to container-building that has multiple supporters in industry (more below).
+This codelab represents an alternative to Step 4 (just the Python 3 version) where you're migrating your App Engine app to Cloud Run, but using Cloud Buildpacks instead of Docker. As Docker is an industry standard for containers, users choosing to follow this path are those who don't want to be dependent on a single company (and its control) or do not wish to become familiar with the Docker product and instead, opting for a more standardized approach to container-building that has multiple supporters in industry (more below).
 
 ---
 
 ## Background
 
-App Engine existed before the concept of containers. Since Docker's launch, containers have become the de facto standard in packaging applications & dependencies into a single transportable & deployable unit. Users can imagine that App Engine apps were custom containers created by Google engineers, and the migration in this step & Step 5 help users move further away from vendor lock-in and continues the messaging of Google Cloud being an open platform to its customers and offering them more flexibility than ever before.
+App Engine existed before the concept of containers. Since Docker's launch, containers have become the de facto standard in packaging applications & dependencies into a single transportable & deployable unit. Users can imagine that App Engine apps were custom containers created by Google engineers, and the migration in this step help users move further away from vendor lock-in and continues the messaging of Google Cloud being an open platform to its customers and offering them more flexibility than ever before.
 
 The alternative is [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks), a Google Cloud derivative of [CNCF Buildpacks](https://buildpacks.io/). Buildpacks originated in 2011 by Heroku and have since been adopted by Google Cloud and other cloud vendors, eventually forming the [CNCF industry consortium](https://www.cncf.io/about/members/) in 2018. Cloud Buildpacks containerizes apps so they can be deployed to Cloud Run or other Google Cloud container platforms ([GCE](https://cloud.google.com/compute), [GKE](https://cloud.google.com/kubernetes-engine), [Anthos](http://cloud.google.com/anthos), etc.) or other cloud container services as they're compatible with CNCF Buildpacks.
 
@@ -82,6 +82,6 @@ The main `diff`s users will encounter:
 
 1. New lines in `main.py`
 1. Old App Engine configuration files deleted
-1. A few new files (`Dockerfile`, `.dockerignore` for Step 5) or (`service.yaml`, `Procfile`)
+1. A few new files (`Dockerfile`, `.dockerignore` for Step 4) or (`service.yaml`, `Procfile`)
 
 Congratulations... this app is fully modernized now, concluding this tutorial.
