@@ -1,4 +1,4 @@
-# Step 3a (EXTRA) - Migrate from Google Cloud Datastore to Cloud Firestore
+# Step 3a (EXTRA) - After migrating to Cloud Datastore, port to Cloud Firestore
 
 ## Introduction
 

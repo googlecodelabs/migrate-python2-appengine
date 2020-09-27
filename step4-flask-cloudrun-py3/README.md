@@ -1,4 +1,4 @@
-# Step 4 (EXTRA) - Migrate from Google App Engine to Cloud Run and port to Python 3 (with Docker)
+# Step 4 (EXTRA) - After migrating to Cloud Run, port to Python 3 (with Docker)
 
 ## Introduction
 

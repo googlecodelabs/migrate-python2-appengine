@@ -41,7 +41,7 @@ We suggest considering where you want to end up eventually, playing with each mi
 
 ## Table of Contents
 
-Each of the migration steps have their own codelabs & corresponding overview videos:
+Each major migration step has its own codelab & corresponding overview video. The step numbers correspond to their own folders, and generally each have folders for Python 2 &amp; 3 ports. Some have an alternative or secondary succeeding migration&emdash;these end with "a", i.e., "Step 2a".
 
 1. Migrate from `webapp2` to Flask
     - Stongly recommended if you have a web UI
@@ -49,19 +49,18 @@ Each of the migration steps have their own codelabs & corresponding overview vid
 1. Migrate from App Engine NDB to Cloud NDB
     - Stongly recommended
     - Can migrate from Python 2 to 3 after this step
-    - Can migrate directly to Cloud Run after this step (see Step "2a" below)
+    - Can migrate directly to Cloud Run after this step (see Step 2a below)
     - Remaining datastore migration steps optional
 1. Migrate from Cloud NDB to Cloud Datastore
     - Cloud NDB works on both Python 2 & 3 App Engine runtimes (old & new), so it is optional
     - Recommended if already using Cloud Datastore in other (App Engine *and* non-App Engine) apps & want a consistent/reusable codebase plus reduce maintenance costs
     - If all you have are App Engine apps using Cloud NDB, there's no need to do this migration
-1. Migrate from Cloud Datastore to (native) Cloud Firestore
-    - If your app (Cloud project) uses Datastore, you cannot use Firestore.
-    - Requires new project as Cloud Datastore & Cloud Firestore mutually-exclusive
-    - Most developers will NOT do this migration unless you *must have* Firestore's Firebase features
+    - Can migrate to [Cloud Firestore](http://cloud.google.com/firestore) after this step (see Step 3a below)
+        - Infrequent/uncommon as it is "expensive" (requires new project & you give up some performance)
+        - It's for those who **must have** Firestore's (new) Firebase features
 1. Migrate from App Engine to Cloud Run (using Cloud Datastore)
     - Migrate your app to a container with Docker
-    - Alternative container migration with Buildpacks (see Step "5a" below)
+    - Alternative container migration with Buildpacks (see Step "4a" below)
 
 ## Summary
 
@@ -71,7 +70,7 @@ Python 2 | Next | Python 3 | Description
 --- | --- | --- | ---
 `step0-webapp2-gaendb-py2` | &dArr; | _N/A_ | Original GAE sample on GAE `ndb` & `webapp2`
 `step1-flask-gaendb-py2` | &dArr; | _N/A_ | Migrate to Flask ("gaendb" _N/A_ for Python 3)
-`step2-flask-cloudndb-py2` | &dArr; or &rArr; or &DownArrowBar;* | `step2-flask-cloudndb-py3` | Migrate to Cloud NDB
+`step2-flask-cloudndb-py2` | &dArr; or &rArr; or &DownArrowBar;ª | `step2-flask-cloudndb-py3` | Migrate to Cloud NDB
 `step3-flask-datastore-py2` | &dArr; or &rArr; or &DownArrowBar;+º | `step3-flask-datastore-py3` | Migrate to Cloud Datastore
 `step4-flask-cloudrun-py2` | &rArr; | `step4-flask-cloudrun-py3` | Migrate to Cloud Run (with Docker)
 
@@ -85,8 +84,8 @@ There are two ways to deploy containerized apps to Cloud Run, traditionally with
 
 Python 2 | Next | Python 3 | Description
 --- | --- | --- | ---
-*`step2a-flask-cloudndb-cloudrun-py2` | _N/A_ | _N/A_ | Migrate (Python 2, Flask, Cloud NDB app) to Cloud Run (with Docker)
-_N/A_ | _N/A_ | º`step3a-flask-firestore-py3` | Migrate to Cloud Firestore (uncommon)
+ª`step2a-flask-cloudndb-cloudrun-py2` | _N/A_ | _N/A_ | Migrate (Python 2, Flask, Cloud NDB app) to Cloud Run (with Docker)
+_N/A_ | _N/A_ | º`step3a-flask-firestore-py3` | Migrate to Cloud Firestore (uncommon; see above)
 _N/A_ | _N/A_ | +`step4a-flask-cloudrun-bldpks-py3` | Migrate to Cloud Run (with Cloud Buildpacks)
 
 ### Canonical code samples

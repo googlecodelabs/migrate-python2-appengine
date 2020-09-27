@@ -1,4 +1,4 @@
-# Step 2 (EXTRA) - Migrate from App Engine NDB to Google Cloud NDB and port to Cloud Run
+# Step 2 (EXTRA) - After migrating to Google Cloud NDB, port to Cloud Run
 
 ## Introduction
 
