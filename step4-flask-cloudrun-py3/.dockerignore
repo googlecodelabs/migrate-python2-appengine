@@ -1,6 +1,0 @@
-*.md
-*.pyc
-*.pyo
-*.pyd
-.git
-__pycache__
