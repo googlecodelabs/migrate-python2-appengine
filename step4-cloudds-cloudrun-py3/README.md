@@ -21,7 +21,7 @@ App Engine existed before the concept of containers. Since Docker's launch, cont
 
 There are two options for users when migrating to a container, and it hinges upon what generation runtime your app is on as well as your [Docker](http://docker.com/) experience. Those on a newer runtime can use [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) to containerize apps so they can be deployed to Cloud Run or other Google Cloud container platforms ([GCE](https://cloud.google.com/compute), [GKE](https://cloud.google.com/kubernetes-engine), [Anthos](http://cloud.google.com/anthos), etc.).
 
-See Step 4a (see `step4a-flask-datastore-py3-cloudrun`) if interested in using Buildpacks over Docker. However, if you're on a first generation runtime or prefer to use Docker, you're in the right place.
+See Step 4a (see `step4a-cloudrun-bldpks-py3`) if interested in using Buildpacks over Docker. However, if you're on a first generation runtime or prefer to use Docker, you're in the right place.
 
 ---
 
@@ -76,6 +76,6 @@ Doublecheck there are no files/folders named, `app.yaml`, `appengine_config.py`,
 
 ## Next
 
-Congratulations... your app is fully modernized now, concluding this tutorial. From here, there is only one more things you can investigate:
+Congratulations... your app is fully modernized now, concluding this tutorial. From here, there is only one more thing you can investigate:
 
-1. If you're seeking an alternative to containerizing your app *without* Docker, consider the alternative Step 4a which is identical to the sample app in *this* tutorial except it uses [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) instead of Docker.
+- [**Step 4a:**](/step4a-cloudrun-bldpks-py3) An alternative to app in *this* tutorial, containerizing your app with [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) instead of Docker.

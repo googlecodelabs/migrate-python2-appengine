@@ -35,5 +35,5 @@ handlers:
 
 From here, your options are:
 
-1. Migrate to Cloud Run (no example provided, but see: `step2a-flask-cloudndb-py2-cloudrun`)
-1. Further modernize Datastore access to Cloud Datastore (see `step3-flask-datastore-py3` and the `README.md` in `step3-flask-datastore-py2`).
+- [**Step 4:**](/step4-cloudndb-cloudrun-py2) Continue to use NDB but migrate your app to a container executing serverlessly on Cloud Run; also see [its Python 3 Datastore equivalent](/step4-cloudds-cloudrun-py3)
+- [**Step 3:**](/step3-flask-datastore-py2) Further modernize Datastore access from Cloud NDB to the (official) Cloud Datastore library (how users *outside of* App Engine access Cloud Datastore); also see [its Python 3 Datastore equivalent](/step3-flask-datastore-py3)

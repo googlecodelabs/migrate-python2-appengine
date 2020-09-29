@@ -25,7 +25,7 @@ While Docker is an industry standard, some developers may prefer to avoid learni
 1. Run the appropriate `gcloud` commands to build the container
 1. Create a [`Procfile`](https://devcenter.heroku.com/articles/procfile) specifying the entrypoint of your app; see [example](https://devcenter.heroku.com/articles/getting-started-with-python#define-a-procfile).
 
-Since this is only for Gen2 runtimes, we have to paste the contents of `step4-flask-firestore-py3/app.yaml` into the tool, which generates a `service.yaml` that looks like this:
+Since this is only for Gen2 runtimes, we have to paste the contents of `step3-flask-datastore-py3/app.yaml` into the tool, which generates a `service.yaml` that looks like this:
 
 ```yml
 apiVersion: serving.knative.dev/v1
@@ -78,10 +78,4 @@ if __name__ == '__main__':
 
 ## Next
 
-The main `diff`s users will encounter:
-
-1. New lines in `main.py`
-1. Old App Engine configuration files deleted
-1. A few new files (`Dockerfile`, `.dockerignore` for Step 4) or (`service.yaml`, `Procfile`)
-
-Congratulations... this app is fully modernized now, concluding this tutorial.
+Congratulations... this app is fully modernized now, concluding this tutorial. If you want to consider containerizing your app with Docker instead of Buildpacks, take a look at both Step 4 tutorials (see the [Python 2 Cloud NDB](/step4-cloudndb-cloudrun-py2) and [Python 3 Cloud Datastore](/step4-cloudds-cloudrun-py3) apps).

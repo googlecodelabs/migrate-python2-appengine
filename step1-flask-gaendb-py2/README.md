@@ -204,4 +204,4 @@ AFTER:
 
 ## Next
 
-In the next step, we will migrate from App Engine NDB to Google Cloud NDB, a key step because after you complete *that*, you can either stop there or be presented with a variety of options to choose from.
+[**Step 2:**](/step2-flask-cloudndb-py2) The next tutorial involves migrating from App Engine NDB to Google Cloud NDB, a key step because after you switch to the Cloud library, many options become available to you.

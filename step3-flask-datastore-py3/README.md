@@ -36,5 +36,5 @@ handlers:
 
 From here, your options are:
 
-1. Migrate your app to Cloud Run (no example provided, but see `step2a-flask-cloudndb-py2-cloudrun`)
-1. Further modernize Datastore access to Cloud Firestore, allowing you to take full advantage of native Firestore features (see `step4-flask-firestore-py3` and the `README.md` in `step4-flask-firestore-py2`).
+- [**Step 4:**](/step4-cloudds-cloudrun-py3) Migrate your app to Cloud Run (only available in Python 3; the [Python 2 equivalent](/step4-cloudndb-cloudrun-py2) is based on Cloud NDB.
+- [**Step 3a:**](/step3a-flask-firestore-py3) Migrate to Cloud Firestore, allowing you to take full advantage of native Firestore features (only available in Python 3).

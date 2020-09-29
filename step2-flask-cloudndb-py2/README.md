@@ -158,9 +158,8 @@ def fetch_visits(limit):
 
 ## Next
 
-From here, you have some flexibility as to your next move. You can...
+From here, there's flexibility as to your next move. Choose any of these options:
 
-- Continue to use NDB but migrate your app to a container executing serverlessly on Cloud Run (see `step2a-flask-cloudndb-py2-cloudrun`)
-- Port your app to Python 3 (see `step2-flask-cloudndb-py3`)
-- Combine both of the above steps (migrate to Python 3 *and* Cloud Run; no example provided but extrapolate from above)
-- Further modernize Datastore access from Cloud NDB to the (official) Cloud Datastore library (how users *outside of* App Engine access Cloud Datastore) (see `step3-flask-datastore-py2`)
+- [**Step 2:**](/step2-flask-cloudndb-py3) Port your app to Python 3 to get you on the next generation App Engine runtime as Python 2 has reached its end-of-life.
+- [**Step 4:**](/step4-cloudndb-cloudrun-py2) Continue to use NDB but migrate your app to a container executing serverlessly on Cloud Run.
+- [**Step 3:**](/step3-flask-datastore-py2) Further modernize Datastore access from Cloud NDB to the (official) Cloud Datastore library (how users *outside of* App Engine access Cloud Datastore).

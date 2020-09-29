@@ -196,7 +196,6 @@ def fetch_visits(limit):
 
 From here, you have some several options... you can:
 
-1. Migrate your app to Cloud Run (no example provided, but see `step2a-flask-cloudndb-py2-cloudrun`)
-1. Port your app to Python 3 (see `step3-flask-datastore-py3`)
-1. Combine both of the above steps (migrate to Python 3 *and* Cloud Run; no example provided but extrapolate from above)
-1. Further modernize Datastore access from Cloud Datastore to Cloud Firestore, allowing you to take full advantage of native Firestore features (see `step4-flask-firestore-py2`)
+- [**Step 3:**](/step3-flask-datastore-py3) Port your app to Python 3 to get you on the next generation App Engine runtime as Python 2 has reached its end-of-life.
+- [**Step 4:**](/step4-cloudds-cloudrun-py3) Migrate your app to Cloud Run (only available in Python 3; the [Python 2 equivalent](/step4-cloudndb-cloudrun-py2) is based on Cloud NDB.
+- [**Step 3a:**](/step3a-flask-firestore-py3) Migrate to Cloud Firestore, allowing you to take full advantage of native Firestore features (only available in Python 3).

@@ -215,8 +215,8 @@ def fetch_visits(limit):
 
 ## Next
 
-From here, you have some flexibility as to your next move. You can...
+From here, there really is only one (optional) migration to make, and that is to containerize your app. The other thing you can do is fully explore the capabilities of Cloud Firestore. Your options:
 
-1. Migrate your app to Cloud Run (`step4-flask-cloudrun-py2`).
-1. Port your app to Python 3 (see `step4a-flask-firestore-py3`)
-1. Combine both of the above steps (migrate to Python 3 *and* Cloud Run; no example provided but extrapolate from above)
+1. Explore other [Cloud Firestore](https://cloud.google.com/firestore) features.
+1. Step 4: No sample available but can adapt the Cloud Run migrations (see `step4-cloudndb-cloudrun-py2` [Python 2 Cloud NDB app] and `step4-cloudds-cloudrun-py3` [Python 3 Cloud Datastore app]) for Firestore.
+- [**Step 4:**](/step4-cloudds-cloudrun-py3) Migrate your app to Cloud Run (only available in Python 3 &amp; Cloud Datastore; the [Python 2 equivalent](/step4-cloudndb-cloudrun-py2) is based on Cloud NDB; a Firestore port is easiest to extrapolate from the Python 3 Datastore app.

@@ -9,7 +9,7 @@ The next (but still optional) step of migrating from App Engine to an explicit c
 - Helps move even further away from vendor lock-in, dependency on Google Cloud
 - Gives users the ability to more easily migrate their apps to VMs or Kubernetes, or move out of the cloud and run on-premise.
 
-This migration is slightly different from its Python 3 twin (the "other" Step 4) in that we're using Cloud NDB for this 2.x version but Cloud Datastore for the 3.x version. If you're ready for containerization, this tutorial show you how to migrate Python 2 App Engine apps using Cloud NDB to Cloud Run.
+This migration is slightly different from its Python 3 twin (the "other" Step 4) in that we're using Cloud NDB for this 2.x version but Cloud Datastore for the 3.x version. If you're ready for containerization, this tutorial show you how to migrate Python 2 App Engine apps using Cloud NDB to Cloud Run. If you want to modernize your app but want to stick with Python 2 forever, this is one way to do so.
 
 The steps include replacing the configuration files and specifying how your app should start. Since you won't have App Engine's web server, you'll need to specify your own server or bundle one into your container. For testing and staging, it's easy to just run Flask's development server from Python, but developers can opt for something more powerful for production such as the [Cloud Run Quickstart sample](https://cloud.google.com/run/docs/quickstarts/build-and-deploy) which uses `gunicorn`.
 
@@ -21,7 +21,7 @@ App Engine existed before the concept of containers. Since Docker's launch, cont
 
 There are two options for users when migrating to a container, and it hinges upon what generation runtime your app is on as well as your [Docker](http://docker.com/) experience. Those on a newer runtime can use [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) to containerize apps so they can be deployed to Cloud Run or other Google Cloud container platforms ([GCE](https://cloud.google.com/compute), [GKE](https://cloud.google.com/kubernetes-engine), [Anthos](http://cloud.google.com/anthos), etc.).
 
-See Step 4a (see `step4a-flask-datastore-py3-cloudrun`) if interested in using Buildpacks over Docker. However, if you're on a first generation runtime or prefer to use Docker, you're in the right place.
+See Step 4a (see `step4a-cloudrun-bldpks-py3`) if interested in using Buildpacks over Docker. However, if you're on a first generation runtime or prefer to use Docker, you're in the right place.
 
 ---
 
@@ -78,5 +78,6 @@ Doublecheck there are no files/folders named, `app.yaml`, `appengine_config.py`,
 
 Congratulations... your app is fully modernized now, concluding this tutorial. From here, there are only a few more things you can investigate:
 
-1. Port your app to Python 3 (no example provided, but take a look at the "other" Step 4 which is an identical example except it is already Python 3 and uses Cloud Datastore instead of Cloud NDB.
-1. If you're seeking an alternative to containerizing your app *without* Docker, consider the alternative Step 4a which is identical to the Python 3 Step 4 except it uses [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) instead of Docker.
+- [**Step 3:**](/step3-flask-datastore-py2) If you have non-App Engine apps using Cloud Datastore and want to make your codebase consistent, add the possibility of code reuse and reducing maintenance costs, migrate from Cloud NDB to Cloud Datastore. Backtrack and use Step 3 to inspire you if so. Cloud Datastore can be used with Cloud Run too.
+- [**Step 4:**](/step4-cloudndb-cloudrun-py2) Port your app to Python 3 (no example provided, but take a look at the "other" Step 4 which is an identical example except it is already Python 3 and uses Cloud Datastore instead of Cloud NDB.
+- [**Step 4a:**](/step4a-cloudrun-bldpks-py3) An alternative to app in *this* tutorial, containerizing your app with [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) instead of Docker.
