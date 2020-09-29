@@ -6,7 +6,7 @@
 ## Prerequisites
 
 - A Google account (G Suite accounts may require administrator approval)
-- A Google Cloud Platform project with an active billing account
+- A Google Cloud Platform (GCP) project with an active billing account
 - Familiarity with operating system terminal/shell commands
 - General skills in [Python](http://python.org) 2 and/or 3
 - Familiarity with the App Engine Python 2 runtime
@@ -15,7 +15,7 @@ The intended audiences of this tutorial and corresponding video content are Info
 
 ## Cost
 
-Use of Google Cloud Platform (GCP) products & APIs is not free. While you may not have needed to enable billing with early App Engine applications, all applications now require an active billing account. App Engine's [pricing](https://cloud.google.com/appengine/pricing) and [quota](https://cloud.google.com/appengine/quotas) information should be referenced. App Engine and other GCP products have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free). Users only incur billing when these daily/monthly quotas are exceeded. The migration exercises in these tutorials should not incur any billing so long as you stay within the limits described above.
+Use of GCP products & APIs is not free. While you may not have needed to enable billing with early App Engine applications, all applications now require an active billing account. App Engine's [pricing](https://cloud.google.com/appengine/pricing) and [quota](https://cloud.google.com/appengine/quotas) information should be referenced. App Engine and other GCP products have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free). Users only incur billing when these daily/monthly quotas are exceeded. The migration exercises in these tutorials should not incur any billing so long as you stay within the limits described above.
 
 ## Support for Python 2 &amp; 3
 
@@ -32,8 +32,8 @@ We present a very basic first-generation Python 2.7 App Engine app and walk deve
 The sample app does not address complexities in your apps but serves as a guide to give you an idea of what is required for each of the migrations. The baseline sample is a Python 2.7 (Gen1) app built on the `webapp2` micro web framework and uses the `ndb` App Engine Datastore library.
 
 > **NOTE:**
-> 1. It is also possible your app does not have a user interface, i.e., mobile backends, etc., so migrating the web framework (step 1) can be skipped.
-> 1. Users interested in bringing back their dead apps that originally ran on the [deprecated Python 2.5 runtime](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) (shutdown in 2017) need to [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before attempting the techniques shown in this tutorial.
+> - If your app does not have a user interface, i.e., mobile backends, etc., you still need to migrate to the Flask web framework to handle mobile app requests. An alternative is to use Cloud Endpoints or migrate your app to the [Firebase mobile &amp; web app platform](https://firebase.google.com) where you can port your App Engine "API handlers" to [Cloud Functions for Firebase](https://firebase.google.com/products/functions).
+> - Users interested in bringing back their dead apps that originally ran on the original Python 2.5 runtime ([deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25) must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before attempting the techniques shown in this tutorial.
 
 As mentioned above, some steps are more critical while others are *optional*. We recommend incremental updates. We designed each step to be relatively easy, so you experience each migration individually. However, there are some of you for whom the migration process may be easier where you may be able to take larger migration leaps.
 
@@ -41,15 +41,15 @@ We suggest considering where you want to end up eventually, playing with each mi
 
 ## Table of Contents
 
-Each major migration step has its own codelab & corresponding overview video. The step numbers correspond to their own folders, and generally each have folders for Python 2 &amp; 3 ports. Some have an alternative or secondary succeeding migration&emdash;these end with "a", i.e., "Step 2a".
+Each major migration step has its own codelab & corresponding overview video. The step numbers correspond to their own folders, and generally each have folders for Python 2 &amp; 3 ports. Some have an alternative or secondary succeeding migration&emdash;these end with "a", i.e., "Step 3a".
 
 1. Migrate from `webapp2` to [Flask](https://flask.palletsprojects.com/)
-    - Stongly recommended if you have a web UI
+    - Strongly recommended if you have a web UI
     - You can use another web framework as long as it supports routing
 1. Migrate from App Engine NDB to Cloud NDB
     - Stongly recommended
     - Can migrate from Python 2 to 3 after this step
-    - Can migrate directly to Cloud Run after this step (see Step 2a below)
+    - Can migrate directly to Cloud Run after this step (see Step 4 below)
     - Remaining datastore migration steps optional
 1. Migrate from Cloud NDB to Cloud Datastore
     - Cloud NDB works on both Python 2 & 3 App Engine runtimes (old & new), so it is optional
@@ -60,7 +60,7 @@ Each major migration step has its own codelab & corresponding overview video. Th
         - It's for those who **must have** Firestore's (new) Firebase features
 1. Migrate from App Engine to Cloud Run
     - Migrate your app to a container with Docker
-    - Alternative container migration with Buildpacks (see Step "4a" below)
+    - Alternative container migration with Buildpacks (see Step 4a below)
 
 ## Summary
 
@@ -74,16 +74,16 @@ Python 2 | Next | Python 3 | Description
 [`step3-flask-datastore-py2`](/step3-flask-datastore-py2) | &dArr; or &rArr; or &DownArrowBar;+º | [`step3-flask-datastore-py3`]('step3-flask-datastore-py3) | Migrate to Cloud Datastore
 [ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rArr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | Migrate to Cloud Run (with Docker)
 
-* We recommend users complete what we consider the minimum migration (Steps 1 &amp; 2).
-* If you a Python 2 App Engine app you want to modernize by containerizing, you can jump over Step 3 straight to Step 4 and stay there forever if desired.
-* Step 3's migration to Cloud Datastore is most useful if you have other apps using Cloud Datastore; you can make your codebase consistent by migrating from Cloud NDB to Cloud Datastore so all your Datastore access is consistent, possibly lowering your maintenance costs.
-* Migrating to Step 4 is only useful if you wish to containerize your app and run it serverlessly with Cloud Run. The Python 2 app uses Cloud NDB while the Python 3 equivalent uses Cloud Datastore.
+- We recommend users perform the minimal migration of Steps 1 &amp; 2.
+- To modernize a Python 2 App Engine app by containerizing, jump over Step 3 and go straight to Step 4 then stay there forever if desired.
+- Step 3's migration to Cloud Datastore is most useful if you have other apps using Cloud Datastore; you can make your codebase consistent by migrating from Cloud NDB to Cloud Datastore so all your Datastore access is consistent, possibly lowering your maintenance costs.
+- Migrating to Step 4 is only useful if you wish to containerize your app and run it serverlessly with Cloud Run. The Python 2 app uses Cloud NDB while the Python 3 equivalent uses Cloud Datastore.
 
 There are several alternatives to consider to the main steps above: 1) migrating to Cloud Firestore for those who desire to take advantage of the next-generation of Cloud Datastore that has features from the Firebase real-time database, and 2) an alternative to building containers using [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) instead of Docker.
 
 ### Alternatives
 
-Cloud Firestore is the next generation of Cloud Datastore, inheriting features from the Firebase real-time database. However, use of Cloud Datastore and Cloud Firestore are mutually-exclusive, meaning applications (Google Cloud projects) can only use one, and once data has been entered, it cannot switch to the other, so migrating to Firestore requires you to "host" your application on a completely different project. It is only for users where those new Firebase features are a **must-have**. This migration's tutorial is Step 3a. There are two ways to deploy containerized apps to Cloud Run: Docker or Buildpacks. Those who don't want to learn Docker or don't want to be dependent on a single company like Docker would employ Buildpacks as an option. Step 4a represents the alternative to the Docker Step 4 tutorial by using Cloud Buildpacks. Both these alternatives are only available in Python 3.
+Cloud Firestore is the next generation of Cloud Datastore, inheriting features from the Firebase real-time database. However, use of Cloud Datastore and Cloud Firestore are mutually-exclusive, meaning applications (GCP projects) can only use one, and once data has been entered, it cannot switch to the other, so migrating to Firestore requires you to "host" your application on a completely different project. It is only for users where those new Firebase features are a **must-have**. This migration's tutorial is Step 3a. There are two ways to deploy containerized apps to Cloud Run: Docker or Buildpacks. Those who don't want to learn Docker or don't want to be dependent on a single company like Docker would employ Buildpacks as an option. Step 4a represents the alternative to the Docker Step 4 tutorial by using Cloud Buildpacks. Both these alternatives are only available in Python 3.
 
 Python 2 | Next | Python 3 | Description
 --- | --- | --- | ---
@@ -114,6 +114,6 @@ Links to a more complete, canonical sample app will be provided if available. Ex
     - [Python App Engine (Flexible; Gen2)](https://cloud.google.com/appengine/docs/flexible/python)
 
 - Google Cloud Platform (GCP)
-    - [Python on the Google Cloud Platform](https://cloud.google.com/python)
-    - [GCP product client libraries](https://cloud.google.com/apis/docs/cloud-client-libraries)
-    - [GCP documentation](https://cloud.google.com/docs)
+    - [Python on GCP](https://cloud.google.com/python)
+    - [Cloud client libraries](https://cloud.google.com/apis/docs/cloud-client-libraries)
+    - [All GCP documentation](https://cloud.google.com/docs)
