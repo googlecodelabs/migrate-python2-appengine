@@ -18,7 +18,7 @@ metadata:
   name: default
   labels:
     migrated-from: app-engine
-    cloud.googleapis.com/location: us-west1
+    cloud.googleapis.com/location: APP_REGION
 spec:
   template:
     metadata:
