@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 from flask import Flask, render_template, request
 from google.cloud import ndb
 
@@ -39,5 +38,6 @@ def root():
     return render_template('index.html', visits=visits)
 
 if __name__ == '__main__':
+    import os
     app.run(debug=True, threaded=True, host='0.0.0.0',
             port=int(os.environ.get('PORT', 8080)))

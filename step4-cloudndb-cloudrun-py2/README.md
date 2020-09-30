@@ -66,6 +66,7 @@ Cloud Run starts its web server on port 8080, automatically injected into the `P
 
 ```python
 if __name__ == '__main__':
+    import os
     app.run(debug=True, threaded=True, host='0.0.0.0',
             port=int(os.environ.get('PORT', 8080)))
 ```

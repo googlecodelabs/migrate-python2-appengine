@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from datetime import datetime
-import os
 from flask import Flask, render_template, request
 from google.cloud import datastore
 
@@ -40,5 +39,6 @@ def root():
     return render_template('index.html', visits=visits)
 
 if __name__ == '__main__':
+    import os
     app.run(debug=True, threaded=True, host='0.0.0.0',
             port=int(os.environ.get('PORT', 8080)))

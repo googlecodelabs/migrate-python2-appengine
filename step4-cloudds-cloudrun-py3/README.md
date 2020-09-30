@@ -29,8 +29,8 @@ See Step 4a (see `step4a-cloudrun-bldpks-py3`) if interested in using Buildpacks
 
 Learning how to use Cloud Run is not within the scope of this tutorial, so refer to the Quickstart above or the general [Cloud Run docs](https://cloud.google.com/run/docs). Containerizing your app for Cloud Run means no longer using App Engine. This means all App Engine configuration files will be replaced by Docker config files. You'll also have to tweak your code a bit to tell the container to launch the web server and start your app &mdash; these things were originally handled by App Engine automatically.
 
-1. Delete `app.yaml` and `appengine_config.py` config files as they're not used with Cloud Run.
-1. Delete the `lib` folder for the same reason.
+1. Delete the `app.yaml` as it's not used with Cloud Run.
+1. If you just migrated to Python 3, you may have some Python 2 leftovers like `appengine_config.py` & a `lib` folder; delete those too.
 1. Add a `Dockerfile` with the container specifications and optionally a `.dockerignore` file as well.
 1. The `requirements.txt` and `templates/index.html` are fine to leave as-is.
 1. Modify `main.py` to start up the Flask app.
@@ -66,6 +66,7 @@ Cloud Run starts its web server on port 8080, automatically injected into the `P
 
 ```python
 if __name__ == '__main__':
+    import os
     app.run(debug=True, threaded=True, host='0.0.0.0',
             port=int(os.environ.get('PORT', 8080)))
 ```
