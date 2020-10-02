@@ -32,39 +32,9 @@ handlers:
 
 ---
 
-## Summary
-
-For the sample app in this tutorial, the overall contextual set of `diff`s (skipping this `README.md` and nonessential files) looks like this:
-
-    $ diff -c step3-flask-datastore-py?
-    diff -c step3-flask-datastore-py2/app.yaml step3-flask-datastore-py3/app.yaml
-    *** step3-flask-datastore-py2/app.yaml  2020-08-05 00:09:42.000000000 -0700
-    --- step3-flask-datastore-py3/app.yaml  2020-07-24 23:59:03.000000000 -0700
-    ***************
-    *** 1,13 ****
-    ! runtime: python27
-    ! threadsafe: yes
-    ! api_version: 1
-      
-      handlers:
-      - url: /.*
-    !   script: main.app
-    ! 
-    ! libraries:
-    ! - name: grpcio
-    !   version: 1.0.0
-    ! - name: setuptools
-    !   version: 36.6.0
-    --- 1,5 ----
-    ! runtime: python38
-      
-      handlers:
-      - url: /.*
-    !   script: auto
-    Only in step3-flask-datastore-py2: appengine_config.py
-    Common subdirectories: step3-flask-datastore-py2/templates and step3-flask-datastore-py3/templates
+## Next
 
 From here, your options are:
 
-1. Migrate your app to Cloud Run (no example provided, but see `step2a-flask-cloudndb-py2-cloudrun`)
-1. Further modernize Datastore access to Cloud Firestore, allowing you to take full advantage of native Firestore features (see `step4-flask-firestore-py3` and the `README.md` in `step4-flask-firestore-py2`).
+- [**Step 4:**](/step4-cloudds-cloudrun-py3) Migrate your app to Cloud Run (only available in Python 3; the [Python 2 equivalent](/step4-cloudndb-cloudrun-py2) is based on Cloud NDB.
+- [**Step 3a:**](/step3a-flask-firestore-py3) Migrate to Cloud Firestore, allowing you to take full advantage of native Firestore features (only available in Python 3).

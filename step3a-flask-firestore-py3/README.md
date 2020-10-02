@@ -1,10 +1,10 @@
-# Step 4 - Migrate from Google Cloud Datastore to Cloud Firestore
+# Step 3a (EXTRA) - After migrating to Cloud Datastore, port to Cloud Firestore
 
 ## Introduction
 
 As mentioned in the previous step, a migration to [Cloud Datastore](https://cloud.google.com/datastore) means applications are using "[Cloud Firestore in Datastore mode](https://cloud.google.com/datastore/docs)". The primary purpose of this tutorial is to give developers an idea of the differences between Cloud Datastore as they know it who want to gain initial familiarity with Cloud Firestore.
 
-**This migration is not one we expect users to perform**. While there are obvious advantages to using [Cloud Firestore](https://cloud.google.com/firestore) natively such as client auth, Firebase rules integration, and of course, the [Firebase realtime ](https://firebase.google.com/products/realtime-database) feature (_query/document watch_), the migration steps are non-trivial:
+**This migration is not one we expect users to perform**, which is why it is optional and a "bonus" step. While there are obvious advantages to using [Cloud Firestore](https://cloud.google.com/firestore) natively such as client auth, Firebase rules integration, and of course, the [Firebase realtime ](https://firebase.google.com/products/realtime-database) feature (_query/document watch_), the migration steps are non-trivial:
 
 - You **must** create a new project as once data is stored, projects cannot switch from Datastore (in Firebase mode) to Firestore (native mode).
 - There isn't a migration tool that can stream data from one project to another.
@@ -20,6 +20,17 @@ As mentioned in the previous step, a migration to [Cloud Datastore](https://clou
     - Indexes and handling are different, etc.
 
 That said, if you have a trivially-simple app to migrate or are here to learn about the differences between using Datastore vs. Firestore, and wish to use this tutorial as an exercise to achieve that goal, please continue.
+
+> **NOTE:** We present this very optional migration only in Python 3, but you can certainly interpolate and do so with Python 2 where the only difference is that for compatibility reasons, Firestore records use Unicode strings, hence a `u''` leading indicator is needed in front of the Python 2 string literals. For example, the `store_visit()` function will look like the below (vs. in the `main.py` featured in this repo where such directives aren't present).
+
+```python
+def store_visit(remote_addr, user_agent):
+    doc_ref = fs_client.collection(u'Visit')
+    doc_ref.add({
+        u'timestamp': datetime.now(),
+        u'visitor': u'{}: {}'.format(remote_addr, user_agent),
+    })
+```
 
 ---
 
@@ -111,15 +122,15 @@ def fetch_visits(limit):
 <td>
 <pre lang="python">
 def store_visit(remote_addr, user_agent):
-    doc_ref = fs_client.collection(u'Visit')
+    doc_ref = fs_client.collection('Visit')
     doc_ref.add({
-        u'timestamp': datetime.now(),
-        u'visitor': '{}: {}'.format(remote_addr, user_agent),
+        'timestamp': datetime.now(),
+        'visitor': '{}: {}'.format(remote_addr, user_agent),
     })
 &nbsp;
 def fetch_visits(limit):
-    visits_ref = fs_client.collection(u'Visit')
-    visits = (v.to_dict() for v in visits_ref.order_by(u'timestamp',
+    visits_ref = fs_client.collection('Visit')
+    visits = (v.to_dict() for v in visits_ref.order_by('timestamp',
             direction=firestore.Query.DESCENDING).limit(limit).stream())
     return visits
 </pre>
@@ -161,7 +172,7 @@ app = Flask(__name__)
 fs_client = firestore.Client()
 ```
 
-By performing the migration from Cloud NDB to Cloud Datastore, you've already done the heavylifting to get to Cloud Firestore. Rather than setting a "key" for your entities, you put them in a Firestore collection with the key name. Notice how similar adding new data records are below. One difference is that for compatibility reasons, Firestore records use Unicode strings, hence the `u''` leading indicator in front of the Python 2 string literals.
+By performing the migration from Cloud NDB to Cloud Datastore, you've already done the heavylifting to get to Cloud Firestore. Rather than setting a "key" for your entities, you put them in a Firestore collection with the key name. Notice how similar adding new data records are below.
 
 [Querying data in Firestore](https://cloud.google.com/firestore/docs/query-data/queries) is fairly flexible, also as shown below, but could be slightly more verbose as in our sample app. Ironically, Firestore's querying style resembles Cloud NDB more than it does Cloud Datastore.
 
@@ -187,90 +198,25 @@ def fetch_visits(limit):
 
 ```python
 def store_visit(remote_addr, user_agent):
-    doc_ref = fs_client.collection(u'Visit')
+    doc_ref = fs_client.collection('Visit')
     doc_ref.add({
-        u'timestamp': datetime.now(),
-        u'visitor': '{}: {}'.format(remote_addr, user_agent),
+        'timestamp': datetime.now(),
+        'visitor': '{}: {}'.format(remote_addr, user_agent),
     })
 
 def fetch_visits(limit):
-    visits_ref = fs_client.collection(u'Visit')
-    visits = (v.to_dict() for v in visits_ref.order_by(u'timestamp',
+    visits_ref = fs_client.collection('Visit')
+    visits = (v.to_dict() for v in visits_ref.order_by('timestamp',
             direction=firestore.Query.DESCENDING).limit(limit).stream())
     return visits
 ```
 
 ---
 
-## Summary
+## Next
 
-For the sample app in this tutorial, the overall contextual set of `diff`s look like this:
+From here, there really is only one (optional) migration to make, and that is to containerize your app. The other thing you can do is fully explore the capabilities of Cloud Firestore. Your options:
 
-    $ diff -c step[34]*-py2
-    diff -c step3-flask-datastore-py2/main.py step4-flask-firestore-py2/main.py
-    *** step3-flask-datastore-py2/main.py   2020-08-13 16:04:27.000000000 -0700
-    --- step4-flask-firestore-py2/main.py   2020-08-13 16:22:34.000000000 -0700
-    ***************
-    *** 1,22 ****
-      from datetime import datetime
-      from flask import Flask, render_template, request
-    ! from google.cloud import datastore
-      
-      app = Flask(__name__)
-    ! ds_client = datastore.Client()
-      
-      def store_visit(remote_addr, user_agent):
-    !     entity = datastore.Entity(key=ds_client.key('Visit'))
-    !     entity.update({
-    !         'timestamp': datetime.now(),
-    !         'visitor': '{}: {}'.format(remote_addr, user_agent),
-          })
-    -     ds_client.put(entity)
-      
-      def fetch_visits(limit):
-    !     query = ds_client.query(kind='Visit')
-    !     query.order = ['-timestamp']
-    !     return query.fetch(limit=limit)
-      
-      @app.route('/')
-      def root():
-    --- 1,22 ----
-      from datetime import datetime
-      from flask import Flask, render_template, request
-    ! from google.cloud import firestore
-      
-      app = Flask(__name__)
-    ! fs_client = firestore.Client()
-      
-      def store_visit(remote_addr, user_agent):
-    !     doc_ref = fs_client.collection(u'Visit')
-    !     doc_ref.add({
-    !         u'timestamp': datetime.now(),
-    !         u'visitor': u'{}: {}'.format(remote_addr, user_agent),
-          })
-      
-      def fetch_visits(limit):
-    !     visits_ref = fs_client.collection(u'Visit')
-    !     visits = (v.to_dict() for v in visits_ref.order_by(u'timestamp',
-    !             direction=firestore.Query.DESCENDING).limit(limit).stream())
-    !     return visits
-      
-      @app.route('/')
-      def root():
-    diff -c step3-flask-datastore-py2/requirements.txt step4-flask-firestore-py2/requirements.txt
-    *** step3-flask-datastore-py2/requirements.txt  2020-07-24 23:20:49.000000000 -0700
-    --- step4-flask-firestore-py2/requirements.txt  2020-07-24 23:38:05.000000000 -0700
-    ***************
-    *** 1,2 ****
-      Flask
-    ! google-cloud-datastore
-    --- 1,2 ----
-      Flask
-    ! google-cloud-firestore
-    Common subdirectories: step3-flask-datastore-py2/templates and step4-flask-firestore-py2/templates
-
-From here, you have some flexibility as to your next move. You can...
-
-1. Migrate your app to Cloud Run (`step5-flask-cloudrun-py2`).
-1. Port your app to Python 3 (see `step4-flask-firestore-py3`)
-1. Combine both of the above steps (migrate to Python 3 *and* Cloud Run; no example provided but extrapolate from above)
+1. Explore other [Cloud Firestore](https://cloud.google.com/firestore) features.
+1. Step 4: No sample available but can adapt the Cloud Run migrations (see `step4-cloudndb-cloudrun-py2` [Python 2 Cloud NDB app] and `step4-cloudds-cloudrun-py3` [Python 3 Cloud Datastore app]) for Firestore.
+- [**Step 4:**](/step4-cloudds-cloudrun-py3) Migrate your app to Cloud Run (only available in Python 3 &amp; Cloud Datastore; the [Python 2 equivalent](/step4-cloudndb-cloudrun-py2) is based on Cloud NDB; a Firestore port is easiest to extrapolate from the Python 3 Datastore app.

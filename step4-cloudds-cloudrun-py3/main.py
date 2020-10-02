@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#    http://apache.org/licenses/LICENSE-2.0
+#    http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,26 +14,31 @@
 
 from datetime import datetime
 from flask import Flask, render_template, request
-from google.cloud import firestore
+from google.cloud import datastore
 
 app = Flask(__name__)
-fs_client = firestore.Client()
+ds_client = datastore.Client()
 
 def store_visit(remote_addr, user_agent):
-    doc_ref = fs_client.collection(u'Visit')
-    doc_ref.add({
-        u'timestamp': datetime.now(),
-        u'visitor': u'{}: {}'.format(remote_addr, user_agent),
+    entity = datastore.Entity(key=ds_client.key('Visit'))
+    entity.update({
+        'timestamp': datetime.now(),
+        'visitor': '{}: {}'.format(remote_addr, user_agent),
     })
+    ds_client.put(entity)
 
 def fetch_visits(limit):
-    visits_ref = fs_client.collection(u'Visit')
-    visits = (v.to_dict() for v in visits_ref.order_by(u'timestamp',
-            direction=firestore.Query.DESCENDING).limit(limit).stream())
-    return visits
+    query = ds_client.query(kind='Visit')
+    query.order = ['-timestamp']
+    return query.fetch(limit=limit)
 
 @app.route('/')
 def root():
     store_visit(request.remote_addr, request.user_agent)
     visits = fetch_visits(10) or ()  # empty sequence if None
     return render_template('index.html', visits=visits)
+
+if __name__ == '__main__':
+    import os
+    app.run(debug=True, threaded=True, host='0.0.0.0',
+            port=int(os.environ.get('PORT', 8080)))

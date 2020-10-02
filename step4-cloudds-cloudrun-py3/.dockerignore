@@ -1,6 +1,6 @@
 *.md
 *.pyc
 *.pyo
-*.pyd
-.git
+.git/
+.gitignore
 __pycache__

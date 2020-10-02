@@ -18,6 +18,7 @@ App Engine services have blossomed into their own products, and App Engine's Dat
 1. Update `requirements.txt` to include the Cloud NDB library (`google-cloud-ndb`).
 1. Update `app.yaml` to reference a pair of 3rd-party bundled packages: `grpcio` and `setuptools`
 1. Update `appengine_config.py` to use the `pkg_resources` tool (which comes with `setuptools`) so App Engine can access [3rd-party libraries already available on Google servers](https://cloud.google.com/appengine/docs/standard/python/tools/built-in-libraries-27) so users don't have to list them in `requirements.txt` nor `pip install` them.
+1. Similarly, [gRPC](http://grpc.io) is used by all [*Google Cloud* client libraries](https://cloud.google.com/apis/docs/cloud-client-libraries), and `grpcio` is the gRPC package for Python and thus required.
 1. Switch application code to use the Cloud NDB client library
 
 ### Configuration
@@ -155,99 +156,10 @@ def fetch_visits(limit):
 
 ---
 
-## Summary
+## Next
 
-For this migration step, here are the contextual `diff`s:
+From here, there's flexibility as to your next move. Choose any of these options:
 
-    $ diff -c step[12]*py2
-    diff -c step1-flask-gaendb-py2/app.yaml step2-flask-cloudndb-py2/app.yaml
-    *** step1-flask-gaendb-py2/app.yaml     2020-07-25 14:10:53.000000000 -0700
-    --- step2-flask-cloudndb-py2/app.yaml   2020-08-05 00:09:42.000000000 -0700
-    ***************
-    *** 5,7 ****
-    --- 5,13 ----
-      handlers:
-      - url: /.*
-        script: main.app
-    + 
-    + libraries:
-    + - name: grpcio
-    +   version: 1.0.0
-    + - name: setuptools
-    +   version: 36.6.0
-    diff -c step1-flask-gaendb-py2/appengine_config.py step2-flask-cloudndb-py2/appengine_config.py
-    *** step1-flask-gaendb-py2/appengine_config.py  2020-07-24 23:09:45.000000000 -0700
-    --- step2-flask-cloudndb-py2/appengine_config.py        2020-07-24 22:50:57.000000000 -0700
-    ***************
-    *** 1,6 ****
-    --- 1,9 ----
-    + import pkg_resources
-      from google.appengine.ext import vendor
-      
-      # Set PATH to your libraries folder.
-      PATH = 'lib'
-      # Add libraries installed in the PATH folder.
-      vendor.add(PATH)
-    + # Add libraries to pkg_resources working set to find the distribution.
-    + pkg_resources.working_set.add_entry(PATH)
-    diff -c step1-flask-gaendb-py2/main.py step2-flask-cloudndb-py2/main.py
-    *** step1-flask-gaendb-py2/main.py      2020-07-25 13:58:18.000000000 -0700
-    --- step2-flask-cloudndb-py2/main.py    2020-07-25 14:00:56.000000000 -0700
-    ***************
-    *** 1,18 ****
-      from flask import Flask, render_template, request
-    ! from google.appengine.ext import ndb
-      
-      app = Flask(__name__)
-      
-      class Visit(ndb.Model):
-          visitor   = ndb.StringProperty()
-          timestamp = ndb.DateTimeProperty(auto_now_add=True)
-      
-      def store_visit(remote_addr, user_agent):
-    !     Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
-      
-      def fetch_visits(limit):
-    !     return (v.to_dict() for v in Visit.query().order(
-    !         -Visit.timestamp).fetch_page(limit)[0])
-      
-      @app.route('/')
-      def root():
-    --- 1,21 ----
-      from flask import Flask, render_template, request
-    ! from google.cloud import ndb
-      
-      app = Flask(__name__)
-    + ds_client = ndb.Client()
-      
-      class Visit(ndb.Model):
-          visitor   = ndb.StringProperty()
-          timestamp = ndb.DateTimeProperty(auto_now_add=True)
-      
-      def store_visit(remote_addr, user_agent):
-    !     with ds_client.context():
-    !         Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
-      
-      def fetch_visits(limit):
-    !     with ds_client.context():
-    !         return (v.to_dict() for v in Visit.query().order(
-    !                 -Visit.timestamp).fetch_page(limit)[0])
-      
-      @app.route('/')
-      def root():
-    diff -c step1-flask-gaendb-py2/requirements.txt step2-flask-cloudndb-py2/requirements.txt
-    *** step1-flask-gaendb-py2/requirements.txt     2020-07-24 19:27:45.000000000 -0700
-    --- step2-flask-cloudndb-py2/requirements.txt   2020-07-24 21:59:58.000000000 -0700
-    ***************
-    *** 1 ****
-    --- 1,2 ----
-      Flask
-    + google-cloud-ndb
-    Common subdirectories: step1-flask-gaendb-py2/templates and step2-flask-cloudndb-py2/templates
-
-From here, you have some flexibility as to your next move. You can...
-
-- Continue to use NDB but migrate your app to a container executing serverlessly on Cloud Run (see `step2a-flask-cloudndb-py2-cloudrun`)
-- Port your app to Python 3 (see `step2-flask-cloudndb-py3`)
-- Combine both of the above steps (migrate to Python 3 *and* Cloud Run; no example provided but extrapolate from above)
-- Further modernize Datastore access from Cloud NDB to the (official) Cloud Datastore library (how users *outside of* App Engine access Cloud Datastore) (see `step3-flask-datastore-py2`)
+- [**Step 2:**](/step2-flask-cloudndb-py3) Port your app to Python 3 to get you on the next generation App Engine runtime as Python 2 has reached its end-of-life.
+- [**Step 4:**](/step4-cloudndb-cloudrun-py2) Continue to use NDB but migrate your app to a container executing serverlessly on Cloud Run.
+- [**Step 3:**](/step3-flask-datastore-py2) Further modernize Datastore access from Cloud NDB to the (official) Cloud Datastore library (how users *outside of* App Engine access Cloud Datastore).
