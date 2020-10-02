@@ -32,8 +32,8 @@ We present a very basic first-generation Python 2.7 App Engine app and walk deve
 The sample app does not address complexities in your apps but serves as a guide to give you an idea of what is required for each of the migrations. The baseline sample is a Python 2.7 (Gen1) app built on the `webapp2` micro web framework and uses the `ndb` App Engine Datastore library.
 
 > **NOTE:**
-> - If your app does not have a user interface, i.e., mobile backends, etc., you still need to migrate to the Flask (or another) web framework to handle mobile app requests. An alternative is to use Cloud Endpoints or migrate your app to the [Firebase mobile &amp; web app platform](https://firebase.google.com) where you can port your App Engine "API handlers" to [Cloud Functions for Firebase](https://firebase.google.com/products/functions).
-> - Users interested in bringing back their dead apps that originally ran on the original Python 2.5 runtime ([deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25) must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before attempting the techniques shown in this tutorial.
+- If your app does not have a user interface, i.e., mobile backends, etc., you still need to migrate to the Flask (or another) web framework to handle mobile app requests. An alternative is to use Cloud Endpoints or migrate your app to the [Firebase mobile &amp; web app platform](https://firebase.google.com) where you can port your App Engine "API handlers" to [Cloud Functions for Firebase](https://firebase.google.com/products/functions).
+- Users interested in bringing back their dead apps that originally ran on the original Python 2.5 runtime ([deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25) must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before attempting the techniques shown in this tutorial.
 
 As mentioned above, some steps are more critical while others are *optional*. We recommend incremental updates. We designed each step to be relatively easy, so you experience each migration individually. However, there are some of you for whom the migration process may be easier where you may be able to take larger migration leaps.
 
@@ -81,7 +81,14 @@ Python 2 | Next | Python 3 | Description
 [`step3-flask-datastore-py2`](/step3-flask-datastore-py2) | &darr; or &rarr; or &DownArrowBar;+º | [`step3-flask-datastore-py3`]('step3-flask-datastore-py3) | Migrate to Cloud Datastore
 [ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rarr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | Migrate to Cloud Run (with Docker)
 
+- We recommend users perform the minimal migration of Steps 1 &amp; 2.
+- To modernize a Python 2 App Engine app by containerizing, jump over Step 3 and go straight to Step 4 then stay there forever if desired.
+- Step 3's migration to Cloud Datastore is most useful if you have other apps using Cloud Datastore; you can make your codebase consistent by migrating from Cloud NDB to Cloud Datastore so all your Datastore access is consistent, possibly lowering your maintenance costs.
+- Migrating to Step 4 is only useful if you wish to containerize your app and run it serverlessly with Cloud Run. The Python 2 app uses Cloud NDB while the Python 3 equivalent uses Cloud Datastore.
+
 ### Alternatives
+
+There are several alternatives to consider to the main steps above: 1) migrating to Cloud Firestore for those who desire to take advantage of the next-generation of Cloud Datastore that has features from the Firebase real-time database, and 2) an alternative to building containers using [Cloud Buildpacks](https://github.com/GoogleCloudPlatform/buildpacks) instead of Docker.
 
 - Cloud Datastore &amp; Cloud Firestore are mutually-exclusive, thus requiring a new project
     - Thus it is much less likely users perform this migration; see Step 3a if it's a **must-have**
