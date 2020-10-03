@@ -2,18 +2,20 @@
 
 ## Introduction
 
-With the web framework port out of the way, we can now focus on upgrading the use of App Engine built-in services libraries. In the case for this tutorial, it's merely a switch from App Engine's `ndb` library to the Cloud NDB library.
+With the web framework port out of the way, we can now focus on upgrading away from App Engine built-in services. In the case for this tutorial, it's merely a switch from App Engine's [`ndb` library](https://cloud.google.com/appengine/docs/standard/python/refdocs/google.appengine.ext.ndb) to the [Cloud NDB library](https://googleapis.dev/python/python-ndb/latest).
 
 Completing this migration opens many doors for developers. Users can then:
 - Migrate from Python 2 to Python 3 & the next generation App Engine runtime (Gen2)
 - Migrate to the standard Cloud Datastore library all non-App Engine users use
 - Containerize their Python 2 app and migrate immediately to Cloud Run
 
+> **NOTE:** App Engine's original Python 2.5 runtime was [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25). If you have one of these dead apps using the [original DB library](https://cloud.google.com/appengine/docs/standard/python/datastore/api-overview) and want to bring it back to life, we suggest you [migrate from DB to NDB](https://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before further migrating to Cloud NDB.
+
 ---
 
 ## Migration
 
-App Engine services have blossomed into their own products, and App Engine's Datastore is no exception. Switching from App Engine `ndb` to Cloud NDB libraries requires inclusion of the (now-external) Cloud NDB client library as well as a minor tweak to Datastore access:
+App Engine services have blossomed into their own products, and Datastore is no exception. Switching from App Engine `ndb` to Cloud NDB libraries requires inclusion of the (now-external) Cloud NDB client library as well as a minor tweak to Datastore access:
 
 1. Update `requirements.txt` to include the Cloud NDB library (`google-cloud-ndb`).
 1. Update `app.yaml` to reference a pair of 3rd-party bundled packages: `grpcio` and `setuptools`

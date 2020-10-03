@@ -78,7 +78,7 @@ Python 2 | Next | Python 3 | Description
 [`step0-webapp2-gaendb-py2`](/step0-webapp2-gaendb-py2) | &darr; | _N/A_ | Original GAE sample on GAE `ndb` & `webapp2`
 [`step1-flask-gaendb-py2`](/step1-flask-gaendb-py2) | &darr; | _N/A_ | Migrate to Flask
 [`step2-flask-cloudndb-py2`](/step2-flask-cloudndb-py2) | &darr; or &rarr; or &DownArrowBar;ª | [`step2-flask-cloudndb-py3`](/step2-flask-cloudndb-py3) | Migrate to Cloud NDB
-[`step3-flask-datastore-py2`](/step3-flask-datastore-py2) | &darr; or &rarr; or &DownArrowBar;+º | [`step3-flask-datastore-py3`]('step3-flask-datastore-py3) | Migrate to Cloud Datastore
+[`step3-flask-datastore-py2`](/step3-flask-datastore-py2) | &darr; or &rarr; or &DownArrowBar;+º | [`step3-flask-datastore-py3`](/step3-flask-datastore-py3) | Migrate to Cloud Datastore
 [ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rarr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | Migrate to Cloud Run (with Docker)
 
 - We recommend users perform the minimal migration of Steps 1 &amp; 2.
