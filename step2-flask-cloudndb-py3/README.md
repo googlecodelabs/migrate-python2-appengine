@@ -15,6 +15,8 @@ Porting from Python 2 to 3 is not within the scope of this tutorial, and our sim
 1. Delete the `lib` folder for the same reason.
 1. Migrate from App Engine NDB to Cloud NDB
 
+In addition to *actually* porting your app from Python 2.x to 3.x, you would also be migrating from the original App Engine runtime ("Gen1") to the next-gen runtime ("Gen2"), and there are some important differences you need to know which are [listed here](https://cloud.google.com/appengine/docs/standard/python3/python-differences).
+
 ### Configuration
 
 The only real change for this sample app is to significantly shorten `app.yaml` down to just these lines for the runtime as well as routing:
@@ -27,7 +29,21 @@ handlers:
   script: auto
 ```
 
-`requirements.txt` and `templates/index.html` remain unchanged while the `appengine_config.py` file and `lib` folder are deleted.
+An additional improvement you can make is to get rid of the `handlers:` section altogether (especially since `script: auto` is the only accepted directive regardless of URL path) and replace it with an `entrypoint:` directive. In Gen1, handlers were necessary to help route requests to your app, but in Gen2, routing is the responsibility of the web framework, not as an App Engine configuration.
+
+
+TODO
+
+If you do that, you're `app.yaml` may look like the following (assuming there is a "main" function in your `main.py` which we not have in ours until Step 4):
+
+```yml
+runtime: python38
+entrypoint: python main.py
+```
+
+Check out [this page in the documentation](https://cloud.google.com/appengine/docs/standard/python3/runtime#application_startup) to find out more about the `entrypoint:` directive for `app.yaml` files.
+
+The `requirements.txt` and `templates/index.html` files remain unchanged while the `appengine_config.py` file and `lib` folder are deleted.
 
 ---
 

@@ -75,6 +75,15 @@ Doublecheck there are no files/folders named, `app.yaml`, `appengine_config.py`,
 
 ---
 
+## Deploy
+
+We didn't show you the deploy steps for the App Engine samples, but since some of you will be new to containers and Cloud Run, here is how you build &amp; deploy your container on Cloud Run (fully-managed) once you've got all prior steps completed:
+
+1. Build container: `gcloud builds submit --tag gcr.io/PROJECT_ID/IMG_NAME` (think `docker build` followed by `docker push`)
+2. Deploy service: `gcloud run deploy SVC_NAME --image gcr.io/PROJECT_ID/IMG_NAME --platform managed` (think `docker run`)
+
+---
+
 ## Next
 
 Congratulations... your app is fully modernized now, concluding this tutorial. From here, there are only a few more things you can investigate:

@@ -15,15 +15,15 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: default
+  name: SVC_NAME
   labels:
     migrated-from: app-engine
-    cloud.googleapis.com/location: APP_REGION
+    cloud.googleapis.com/location: REGION
 spec:
   template:
     metadata:
       annotations: {}
     spec:
       containers:
-        - image: gcr.io/PROJECT_ID/image
-      serviceAccountName: docker-client1@PROJECT_ID.iam.gserviceaccount.com
+        - image: gcr.io/PROJECT_ID/IMG_NAME
+      serviceAccountName: PROJECT_NUM-compute@developer.gserviceaccount.com

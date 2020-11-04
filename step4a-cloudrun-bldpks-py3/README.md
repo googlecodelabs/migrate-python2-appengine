@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This codelab represents an alternative to Step 4 (just the Python 3 version) where you're migrating your App Engine app to Cloud Run, but using Cloud Buildpacks instead of Docker. As Docker is an industry standard for containers, users choosing to follow this path are those who don't want to be dependent on a single company (and its control) or do not wish to become familiar with the Docker product and instead, opting for a more standardized approach to container-building that has multiple supporters in industry (more below).
+This codelab represents an alternative to Step 4 (just the Python 3 version) where you're migrating your App Engine app to Cloud Run, but using Cloud Buildpacks instead of Docker. As Docker is an industry standard for containers, users choosing to follow this path are those who don't want to have to become familiar with working with Docker product or carefully curating their `Dockerfile` and instead, opting for a more standardized approach to container-building that has multiple supporters in industry (more below).
 
 ---
 
@@ -21,7 +21,7 @@ While Docker is an industry standard, some developers may prefer to avoid learni
 ### Configuration
 
 1. Convert your `app.yaml` to a `service.yaml` with [the tool](http://googlecloudplatform.github.io/app-engine-cloud-run-converter).
-1. Update `service.yaml` with your `PROJECT-ID`, `REGION`, and `SERVICE`.
+1. Update `service.yaml` with your `PROJECT_ID`, `REGION`, `CONT_NAME`, and `SVC_NAME`.
 1. Run the appropriate `gcloud` commands to build the container (see below).
 1. Create a [`Procfile`](https://devcenter.heroku.com/articles/procfile) specifying the entrypoint of your app; see [example](https://devcenter.heroku.com/articles/getting-started-with-python#define-a-procfile).
 
@@ -31,7 +31,7 @@ Since this is only for Gen2 runtimes, we have to paste the contents of `step3-fl
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: SERVICE
+  name: SVC_NAME
   labels:
     migrated-from: app-engine
     cloud.googleapis.com/location: REGION
@@ -41,12 +41,12 @@ spec:
       annotations: {}
     spec:
       containers:
-        - image: gcr.io/PROJECT-ID/SERVICE
-      serviceAccountName: PROJECT-ID@appspot.gserviceaccount.com
+        - image: gcr.io/PROJECT_ID/IMG_NAME
+      serviceAccountName: PROJECT_NUM-compute@developer.gserviceaccount.com
 ```
 
 Update the image and service account name, then run one of these build commands, depending on whether your service is public (or not):
-    - Run `gcloud alpha builds submit --pack image=gcr.io/PROJECT-ID/SERVICE && gcloud beta run services replace service.yaml --region us-central1 --platform managed` (private services)
+    - Run `gcloud alpha builds submit --pack image=gcr.io/PROJECT_ID/IMG_NAME && gcloud beta run services replace service.yaml --region us-central1 --platform managed` (private services)
     - OR `gcloud run services add-iam-policy-binding my-service --member="allUsers" --role="roles/run.invoker" --region us-central1 --platform managed` (public services)
 
 Delete the `app.yaml` (or back it up somewhere) as it is no longer needed. Then create a `Procfile` file specifying the application entry-point. The one for this app:
