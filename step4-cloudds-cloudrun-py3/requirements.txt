@@ -1,2 +1,2 @@
-Flask
-google-cloud-datastore
+Flask==1.1.2
+google-cloud-datastore==2.0.0

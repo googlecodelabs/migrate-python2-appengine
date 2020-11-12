@@ -1,2 +1,2 @@
-Flask
-google-cloud-ndb
+Flask==1.1.2
+google-cloud-ndb==1.7.1

@@ -1,2 +1,2 @@
-Flask
-google-cloud-firestore
+Flask==1.1.2
+google-cloud-firestore==2.0.0

@@ -7,15 +7,18 @@
 #   $ gcloud topic gcloudignore
 #
 .gcloudignore
-# If you would like to upload your .git directory, .gitignore file or files
-# from your .gitignore file, remove the corresponding line
-# below:
+
+# Ignore source code control maintenance files
 .git
 .gitignore
+.hgignore
+.hg/
 
-# Python pycache:
+# Python files
+*.pyc
+*.pyo
 __pycache__/
-# Ignored by the build system
 /setup.cfg
+
 # no need to upload README
 README.md
