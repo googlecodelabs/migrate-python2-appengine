@@ -29,7 +29,7 @@ def store_visit(remote_addr, user_agent):
 def fetch_visits(limit):
     with ds_client.context():
         return (v.to_dict() for v in Visit.query().order(
-                -Visit.timestamp).fetch_page(limit)[0])
+                -Visit.timestamp).fetch(limit))
 
 @app.route('/')
 def root():

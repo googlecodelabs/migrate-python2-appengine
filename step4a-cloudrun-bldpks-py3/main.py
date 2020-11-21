@@ -35,7 +35,7 @@ def fetch_visits(limit):
 @app.route('/')
 def root():
     store_visit(request.remote_addr, request.user_agent)
-    visits = fetch_visits(10) or ()  # empty sequence if None
+    visits = fetch_visits(10)
     return render_template('index.html', visits=visits)
 
 if __name__ == '__main__':
