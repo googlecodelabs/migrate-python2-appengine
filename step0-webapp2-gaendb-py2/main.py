@@ -31,7 +31,7 @@ def fetch_visits(limit):
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         store_visit(self.request.remote_addr, self.request.user_agent)
-        visits = fetch_visits(10) or ()  # empty sequence if None
+        visits = fetch_visits(10)
         tmpl = os.path.join(os.path.dirname(__file__), 'index.html')
         self.response.out.write(template.render(tmpl, {'visits': visits}))
 
