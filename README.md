@@ -19,7 +19,7 @@ Use of GCP products & APIs is not free. While you may not have needed to enable 
 
 ## Support for Python 2 &amp; 3
 
-It's important to note that for App Engine (Standard), Python 2 is only supported as a 1st generation ("Gen1") runtime whereas Python 3 is only supported by the 2nd generation ("Gen2") runtime. This means that porting application from Python 2 to 3 also means migrating from Gen1 to Gen2 where things are different. (Python 2 belongs in the same class as Java 6-8, PHP 5, and Go 1.8-1.11 first-gen apps.) See the exact differences on the [App Engine runtime documentation page](https://cloud.google.com/appengine/docs/standard/runtimes). The most notable changes for developers are that bundled App Engine built-in services are absent from Gen2. The Gen1 bundled services have "grown-up" to become standalone products or have been deprecated. Gen2 also expects web apps to perform their own application (not network) routing.
+It's important to note that for App Engine (Standard), Python 2 is only supported as a 1st generation ("Gen1") runtime whereas Python 3 is only supported by the 2nd generation ("Gen2") runtime. This means that porting application from Python 2 to 3 also means migrating from Gen1 to Gen2 where things are different. (Python 2 belongs in the same class as Java 6-8, PHP 5, and Go 1.8-1.11 first-gen apps.) See the exact differences on the [App Engine runtime documentation page](https://cloud.google.com/appengine/docs/standard/runtimes). One key change: bundled App Engine built-in services are absent from Gen2 (they have either matured to become standalone products or have been deprecated). The other key change: you must use web frameworks that do their own routing.
 
 > **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a Gen2 service but is not within the scope of these tutorials. Developers who are curious can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments).
 
@@ -44,7 +44,7 @@ Each major migration step has its own codelab & corresponding overview video. Th
 1. **Migrate from Cloud NDB to [Cloud Datastore](http://cloud.google.com/datastore)** ([2.x](/step3-flask-datastore-py2) or [3.x](/step3-flask-datastore-py3))
     - Only recommended if using Cloud Datastore elsewhere (GAE *and* non-App Engine) apps
         - Helps w/code consistency &amp; reusability, reduces maintenance costs
-    - Can migrate to [Cloud Firestore](http://cloud.google.com/firestore) after this step ([Step 3a](/migrate-python2-appengine/tree/master/step3a-flask-firestore-py2); 3.x-only)
+    - Can migrate to [Cloud Firestore](http://cloud.google.com/firestore) after this step ([Step 3a](/step3a-flask-firestore-py2); 3.x-only)
         - **Very** optional: infrequent/uncommon &amp; "expensive" migration
             - Requires new project &amp; Datastore has better write performance (currently)
             - If you **must have** Firestore's Firebase features
@@ -55,7 +55,7 @@ Each major migration step has its own codelab & corresponding overview video. Th
 
 Think of it as a train ride where the first pair of stops are required, then the passengers can "get off" at any upcoming station or continue their onward journey.
 
-> **ATTN mobile developers:**
+### Considerations for mobile developers
 If your original app users does *not* have a user interface, i.e., mobile backends, etc., but still uses `webapp2` for routing, some migration must still be completed. Your options:
 - Migrate to Flask (or another) web framework but keep app on App Engine
 - Use Cloud Endpoints for your mobile endpoints
@@ -64,7 +64,7 @@ If your original app users does *not* have a user interface, i.e., mobile backen
     - [Firebase mobile &amp; web app platform](https://firebase.google.com) (and [Cloud Functions for Firebase](https://firebase.google.com/products/functions) [customized for Firebase])
 
 > **NOTE:**
-- Long-time users wishing to bring back their dead/deprecated apps on the original Python 2.5 runtime ([deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25) must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) (and 2.5 to 2.7) before attempting any of these migrations.
+Long-time users wishing to bring back apps on the inaugural Python 2.5 runtime, [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25), must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) (and 2.5 to 2.7) before attempting these migrations.
 
 ## Summary
 
@@ -76,16 +76,16 @@ Python 2 | Next | Python 3 | Description
 [`step1-flask-gaendb-py2`](/step1-flask-gaendb-py2) | &darr; | _N/A_ | Migrate to Flask
 [`step2-flask-cloudndb-py2`](/step2-flask-cloudndb-py2) | &darr; or &rarr; or &DownArrowBar;ª | [`step2-flask-cloudndb-py3`](/step2-flask-cloudndb-py3) | Migrate to Cloud NDB
 [`step3-flask-datastore-py2`](/step3-flask-datastore-py2) | &darr; or &rarr; or &DownArrowBar;+º | [`step3-flask-datastore-py3`](/step3-flask-datastore-py3) | Migrate to Cloud Datastore
-[ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rarr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | Migrate to Cloud Run (with Docker)
 _N/A_ | _N/A_ | º[`step3a-flask-firestore-py3`](/step3a-flask-firestore-py3) | Migrate to Cloud Firestore (uncommon; see above)
+[ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rarr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | Migrate to Cloud Run (with Docker)
 _N/A_ | _N/A_ | +[`step4a-cloudrun-bldpks-py3`](/step4a-cloudrun-bldpks-py3) | Migrate to Cloud Run (with Cloud Buildpacks)
 
 ### Canonical code samples
 
-- These sample app code samples were made specifically for the corresponding codelabs &amp; videos.
-- The canonical migration code samples are those in the [official migration documentation](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3)
-- [Canonical migration code samples repo](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration)
-    - Example: [GAE NDB to Cloud NDB migration sample](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview)
+- This repo, along with corresponding codelabs &amp; videos are complementary to the official docs &amp; code samples.
+    - The [official Python 2 to 3 migration documentation](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3)
+    - [Canonical migration code samples repo](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration)
+        - Example: [GAE NDB to Cloud NDB](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview)
 
 ## Next
 

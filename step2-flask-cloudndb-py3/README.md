@@ -19,6 +19,8 @@ In addition to *actually* porting your app from Python 2.x to 3.x, you would als
 
 ### Configuration
 
+#### Simplify `app.yaml`
+
 The only real change for this sample app is to significantly shorten `app.yaml` down to just these lines for the runtime as well as routing:
 
 ```yml
@@ -29,10 +31,7 @@ handlers:
   script: auto
 ```
 
-An additional improvement you can make is to get rid of the `handlers:` section altogether (especially since `script: auto` is the only accepted directive regardless of URL path) and replace it with an `entrypoint:` directive. In Gen1, handlers were necessary to help route requests to your app, but in Gen2, routing is the responsibility of the web framework, not as an App Engine configuration.
-
-
-TODO
+An additional improvement you can make is to get rid of the `handlers:` section altogether (especially since `script: auto` is the only accepted directive regardless of URL path) and replace it with an `entrypoint:` directive. In Gen1, handlers were necessary to help route requests to your app, but Gen2 requires routing be done by the web framework, not as an App Engine configuration.
 
 If you do that, you're `app.yaml` may look like the following (assuming there is a "main" function in your `main.py` which we not have in ours until Step 4):
 
@@ -43,7 +42,12 @@ entrypoint: python main.py
 
 Check out [this page in the documentation](https://cloud.google.com/appengine/docs/standard/python3/runtime#application_startup) to find out more about the `entrypoint:` directive for `app.yaml` files.
 
-The `requirements.txt` and `templates/index.html` files remain unchanged while the `appengine_config.py` file and `lib` folder are deleted.
+
+#### Delete `appengine_config.py` and `lib`
+
+One of the welcome changes on the second generation of App Engine runtimes is that Bundling/vendoring of third-party packages is no longer required from users. No built-in libraries (per the changes to `app.yaml` above), no `appengine_config.py` file nor `lib` folder.
+
+Delete the `appengine_config.py` file and `lib` folder now. The `requirements.txt` and `templates/index.html` files remain unchanged.
 
 ---
 
