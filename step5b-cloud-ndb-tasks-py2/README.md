@@ -7,7 +7,12 @@ The goal of the Step 5 series of codelabs and repos like this is to help App Eng
 - Codelab tutorials give hands-on experience and build "migration muscle-memory"
 - More code samples gives developers a deeper understanding of migration steps
 
-In this codelab/repo, participants start with the code in the (completed) [Step 5a repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step5a-gae-ndb-tasks-py2). That repo resulted from taking the [Step 1 sample app](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step1-flask-gaendb-py2) and adding push tasks to it using the App Engine `taskqueue` API library.
+In short, these are the Step 5 codelabs/repos:
+- Step 5a ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5a-gaetasksndb.md), [repo](/step5a-gae-ndb-tasks-py2)): Add push tasks (App Engine `taskqueue`) to Step 1 ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-1-flask), [repo](/step1-flask-gaendb-py2)) Flask &amp; `ndb` Python 2 app
+- Step 5b ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5b-cloudtasksndb.md), [repo](/step5b-cloud-ndb-tasks-py2)): Migrate from App Engine `ndb` &amp; `taskqueue` to Cloud NDB &amp; Cloud Tasks
+- Step 5c ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5c-cloudtasksds.md), [repo](/step5c-cloud-ndb-tasks-py3)): Migrate Step 5b app to second-generation Python 3 App Engine &amp; Cloud Datastore
+
+In *this* codelab/repo, participants start with the code in the (completed) [Step 5a repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step5a-gae-ndb-tasks-py2). That repo resulted from taking the [Step 1 sample app](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step1-flask-gaendb-py2) and adding push tasks to it using the App Engine `taskqueue` API library.
 
 This tutorial performs a pair of migrations from that starting point:
 - Migrate from App Engine `ndb` to Google Cloud NDB (same as [Step 2 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-2-cloudndb))
@@ -237,5 +242,5 @@ There are no changes to `templates/index.html` in this step nor Step 5c.
 
 Deploy to App Engine and confirm everything still works. Once you're satisfied, move onto the next step:
 
-- [**Step 5c:**](/step5b-cloud-datastore-tasks-py3) Migrate your Step 5b Cloud Tasks app from Python 2 to 3 and from Cloud NDB to Cloud Datastore
+- [**Step 5c:**](/step5c-cloud-datastore-tasks-py3) Migrate your Step 5b Cloud Tasks app from Python 2 to 3 and from Cloud NDB to Cloud Datastore
 

@@ -7,7 +7,12 @@ The goal of the Step 5 series of codelabs and repos like this is to help App Eng
 - Codelab tutorials give hands-on experience and build "migration muscle-memory"
 - More code samples gives developers a deeper understanding of migration steps
 
-In this codelab/repo, participants start with the code in the (completed) [Step 5b repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step5b-cloud-ndb-tasks-py2) and port it from Python 2 to 3 at the same time migrating from Cloud NDB to Cloud Datatstore libraries. Because developer has ceased on Python 2.x, the Cloud client libraries are on newer 3.x versions than their 2.x counterparts.
+In short, these are the Step 5 codelabs/repos:
+- Step 5a ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5a-gaetasksndb.md), [repo](/step5a-gae-ndb-tasks-py2)): Add push tasks (App Engine `taskqueue`) to Step 1 ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-1-flask), [repo](/step1-flask-gaendb-py2)) Flask &amp; `ndb` Python 2 app
+- Step 5b ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5b-cloudtasksndb.md), [repo](/step5b-cloud-ndb-tasks-py2)): Migrate from App Engine `ndb` &amp; `taskqueue` to Cloud NDB &amp; Cloud Tasks
+- Step 5c ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5c-cloudtasksds.md), [repo](/step5c-cloud-ndb-tasks-py3)): Migrate Step 5b app to second-generation Python 3 App Engine &amp; Cloud Datastore
+
+In *this* codelab/repo, participants start with the code in the (completed) [Step 5b repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step5b-cloud-ndb-tasks-py2) and port it from Python 2 to 3 at the same time migrating from Cloud NDB to Cloud Datatstore libraries. Because developer has ceased on Python 2.x, the Cloud client libraries are on newer 3.x versions than their 2.x counterparts.
 
 This tutorial performs a pair of migrations from that Step 5a starting codebase:
 - Migrate from Cloud NDB to Cloud Datastore
