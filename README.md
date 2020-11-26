@@ -81,18 +81,18 @@ Long-time users wishing to bring back apps on the inaugural Python 2.5 runtime, 
 
 The table below summarizes each migration step and which options are available for developers after each step. Each step has a corresponding directory representing the state of the sample app after the previous migration step. The first step ("step0") represents the initial Python 2.7 App Engine app built using `ndb` and `webapp2`.
 
-Python 2 | Next | Python 3 | Description
---- | --- | --- | ---
-[`step0-webapp2-gaendb-py2`](/step0-webapp2-gaendb-py2) | &darr; | _N/A_ | Original GAE sample on GAE `ndb` & `webapp2`
-[`step1-flask-gaendb-py2`](/step1-flask-gaendb-py2) | &darr; | _N/A_ | Migrate to Flask
-[`step2-flask-cloudndb-py2`](/step2-flask-cloudndb-py2) | &darr; or &rarr; or &DownArrowBar;ª | [`step2-flask-cloudndb-py3`](/step2-flask-cloudndb-py3) | Migrate to Cloud NDB
-[`step3-flask-datastore-py2`](/step3-flask-datastore-py2) | &darr; or &rarr; or &DownArrowBar;+º | [`step3-flask-datastore-py3`](/step3-flask-datastore-py3) | Migrate to Cloud Datastore
-_N/A_ | _N/A_ | º[`step3a-flask-firestore-py3`](/step3a-flask-firestore-py3) | Migrate to Cloud Firestore (uncommon; see above)
-[ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rarr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | Migrate to Cloud Run (with Docker)
-_N/A_ | _N/A_ | +[`step4a-cloudrun-bldpks-py3`](/step4a-cloudrun-bldpks-py3) | Migrate to Cloud Run (with Cloud Buildpacks)
-[`step5a-gae-ndb-tasks-py2`](/step5a-gae-ndb-tasks-py2) | &darr; | _N/A_ | Updated Flask sample using GAE `ndb` &amp; `taskqueue`
-[`step5b-cloud-ndb-tasks-py2`](/step5b-cloud-ndb-tasks-py2) | &darr; | _N/A_ | Migrate to Cloud Datastore &amp; Cloud Tasks
-_N/A_ | _N/A_ | [`step5c-cloud-datastore-tasks-py3`](/step5c-cloud-datastore-tasks-py3) | Migrate to Cloud Datastore &amp; Cloud Tasks
+Python 2 | Next | Python 3 | Codelab | Description
+--- | --- | --- | --- | ---
+[`step0-webapp2-gaendb-py2`](/step0-webapp2-gaendb-py2) | &darr; | _N/A_ | _N/A_ | Original GAE sample on GAE `ndb` & `webapp2`
+[`step1-flask-gaendb-py2`](/step1-flask-gaendb-py2) | &darr; | _N/A_ | [cloud-gae-python-migrate-1-flask](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-1-flask) | Migrate to Flask
+[`step2-flask-cloudndb-py2`](/step2-flask-cloudndb-py2) | &darr; or &rarr; or &DownArrowBar;ª | [`step2-flask-cloudndb-py3`](/step2-flask-cloudndb-py3) | _N/A_ | Migrate to Cloud NDB
+[`step3-flask-datastore-py2`](/step3-flask-datastore-py2) | &darr; or &rarr; or &DownArrowBar;+º | [`step3-flask-datastore-py3`](/step3-flask-datastore-py3) | _N/A_ | Migrate to Cloud Datastore
+_N/A_ | _N/A_ | º[`step3a-flask-firestore-py3`](/step3a-flask-firestore-py3) | _N/A_ | Migrate to Cloud Firestore (uncommon; see above)
+[ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rarr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | _N/A_ | Migrate to Cloud Run (with Docker)
+_N/A_ | _N/A_ | +[`step4a-cloudrun-bldpks-py3`](/step4a-cloudrun-bldpks-py3) | _N/A_ | Migrate to Cloud Run (with Cloud Buildpacks)
+[`step5a-gae-ndb-tasks-py2`](/step5a-gae-ndb-tasks-py2) | &darr; | _N/A_ | _N/A_ | Updated Flask sample using GAE `ndb` &amp; `taskqueue`
+[`step5b-cloud-ndb-tasks-py2`](/step5b-cloud-ndb-tasks-py2) | &darr; | _N/A_ | _N/A_ | Migrate to Cloud NDB &amp; Cloud Tasks *v1*
+_N/A_ | _N/A_ | [`step5c-cloud-datastore-tasks-py3`](/step5c-cloud-datastore-tasks-py3) | _N/A_ | Migrate to 3.x plus Cloud Datastore &amp; Cloud Tasks *v2*
 
 
 ### Canonical code samples
@@ -100,7 +100,8 @@ _N/A_ | _N/A_ | [`step5c-cloud-datastore-tasks-py3`](/step5c-cloud-datastore-tas
 - This repo, along with corresponding codelabs &amp; videos are complementary to the official docs &amp; code samples.
     - The [official Python 2 to 3 migration documentation](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3)
     - [Canonical migration code samples repo](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration)
-        - Example: [GAE NDB to Cloud NDB](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview)
+        - Example: [GAE `ndb` to Cloud NDB](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview)
+        - Example: [GAE `taskqueue` to Cloud Tasks](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/taskqueue)
 
 
 ## Next
@@ -117,7 +118,7 @@ _N/A_ | _N/A_ | [`step5c-cloud-datastore-tasks-py3`](/step5c-cloud-datastore-tas
     - [App Engine `ndb` to Cloud NDB official sample app](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview) (Step 2)
     - [Migrate from App Engine `taskqueue` to Cloud Tasks](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrate-to-cloud-ndb) (Steps 5a-5c)
     - [App Engine `app.yaml` to Cloud Run `service.yaml` tool](http://googlecloudplatform.github.io/app-engine-cloud-run-converter) (Step 4a)
-    - [Migrate from App Engine `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) (Step -1 [before Step 0]; only for reviving "dead" Python 2.5 apps)
+    - [Migrate from App Engine `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) ("Step -1"; only for reviving "dead" Python 2.5 apps for 2.7)
 
 - Python App Engine
     - [Python 2 App Engine (Standard; Gen1)](https://cloud.google.com/appengine/docs/standard/python/runtime)
