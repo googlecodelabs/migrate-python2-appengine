@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 from datetime import datetime
+import json
 import time
 from flask import Flask, render_template, request
 from google.cloud import datastore, tasks
@@ -22,9 +22,9 @@ app = Flask(__name__)
 ds_client = datastore.Client()
 ts_client = tasks.CloudTasksClient()
 
-PROJECT_ID = 'PROJECT_ID'
-REGION_ID = 'REGION_ID'
-QUEUE_NAME = 'default'
+PROJECT_ID = 'PROJECT_ID'  # replace w/your own
+REGION_ID = 'REGION_ID'    # replace w/your own
+QUEUE_NAME = 'default'     # replace w/your own
 QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)
 
 def store_visit(remote_addr, user_agent):
@@ -63,7 +63,7 @@ def trim():
     query = ds_client.query(kind='Visit')
     query.add_filter('timestamp', '<', datetime.fromtimestamp(oldest))
     query.keys_only()
-    keys = list(query.fetch())
+    keys = list(visit.key for visit in query.fetch())
     nkeys = len(keys)
     if nkeys:
         print('Deleting %d entities: %s' % (

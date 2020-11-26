@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from datetime import datetime
 import json
 import logging
-from datetime import datetime
 import time
 from flask import Flask, render_template, request
 from google.cloud import ndb, tasks
@@ -23,9 +23,9 @@ app = Flask(__name__)
 ds_client = ndb.Client()
 ts_client = tasks.CloudTasksClient()
 
-PROJECT_ID = 'PROJECT_ID'
-REGION_ID = 'REGION_ID'
-QUEUE_NAME = 'default'
+PROJECT_ID = 'PROJECT_ID'  # replace w/your own
+REGION_ID = 'REGION_ID'    # replace w/your own
+QUEUE_NAME = 'default'     # replace w/your own
 QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)
 
 class Visit(ndb.Model):

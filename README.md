@@ -3,6 +3,7 @@
 
 [Google App Engine](https://cloud.google.com/appengine) (standard) has undergone a number of product upgrades over the past few years, leaving some early adopters unable to easily move off the original platform. This repo supports various migration codelabs (free, self-paced, hands-on tutorials) aim to give developers hands-on experience and develop muscle memory in doing individual migrations so they can modernize their applications. This is done via a sample application meant to model basic elements found in existing first-generation apps and applying individual migration steps to each.
 
+
 ## Prerequisites
 
 - A Google account (G Suite accounts may require administrator approval)
@@ -13,9 +14,11 @@
 
 The intended audiences of this tutorial and corresponding video content are Software Engineers, Information Technology decision-makers (ITDMs) as well as other technical practitioners tasked with investigating and/or carrying out such migrations.
 
+
 ## Cost
 
 Use of GCP products & APIs is not free. While you may not have needed to enable billing with early App Engine applications, all applications now require an active billing account. App Engine's [pricing](https://cloud.google.com/appengine/pricing) and [quota](https://cloud.google.com/appengine/quotas) information should be referenced. App Engine and other GCP products have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free). Users only incur billing when these daily/monthly quotas are exceeded. The migration exercises in these tutorials should not incur any billing so long as you stay within the limits described above.
+
 
 ## Support for Python 2 &amp; 3
 
@@ -23,9 +26,11 @@ It's important to note that for App Engine (Standard), Python 2 is only supporte
 
 > **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a Gen2 service but is not within the scope of these tutorials. Developers who are curious can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments).
 
+
 ## Description
 
 Each folder represents a single migration step, and the plan is to have a corresponding code repo and developer video as well. It all starts with a basic Gen1 Python 2.7 app then makes the minimum "required" migrations away from built-in App Engine services such as `webapp2` micro web framework and the `ndb` Datastore library. These comprise the [Step 0](/step0-webapp2-gaendb-py2) 2.7 app.
+
 
 ## Table of Contents
 
@@ -52,8 +57,13 @@ Each major migration step has its own codelab & corresponding overview video. Th
     - "Containerize" your app (migrate your app to a container) with...
     - [Docker](http://docker.com) ([2.x w/Cloud NDB](/step4-cloudndb-cloudrun-py2) or [3.x w/Cloud Datastore](/step4-cloudds-cloudrun-py3))
     - Cloud Buildpacks ([Step 4a](/step4-cloudrun-bldpks-py3)) ; 3.x-only w/Cloud Datastore)
+1. **Migrate from App Engine (Push) Tasks to [Cloud Tasks](http://cloud.google.com/tasks)**
+    - (5a) Add App Engine (Push) Tasks (`taskqueue`) to `webapp2` &amp; `ndb` Flask 2.x app (from Step 1)
+    - (5b) Migrate App Engine `ndb` &amp; `taskqueue` app to Cloud NDB &amp; Cloud Tasks *v1* (2.x)
+    - (5c) Migrate Cloud NDB &amp; Cloud Tasks v1 app to Cloud *Datastore* &amp; Cloud Tasks *v2* (3.x)
 
 Think of it as a train ride where the first pair of stops are required, then the passengers can "get off" at any upcoming station or continue their onward journey.
+
 
 ### Considerations for mobile developers
 If your original app users does *not* have a user interface, i.e., mobile backends, etc., but still uses `webapp2` for routing, some migration must still be completed. Your options:
@@ -65,6 +75,7 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 
 > **NOTE:**
 Long-time users wishing to bring back apps on the inaugural Python 2.5 runtime, [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25), must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) (and 2.5 to 2.7) before attempting these migrations.
+
 
 ## Summary
 
@@ -79,6 +90,10 @@ Python 2 | Next | Python 3 | Description
 _N/A_ | _N/A_ | º[`step3a-flask-firestore-py3`](/step3a-flask-firestore-py3) | Migrate to Cloud Firestore (uncommon; see above)
 [ª`step4-cloudndb-cloudrun-py2`](/step4-cloudndb-cloudrun-py2) | &rarr; | [`step4-cloudds-cloudrun-py3`](/step4-cloudds-cloudrun-py3) | Migrate to Cloud Run (with Docker)
 _N/A_ | _N/A_ | +[`step4a-cloudrun-bldpks-py3`](/step4a-cloudrun-bldpks-py3) | Migrate to Cloud Run (with Cloud Buildpacks)
+[`step5a-gae-ndb-tasks-py2`](/step5a-gae-ndb-tasks-py2) | &darr; | _N/A_ | Updated Flask sample using GAE `ndb` &amp; `taskqueue`
+[`step5b-cloud-ndb-tasks-py2`](/step5b-cloud-ndb-tasks-py2) | &darr; | _N/A_ | Migrate to Cloud Datastore &amp; Cloud Tasks
+_N/A_ | _N/A_ | [`step5c-cloud-datastore-tasks-py3`](/step5c-cloud-datastore-tasks-py3) | Migrate to Cloud Datastore &amp; Cloud Tasks
+
 
 ### Canonical code samples
 
@@ -87,17 +102,20 @@ _N/A_ | _N/A_ | +[`step4a-cloudrun-bldpks-py3`](/step4a-cloudrun-bldpks-py3) | M
     - [Canonical migration code samples repo](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration)
         - Example: [GAE NDB to Cloud NDB](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview)
 
+
 ## Next
 
 - [**Step 0:**](/step0-webapp2-gaendb-py2) Take a look at the original Python 2.7 App Engine NDB Datastore `webapp2` app source code.
 - [**Step 1:**](/step1-flask-gaendb-py2) Take the first tutorial and migrate away from `webapp2` to Flask.
 
+
 ## References
 
 - App Engine Migration
     - [Migrate from GAE Gen1 to Gen2 (Python 2 to 3)](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3)
-    - [Migrate from App Engine NDB to Cloud NDB](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrate-to-cloud-ndb) (Step 2)
-    - [App Engine NDB to Cloud NDB official sample app](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview) (Step 2)
+    - [Migrate from App Engine `ndb` to Cloud NDB](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrate-to-cloud-ndb) (Step 2)
+    - [App Engine `ndb` to Cloud NDB official sample app](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview) (Step 2)
+    - [Migrate from App Engine `taskqueue` to Cloud Tasks](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrate-to-cloud-ndb) (Steps 5a-5c)
     - [App Engine `app.yaml` to Cloud Run `service.yaml` tool](http://googlecloudplatform.github.io/app-engine-cloud-run-converter) (Step 4a)
     - [Migrate from App Engine `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) (Step -1 [before Step 0]; only for reviving "dead" Python 2.5 apps)
 

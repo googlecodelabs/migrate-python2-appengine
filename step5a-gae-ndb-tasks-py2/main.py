@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from datetime import datetime
+import logging
 import time
 from flask import Flask, render_template, request
 from google.appengine.api import taskqueue

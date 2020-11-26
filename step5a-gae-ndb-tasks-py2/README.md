@@ -18,7 +18,7 @@ This codelab step adds a push task to delete all `Visit`s older than the oldest 
 
 ---
 
-## Augment sample with new feature
+## Augment sample with push tasks
 
 Rather than a migration, this step adds use of push Task Queues to the existing Step 1 app. The only modifications required are for the `main.py` application file and `templates/index.html` web template. The steps:
 
@@ -51,8 +51,8 @@ Following that recommendation, your imports should look like this when done:
 - AFTER:
 
 ```python
-import logging
 from datetime import datetime
+import logging
 import time
 from flask import Flask, render_template, request
 from google.appengine.api import taskqueue

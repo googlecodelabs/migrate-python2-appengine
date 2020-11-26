@@ -12,11 +12,9 @@ In short, these are the Step 5 codelabs/repos:
 - Step 5b ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5b-cloudtasksndb.md), [repo](/step5b-cloud-ndb-tasks-py2)): Migrate from App Engine `ndb` &amp; `taskqueue` to Cloud NDB &amp; Cloud Tasks
 - Step 5c ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5c-cloudtasksds.md), [repo](/step5c-cloud-ndb-tasks-py3)): Migrate Step 5b app to second-generation Python 3 App Engine &amp; Cloud Datastore
 
-In *this* codelab/repo, participants start with the code in the (completed) [Step 5a repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step5a-gae-ndb-tasks-py2). That repo resulted from taking the [Step 1 sample app](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step1-flask-gaendb-py2) and adding push tasks to it using the App Engine `taskqueue` API library.
-
-This tutorial performs a pair of migrations from that starting point:
-- Migrate from App Engine `ndb` to Google Cloud NDB (same as [Step 2 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-2-cloudndb))
-- Migrate from App Engine `taskqueue` to Google Cloud Tasks
+In *this* codelab/repo, participants start with the code in the (completed) [Step 5a repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step5a-gae-ndb-tasks-py2). That repo resulted from taking the [Step 1 sample app](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step1-flask-gaendb-py2) and adding push tasks to it using the App Engine `taskqueue` API library. This tutorial performs a pair of migrations from *that* starting point:
+- Migrate from App Engine `ndb` to Cloud NDB (same as [Step 2 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-2-cloudndb))
+- Migrate from App Engine `taskqueue` to Cloud Tasks
 
 If you haven't completed the [Step 5a codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5-gaetasks), we recommend you do so to familiarize yourself with its codebase as we start from there. (You can also just study the code in its repo linked above.)
 
@@ -24,7 +22,7 @@ If you haven't completed the [Step 5a codelab](https://codelabs.developers.googl
 
 ## Migration
 
-The migration from App Engine `ndb` to Cloud NDB is identical to that from Step 2 already described above. That migration is *not* covered in this Step 5b codelab... it'll "just happen" in the code at the same time as the Tasks migration. If you need deeper coverage of the NDB migration, complete the Step 2 codelab linked above. The purpose is to have a similar starting point for Python 2 App Engine users with `ndb` &amp; push tasks apps. Here are the primary migration steps:
+The migration from App Engine `ndb` to Cloud NDB is identical to that of Step 2 already described above. That migration is *not* covered in this Step 5b codelab... it'll "just happen" in the code at the same time as the Tasks migration. If you need deeper coverage of the NDB migration, complete the Step 2 codelab linked above. The purpose is to have a similar starting point for Python 2 App Engine users with `ndb` &amp; push tasks apps. Here are the primary migration steps:
 
 1. Update `requirements.txt` to include Google Cloud client libraries
 1. Update `app.yaml` to reference built-in libraries required by the Cloud client libraries
@@ -63,32 +61,32 @@ vendor.add(PATH)
 pkg_resources.working_set.add_entry(PATH)
 ```
 
-### Migrate from App Engine `'ndb` &amp; `taskqueue` to Cloud NDB &amp; Cloud Tasks
+### Migrate from App Engine `ndb` &amp; `taskqueue` to Cloud NDB &amp; Cloud Tasks
 
 #### Imports
 
-Our app is currently using the built in API services `ndb` and `taskqueue`:
+Our app is currently using the built-in `google.appengine.api.taskqueue` &amp; `google.appengine.ext.ndb` services:
 
 - BEFORE:
 
 ```python
-import logging
 from datetime import datetime
+import logging
 import time
 from flask import Flask, render_template, request
 from google.appengine.api import taskqueue
 from google.appengine.ext import ndb
 ```
 
-Replace both those libraries with `google.cloud.ndb` and `google.cloud.tasks`. Furthermore, Cloud Tasks requires you to JSON-encode the task's payload, so also import `json`. When you're done, here's what the `import` section of `main.py` should look like:
+Replace both those imports with `google.cloud.ndb` and `google.cloud.tasks`. Furthermore, Cloud Tasks requires you to JSON-encode the task's payload, so also import `json`. When you're done, here's what the `import` section of `main.py` should look like:
 
 
 - AFTER:
 
 ```python
+from datetime import datetime
 import json
 import logging
-from datetime import datetime
 import time
 from flask import Flask, render_template, request
 from google.cloud import ndb, tasks
@@ -102,37 +100,39 @@ from google.cloud import ndb, tasks
 def store_visit(remote_addr, user_agent):
     'create new Visit entity in Datastore'
     Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
-
-def fetch_visits(limit):
-    'get most recent visits & add task to delete older visits'
-    data = Visit.query().order(-Visit.timestamp).fetch(limit)
-    oldest = time.mktime(data[-1].timestamp.timetuple())
-    oldest_str = time.ctime(oldest)
-    logging.info('Delete entities older than %s' % oldest_str)
-    taskqueue.add(url='/trim', params={'oldest': oldest})
-    return (v.to_dict() for v in data), oldest_str
 ```
 
 There is no change to `store_visit()` other than what you did in Step 2: add a context manager to all Datastore access. This comes in the form of moving creation of a new `Visit` Entity wrapped in a `with` statement.
 
-The more significant change is switching from App Engine push task queues to Cloud Tasks, a standalone Google Cloud product with its own client library referenced in the updated `requirements.txt`. Along with `with` statement wrappers around Datastore access, creating a task is no longer a 1-liner.
+- AFTER:
+
+```python
+def store_visit(remote_addr, user_agent):
+    'create new Visit entity in Datastore'
+    with ds_client.context():
+        Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
+```
+
+The more significant update affects `fetch_visits()`, primarily involving the switch from App Engine push task queues to Cloud Tasks, a standalone Google Cloud product with its own client library (added to `requirements.txt`). Along with `with` statement wrappers around Datastore access, creating a task is no longer a 1-liner.
 
 First, Tasks are an independent service, so in addition to a separate client library, you need to tell Google Cloud where to run your tasks. At the top of `main.py` under Flask initialization, developers must initialize both Cloud NDB and Cloud Tasks, along with some constants that determine your Tasks' "path":
 
 ```python
 app = Flask(__name__)
 ds_client = ndb.Client()
-ts_client = tasks.CloudTasksClient()
+<b>ts_client = tasks.CloudTasksClient()</b>
 
-PROJECT_ID = 'PROJECT_ID'
-REGION_ID = 'REGION_ID'
-QUEUE_NAME = 'default'
+PROJECT_ID = 'PROJECT_ID'  # replace w/your own
+REGION_ID = 'REGION_ID'    # replace w/your own
+QUEUE_NAME = 'default'     # replace w/your own
 QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)
 ```
 
-Obviously once you've created your Tasks queue, fill-in your project's `PROJECT_ID`, the `REGION_ID` in which your Tasks will run (should be the same as your App Engine region), and the name of your push queue. App Engine features a "`default`" queue, so we'll use that name. When using App Engine APIs, the `default` queue is created automatically, so if you (re)use the same project as Step 5a, `default` will already exist, but if you use a *new* project, you'll need to create it manually. The `default` queue is special, and more info on it and App Engine can be found in its [documentation](https://cloud.google.com/tasks/docs/queue-yaml#cloud_tasks_and_the_default_app_engine_queue).
+Obviously once you've created your Tasks queue, fill-in your project's `PROJECT_ID`, the `REGION_ID` in which your Tasks will run (should be the same as your App Engine region), and the name of your push queue. App Engine features a "`default`" queue, so we'll use that name (but you don't have to).
 
-The purpose of `ts_client.queue_path()` is to create a task queue's "path name" which you'll need when creating a task. The `fetch_visits()` function is where the (push) task is created. There, you'll notice a structure to define tasks:
+The `default` queue is special and created automatically under certain circumstances, one of which is when using *App Engine APIs*, so if you (re)use the same project as Step 5a, `default` will already exist. However if you created a *new* project specifically for Step 5b, you'll need to create `default` manually. More info on the `default` queue can be found on [this page](https://cloud.google.com/tasks/docs/queue-yaml#cloud_tasks_and_the_default_app_engine_queue).
+
+The purpose of `ts_client.queue_path()` is to create a task queue's "fully-qualified path name" (`QUEUE_PATH`) needed for creating a task. Also needed is a JSON structure specifying task parameters:
 
 ```python
 task = {
@@ -146,24 +146,34 @@ task = {
 }
 ```
 
-What are you looking at?
-1. Tasks are no longer regulated to being only on App Engine; they can now execute anywhere... App Engine, Cloud Functions, or "DIY," so `app_engine_http_request` specifies App Engine as the destination. (All others will be `http_request`.)
-1. The `relative_uri` references which App Engine handler to send the request to
-1. `body`: the parameters to send to the (push) task
+What are you looking at above?
+1. Tasks are no longer tied to App Engine; they can now execute on Cloud Functions, "DIY", etc.
+1. If App Engine is hosting the task, then specify `app_engine_http_request` as the request type and `relative_uri` points to the App Engine task handler.
+1. If App Engine is *not* hosting the task, then `app_engine_http_request` &amp; `relative_uri` must be `http_request` &amp; `url`, respectively, instead.
+1. `body`: the JSON- and Unicode string-encoded parameters to send to the (push) task
 1. Since parameters are JSON-encoded, need to specify its `Content-Type` header explicity
 1. Refer to the [documentation](https://cloud.google.com/tasks/docs/reference/rpc/google.cloud.tasks.v2#task) for more info.
-1. Once you have the queue's path and payload ready to go, a call to `ts_client.create_task()` will do the job.
 
-Change both functions so they look like this:
+This is `fetch_visits()` from the last tutorial:
+
+- BEFORE:
+
+```python
+def fetch_visits(limit):
+    'get most recent visits & add task to delete older visits'
+    data = Visit.query().order(-Visit.timestamp).fetch(limit)
+    oldest = time.mktime(data[-1].timestamp.timetuple())
+    oldest_str = time.ctime(oldest)
+    logging.info('Delete entities older than %s' % oldest_str)
+    taskqueue.add(url='/trim', params={'oldest': oldest})
+    return (v.to_dict() for v in data), oldest_str
+```
+
+Once you have the queue's full path and payload ready to go, a call to `ts_client.create_task()` will do the job. Wrapping the query in a context manager, here is what your updated `fetch_visits()` should look like:
 
 - AFTER:
 
 ```python
-def store_visit(remote_addr, user_agent):
-    'create new Visit entity in Datastore'
-    with ds_client.context():
-        Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
-
 def fetch_visits(limit):
     'get most recent visits & add task to delete older visits'
     with ds_client.context():
@@ -208,7 +218,7 @@ def trim():
     return ''   # need to return SOME string w/200
 ```
 
-The only thing that needs to be done, is to place all Datastore access within the Datastore client's context manager, `ds_client.context()`. This means all Datastore code should be placed within its `with` statement, as you can see below.
+The only thing that needs to be done, is to place all Datastore access within the context manager `with` statement, both the query and delete request. With this in mind, update your `trim()` handler like this:
 
 - AFTER:
 
@@ -235,8 +245,6 @@ def trim():
 #### Web template
 
 There are no changes to `templates/index.html` in this step nor Step 5c.
-
----
 
 ## Next
 
