@@ -20,6 +20,7 @@ app = Flask(__name__)
 fs_client = firestore.Client()
 
 def store_visit(remote_addr, user_agent):
+    'create new Visit entity in Firestore'
     doc_ref = fs_client.collection('Visit')
     doc_ref.add({
         'timestamp': datetime.now(),
@@ -27,6 +28,7 @@ def store_visit(remote_addr, user_agent):
     })
 
 def fetch_visits(limit):
+    'get most recent visits'
     visits_ref = fs_client.collection('Visit')
     visits = (v.to_dict() for v in visits_ref.order_by('timestamp',
             direction=firestore.Query.DESCENDING).limit(limit).stream())
@@ -34,6 +36,7 @@ def fetch_visits(limit):
 
 @app.route('/')
 def root():
+    'main application (GET) handler'
     store_visit(request.remote_addr, request.user_agent)
     visits = fetch_visits(10)
     return render_template('index.html', visits=visits)

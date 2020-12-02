@@ -22,14 +22,17 @@ class Visit(ndb.Model):
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
 def store_visit(remote_addr, user_agent):
+    'create new Visit entity in Datastore'
     Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
 
 def fetch_visits(limit):
+    'get most recent visits'
     return (v.to_dict() for v in Visit.query().order(
             -Visit.timestamp).fetch(limit))
 
 @app.route('/')
 def root():
+    'main application (GET) handler'
     store_visit(request.remote_addr, request.user_agent)
     visits = fetch_visits(10)
     return render_template('index.html', visits=visits)

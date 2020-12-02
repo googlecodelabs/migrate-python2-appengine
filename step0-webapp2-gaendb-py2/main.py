@@ -25,10 +25,12 @@ def store_visit(remote_addr, user_agent):
     Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
 
 def fetch_visits(limit):
+    'get most recent visits'
     return (v.to_dict() for v in Visit.query().order(
             -Visit.timestamp).fetch(limit))
 
 class MainHandler(webapp2.RequestHandler):
+    'main application (GET) handler'
     def get(self):
         store_visit(self.request.remote_addr, self.request.user_agent)
         visits = fetch_visits(10)

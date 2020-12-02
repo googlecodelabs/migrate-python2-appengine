@@ -20,6 +20,7 @@ app = Flask(__name__)
 ds_client = datastore.Client()
 
 def store_visit(remote_addr, user_agent):
+    'create new Visit entity in Datastore'
     entity = datastore.Entity(key=ds_client.key('Visit'))
     entity.update({
         'timestamp': datetime.now(),
@@ -28,12 +29,14 @@ def store_visit(remote_addr, user_agent):
     ds_client.put(entity)
 
 def fetch_visits(limit):
+    'get most recent visits'
     query = ds_client.query(kind='Visit')
     query.order = ['-timestamp']
     return query.fetch(limit=limit)
 
 @app.route('/')
 def root():
+    'main application (GET) handler'
     store_visit(request.remote_addr, request.user_agent)
     visits = fetch_visits(10)
     return render_template('index.html', visits=visits)
