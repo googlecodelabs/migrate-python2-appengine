@@ -51,7 +51,8 @@ def trim():
                 nkeys, ', '.join(str(k.id()) for k in keys)))
         ndb.delete_multi(keys)
     else:
-        logging.info('No entities older than: %s' % time.ctime(oldest))
+        logging.info(
+                'No entities older than: %s' % time.ctime(oldest))
     return ''   # need to return SOME string w/200
 
 @app.route('/')

@@ -13,7 +13,7 @@ In short, these are the Step 5 codelabs/repos:
 - Step 5c ([codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5c-cloudtasksds.md), [repo](/step5c-cloud-ndb-tasks-py3)): Migrate Step 5b app to second-generation Python 3 App Engine &amp; Cloud Datastore
 
 In *this* codelab/repo, participants start with the code in the (completed) [Step 5a repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step5a-gae-ndb-tasks-py2). That repo resulted from taking the [Step 1 sample app](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step1-flask-gaendb-py2) and adding push tasks to it using the App Engine `taskqueue` API library. This tutorial performs a pair of migrations from *that* starting point:
-- Migrate from App Engine `ndb` to Cloud NDB (same as [Step 2 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-2-cloudndb))
+- Migrate from App Engine `ndb` to Cloud NDB (same as Step 2 [[codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-2-cloudndb), [repo](https://github.com/googlecodelabs/migrate-python-appengine-datastore/tree/master/step2-flask-cloudndb-py2)])
 - Migrate from App Engine `taskqueue` to Cloud Tasks
 
 If you haven't completed the [Step 5a codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-5-gaetasks), we recommend you do so to familiarize yourself with its codebase as we start from there. (You can also just study the code in its repo linked above.)
@@ -31,7 +31,7 @@ The migration from App Engine `ndb` to Cloud NDB is identical to that of Step 2 
 
 ### Configuration
 
-The `requirements.txt` from Step 5a only listed Flask as a required package. In this step, add the client libraries for Cloud NDB and Clodu Tasks so the updated `requirements.txt` looks like this:
+The `requirements.txt` from Step 5a listed only Flask as a required package. Cloud NDB and Cloud Tasks have their own client libraries, so in this step, add their packages to `requirements.txt` so it looks like this (but choose the most recent versions as these were the latest at the time of this writing):
 
     Flask==1.1.2
     google-cloud-ndb==1.7.1
@@ -47,7 +47,7 @@ libraries:
   version: 36.6.0
 ```
 
-Update `appengine_config.py` to use `pkg_resources` to tie those built-in libraries to the bundled/vendored third-party libraries like Flask:
+Update `appengine_config.py` to use `pkg_resources` to tie those built-in libraries to the bundled/vendored third-party libraries like Flask and the Google Cloud client libraries:
 
 ```python
 import pkg_resources
@@ -65,7 +65,7 @@ pkg_resources.working_set.add_entry(PATH)
 
 #### Imports
 
-Our app is currently using the built-in `google.appengine.api.taskqueue` &amp; `google.appengine.ext.ndb` services:
+Our app is currently using the built-in `google.appengine.api.taskqueue` &amp; `google.appengine.ext.ndb` libraries:
 
 - BEFORE:
 
@@ -78,7 +78,7 @@ from google.appengine.api import taskqueue
 from google.appengine.ext import ndb
 ```
 
-Replace both those imports with `google.cloud.ndb` and `google.cloud.tasks`. Furthermore, Cloud Tasks requires you to JSON-encode the task's payload, so also import `json`. When you're done, here's what the `import` section of `main.py` should look like:
+Replace both with `google.cloud.ndb` and `google.cloud.tasks`. Furthermore, Cloud Tasks requires you to JSON-encode the task's payload, so also import `json`. When you're done, here's what the `import` section of `main.py` should look like:
 
 
 - AFTER:
@@ -92,7 +92,7 @@ from flask import Flask, render_template, request
 from google.cloud import ndb, tasks
 ```
 
-#### Migrating to Cloud Tasks (and Cloud Datastore)
+#### Migrate to Cloud Tasks (and Cloud NDB)
 
 - BEFORE:
 
@@ -113,22 +113,21 @@ def store_visit(remote_addr, user_agent):
         Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
 ```
 
-The more significant update affects `fetch_visits()`, primarily involving the switch from App Engine push task queues to Cloud Tasks, a standalone Google Cloud product with its own client library (added to `requirements.txt`). Along with `with` statement wrappers around Datastore access, creating a task is no longer a 1-liner.
+Cloud Tasks currently requires an App Engine be enabled for your Google Cloud project in order for you to use it (even if you don't have any App Engine code), otherwise tasks queues will not function. (See [this section](https://cloud.google.com/tasks/docs/creating-queues#before_you_begin) in the docs for more information.) Cloud Tasks supports tasks running on App Engine (App Engine "targets") but can also be run on any HTTP endpoint (HTTP targets) with a public IP address, such as Cloud Functions, Cloud Run, GKE, Compute Engine, or even an on-prem web server. Our simple app uses an App Engine target for tasks.
 
-First, Tasks are an independent service, so in addition to a separate client library, you need to tell Google Cloud where to run your tasks. At the top of `main.py` under Flask initialization, developers must initialize both Cloud NDB and Cloud Tasks, along with some constants that determine your Tasks' "path":
+Some setup is needed to use Cloud NDB and Cloud Tasks. At the top of `main.py` under Flask initialization, initialize Cloud NDB and Cloud Tasks. Also define some constants that indicate where your push tasks will execute.
 
 ```python
 app = Flask(__name__)
 ds_client = ndb.Client()
-<b>ts_client = tasks.CloudTasksClient()</b>
+ts_client = tasks.CloudTasksClient()
 
 PROJECT_ID = 'PROJECT_ID'  # replace w/your own
 REGION_ID = 'REGION_ID'    # replace w/your own
 QUEUE_NAME = 'default'     # replace w/your own
 QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)
 ```
-
-Obviously once you've created your Tasks queue, fill-in your project's `PROJECT_ID`, the `REGION_ID` in which your Tasks will run (should be the same as your App Engine region), and the name of your push queue. App Engine features a "`default`" queue, so we'll use that name (but you don't have to).
+Obviously once you've [created your task queue](https://cloud.google.com/tasks/docs/creating-queues), fill-in your project's `PROJECT_ID`, the `REGION_ID` where your tasks will run (should be the same as your App Engine region), and the name of your push queue. App Engine features a "`default`" queue, so we'll use that name (but you don't have to).
 
 The `default` queue is special and created automatically under certain circumstances, one of which is when using *App Engine APIs*, so if you (re)use the same project as Step 5a, `default` will already exist. However if you created a *new* project specifically for Step 5b, you'll need to create `default` manually. More info on the `default` queue can be found on [this page](https://cloud.google.com/tasks/docs/queue-yaml#cloud_tasks_and_the_default_app_engine_queue).
 
@@ -147,14 +146,15 @@ task = {
 ```
 
 What are you looking at above?
-1. Tasks are no longer tied to App Engine; they can now execute on Cloud Functions, "DIY", etc.
-1. If App Engine is hosting the task, then specify `app_engine_http_request` as the request type and `relative_uri` points to the App Engine task handler.
-1. If App Engine is *not* hosting the task, then `app_engine_http_request` &amp; `relative_uri` must be `http_request` &amp; `url`, respectively, instead.
-1. `body`: the JSON- and Unicode string-encoded parameters to send to the (push) task
-1. Since parameters are JSON-encoded, need to specify its `Content-Type` header explicity
-1. Refer to the [documentation](https://cloud.google.com/tasks/docs/reference/rpc/google.cloud.tasks.v2#task) for more info.
+1. Supply task target information:
+    - For App Engine targets, specify `app_engine_http_request` as the request type and `relative_uri` is the App Engine task handler.
+    - For HTTP targets, use `http_request` &amp; `url` instead.
+1. `body`: the JSON- and Unicode string-encoded parameter(s) to send to the (push) task
+1. Specify a JSON-encoded `Content-Type` header explicity
 
-This is `fetch_visits()` from the last tutorial:
+Refer to the [documentation](https://cloud.google.com/tasks/docs/reference/rpc/google.cloud.tasks.v2#task) for more info on your options here.
+
+With setup out of the way, let's update `fetch_visits()`. Here is what it looks like from the previous tutorial:
 
 - BEFORE:
 
@@ -169,7 +169,12 @@ def fetch_visits(limit):
     return (v.to_dict() for v in data), oldest_str
 ```
 
-Once you have the queue's full path and payload ready to go, a call to `ts_client.create_task()` will do the job. Wrapping the query in a context manager, here is what your updated `fetch_visits()` should look like:
+The required updates:
+1. Switch from App Engine `ndb` to Cloud NDB
+1. New code to extract timestamp of oldest visit displayed
+1. Use Cloud Tasks to create a new task instead of App Engine `taskqueue`
+
+Here's what your new `fetch_visits()` should look like:
 
 - AFTER:
 
@@ -193,6 +198,12 @@ def fetch_visits(limit):
     ts_client.create_task(parent=QUEUE_PATH, task=task)
     return (v.to_dict() for v in data), oldest_str
 ```
+
+Summarizing the code update:
+- Switch to Cloud NDB means moving Datastore code inside a `with` statement
+- Switch to Cloud Tasks means using `ts_client.create_task()` instead of `taskqueue.add()`
+- Pass in the queue's full path and `task` payload (described earlier)
+
 
 #### Update (Push) Task handler
 

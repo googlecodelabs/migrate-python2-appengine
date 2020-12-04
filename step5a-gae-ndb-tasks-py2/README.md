@@ -24,7 +24,7 @@ Rather than a migration, this step adds use of push Task Queues to the existing 
 
 1. Add new Python `import`s
     - Add use of Python standard library date and time utilities
-    - (optional but helpful) Add logging and function ["docstrings"](http://python.org/dev/peps/pep-0257/#id15)
+    - (optional but helpful) Add logging
 1. Save timestamp of last (displayed) `Visit`
 1. Add "delete old(est) entries" task
 1. Display deletion message in web UI template
@@ -88,7 +88,7 @@ def fetch_visits(limit):
 
 The `data` variable holds the `Visit`s previously returned immediately, and `oldest` is the timestamp of the oldest displayed `Visit` in seconds (as a `float`) since the epoch, retrieved by (extracting `datetime` object, morphed to Python [time 9-tuple normalized form](https://docs.python.org/library/time), then converted to `float`). A string version is also created for display purposes. A new push task is added, calling the handler (`/trim`) with `oldest` as its only parameter.
 
-The same payload as the Step 1 `fetch_visits()` is returned to the caller in addition to `oldest` as a string. Following good practices, a function docstring was added (first unassigned string) along with an application log at the `INFO` level via `logging.info()`.
+The same payload as the Step 1 `fetch_visits()` is returned to the caller in addition to `oldest` as a string. Following good practices, add an application log at the `INFO` level via `logging.info()`.
 
 ### Add "delete old(est) entries" task
 
@@ -117,7 +117,7 @@ Push tasks are `POST`ed to the handler, so that must be specified (default: `GET
 
 ### Display deletion message in web UI template
 
-It's also a good practice to have "docstrings" to document functionality, so add those as well. Add the following snippet after the unnumbered list of `Visit`s but before the closing `</body>` tag:
+Add the following snippet after the unnumbered list of `Visit`s but before the closing `</body>` tag:
 
 ```html+jinja
 {% if oldest %}
