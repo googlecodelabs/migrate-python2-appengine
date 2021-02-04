@@ -205,7 +205,7 @@ Summarizing the code update:
 - Pass in the queue's full path and `task` payload (described earlier)
 
 
-#### Update (Push) Task handler
+#### Update (push) task handler
 
 There are very few changes that need to be made to the (push) task handler function.
 

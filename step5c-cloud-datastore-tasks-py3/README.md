@@ -208,6 +208,9 @@ def fetch_visits(limit):
     return data, oldest_str
 ```
 
+
+#### Update (push) task handler
+
 As you can see, the Cloud Tasks code stays the same. The final piece of code to look at is the task handler itself, `trim()`.
 
 - BEFORE:
@@ -256,13 +259,13 @@ def trim():
 
 The subtle updates you may have missed in the code:
 - Cloud NDB's queries allows for a keys-only data fetch:
-`keys = Visit.query().fetch(keys_only=True)`
+    - `keys = Visit.query().fetch(keys_only=True)`
 - Cloud Datastore queries always send back entities, so extracting the keys are required:
-`keys = list(visit.key for visit in query.fetch())`
+    - `keys = list(visit.key for visit in query.fetch())`
 - Cloud NDB key IDs have a getter method:
-`logging.info('Deleting %d entities: %s' % (nkeys, ', '.join(str(k.id()) for k in keys)))`
+    - `logging.info('Deleting %d entities: %s' % (nkeys, ', '.join(str(k.id()) for k in keys)))`
 - Cloud Datastore key IDs are a property:
-`print('Deleting %d entities: %s' % (nkeys, ', '.join(str(k.id) for k in keys)))`
+    - `print('Deleting %d entities: %s' % (nkeys, ', '.join(str(k.id) for k in keys)))`
 
 
 #### Web template
