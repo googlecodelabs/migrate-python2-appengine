@@ -29,7 +29,7 @@ App Engine is not a free service. While you may not have needed to enable billin
 In App Engine's early days, users wanted Google to make the platform more flexible for developers and make their apps more portable. As a result, the team made significant changes to its 2nd-generation service which launched in 2017. As a result, all previously built-in services have been removed, and users can either choose from new standalone Cloud products as replacements or best-of-breed replacements in the broader developer community. Summary:
 
 - **Legacy platform**: *Python 2* only, proprietary built-in services
-- **Next generation**: *Python 3* only, *no* proprietary built-in services
+- **Next generation**: *Python 3* only, external services, flexible platform
 
 The key issue is that developers looking to port their applications to Python 3 have two **huge** hurdles to overcome, migrating from Python 2 to 3 **and** migrating from built-in services to alternatives. On top of this, direct replacements are not available for all built-in services; alternatives come in 3 flavors:
 
@@ -44,18 +44,19 @@ These are the challenges developers are facing, so the purpose of this content i
 
 ## Progression
 
-All codelabs begin with code in a START repo and ends with a FINISH repo folder, completing a single migration. Users who complete the tutorial should confirm their code (for the most part) matches what's in the FINISH folder. The Module 0 repo contains a barebones Python 2.7 App Engine app that uses the `webapp2` web framework plus the `ndb` Datastore library. It represents the baseline migration sample app.
+All codelabs begin with code in a START repo folder and end with code in a FINISH folder, implementing a single migration. Upon completion should confirm their code (for the most part) matches what's in the FINISH folder. The baseline migration sample app is a barebones Python 2.7 App Engine app that uses the `webapp2` web framework plus the `ndb` Datastore library. This is what's iin the Module 0 repo folder (link below).
 
-1. From there, Module 1 migrates away from `webapp2` to Flask, migrating the Module 0 code (START) to end with the Module 1 folder.
+1. From there (Module 0 is START), the Module 1 codelab migrates from the `webapp2` web framework to Flask where the Module 1 repo folder is the FINISH point.
 
-1. The Module 2 codelab migrates away from  `ndb` to Cloud NDB, STARTs with the Module 1 repo (ours or yours), and ends with the Module 2 (Python 2) FINISH repo folder. Module 2's codelab also has a bonus migration to Python 3, resulting in code that should match the Module 2 (Python 3) repo. Once you've arrived at Module 2's Python 3 code, your app is modernized and runs on the next-generation platform.
+1. The Module 2 codelab STARTs with the Module 1 code (yours or ours) and migrates away from  `ndb` to Cloud NDB, and ends with the Module 2 (Python 2) FINISH repo folder. There's also has a bonus migration to Python 3, resulting in another FINISH repo folder. Once you've deployed this Python 3 code, your app is modernized and runs on the next-generation platform.
 
-Of course, things aren't as simple in real life. Your Python 2 App Engine app may also be using Task Queues, Memcache, or many of the other original App Engine built-in services, so those will be additional migration modules (not all are available yet). With some exceptions, there's no specific order of what migrations you do next. It's just what you (or your apps) need. Here's full summary of what's currently available:
+Of course, things aren't as simple in real life. Your Python 2 App Engine app may also be using Task Queues, Memcache, or many of the other original App Engine built-in services, so there will be additional migration modules (not all are available yet). With some exceptions, there's no specific order of what migrations you do next. It's just what you (or your apps) need. Here's full summary of what's currently available:
 
 
 ## Migrations
 
 The table below summarizes migration module resources currently available to developers along with a more detailed table of contents below. Be sure to check back for updates as more resources are planned.
+
 
 ### Summary table
 
@@ -71,6 +72,7 @@ Module | Topic | Video | Codelab | START repo | FINISH repo
 7|Add App Engine push tasks| _TBD_ | _TBD_ | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
 8|Migrate to Cloud Tasks| _TBD_ | _TBD_ | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
 9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3xlouddstasks) (3.x)
+
 
 ### Table of contents
 
@@ -184,7 +186,6 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 - Break-up your monolithic app to "microservices" and migrate your app to either:
     - [Google Cloud Functions](https://cloud.google.com/functions)
     - [Firebase mobile &amp; web app platform](https://firebase.google.com) (and [Cloud Functions for Firebase](https://firebase.google.com/products/functions) [customized for Firebase])
-
 
 
 ### Canonical code samples
