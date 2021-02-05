@@ -1,7 +1,7 @@
 # Python 2 App Engine app migration
 ### To modern runtime, Cloud services, Python 3, and Cloud Run containers
 
-[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelab tutorials (and this code repo) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes.
+[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelabs (free, online, self-paced, hands-on tutorials) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes, with this repo managing the samples from those codelabs.
 
 Codelabs begin with a "START" code base then walks developers through that migration step, resulting in a "FINISH" repo. If you made any mistakes along the way, you can always go back to START or compare your code with that in the FINISH folder to see the differences. Since another goal is to port to Python 3, some codelabs have a bonus section for that purpose.
 
@@ -21,7 +21,7 @@ Codelabs begin with a "START" code base then walks developers through that migra
 
 ## Cost
 
-App Engine is not a free service. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free), and as long as you stay within those limits, you won't incur billing. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
+App Engine is not a free service. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free), and as long as you stay within those limits, you won't incur billing. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/code quotas) pages for more information.
 
 
 ## Why
@@ -44,7 +44,7 @@ These are the challenges developers are facing, so the purpose of this content i
 
 ## Progression
 
-All codelabs begin with code in a START repo folder and end with code in a FINISH folder, implementing a single migration. Upon completion should confirm their code (for the most part) matches what's in the FINISH folder. The baseline migration sample app is a barebones Python 2.7 App Engine app that uses the `webapp2` web framework plus the `ndb` Datastore library. This is what's iin the Module 0 repo folder (link below).
+All codelabs begin with code in a START repo folder and end with code in a FINISH folder, implementing a single migration. Upon completion, users should confirm their code (for the most part) matches what's in the FINISH folder. The baseline migration sample app is a barebones Python 2.7 App Engine app that uses the `webapp2` web framework plus the `ndb` Datastore library. This is what's in the Module 0 repo folder (link below).
 
 1. From there (Module 0 is START), the Module 1 codelab migrates from the `webapp2` web framework to Flask where the Module 1 repo folder is the FINISH point.
 
@@ -71,7 +71,7 @@ Module | Topic | Video | Codelab | START repo | FINISH repo
 6|Migrate to Cloud Firestore| _TBD_ | _TBD_ | Module 3 [code]() (3.x) | Module 6 [code](/mod6-firestore) (3.x)
 7|Add App Engine push tasks| _TBD_ | _TBD_ | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
 8|Migrate to Cloud Tasks| _TBD_ | _TBD_ | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
-9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3xlouddstasks) (3.x)
+9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3clouddstasks) (3.x)
 
 
 ### Table of contents
