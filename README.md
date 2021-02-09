@@ -21,7 +21,7 @@ Codelabs begin with a "START" code base then walks developers through that migra
 
 ## Cost
 
-App Engine is not a free service. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free), and as long as you stay within those limits, you won't incur billing. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/code quotas) pages for more information.
+App Engine is not a free service. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free), and as long as you stay within those limits, you won't incur billing. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
 
 
 ## Why

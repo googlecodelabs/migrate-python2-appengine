@@ -29,6 +29,7 @@ QUEUE_NAME = 'default'     # replace w/your own
 QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)
 
 class Visit(ndb.Model):
+    'Visit entity registers visitor IP address & timestamp'
     visitor   = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 

@@ -18,10 +18,12 @@ from google.appengine.ext import ndb
 from google.appengine.ext.webapp import template
 
 class Visit(ndb.Model):
+    'Visit entity registers visitor IP address & timestamp'
     visitor   = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
 def store_visit(remote_addr, user_agent):
+    'create new Visit entity in Datastore'
     Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
 
 def fetch_visits(limit):

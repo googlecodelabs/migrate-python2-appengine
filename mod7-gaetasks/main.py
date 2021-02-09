@@ -22,6 +22,7 @@ from google.appengine.ext import ndb
 app = Flask(__name__)
 
 class Visit(ndb.Model):
+    'Visit entity registers visitor IP address & timestamp'
     visitor   = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 

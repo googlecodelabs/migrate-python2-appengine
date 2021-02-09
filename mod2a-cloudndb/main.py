@@ -19,6 +19,7 @@ app = Flask(__name__)
 ds_client = ndb.Client()
 
 class Visit(ndb.Model):
+    'Visit entity registers visitor IP address & timestamp'
     visitor   = ndb.StringProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
