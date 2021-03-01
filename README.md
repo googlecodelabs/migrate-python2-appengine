@@ -7,7 +7,7 @@ Codelabs begin with a "START" code base then walks developers through that migra
 
 > **NOTE:** These migrations are *only* for those with Python 2 (2.7) App Engine apps.
 > 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so there's no need for you to be here unless you help 2.x developers migrate.
-> 1. *Python 2.5 App Engine developers*: to revive apps on the original 2.5 runtime, [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25), you must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) before attempting these migrations.
+> 1. *Python 2.5 App Engine users*: to revive apps from the original 2.5 runtime, [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25), you must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) and get those apps running on Python 2.7 before attempting these migrations.
 
 
 ## Prerequisites
@@ -21,7 +21,7 @@ Codelabs begin with a "START" code base then walks developers through that migra
 
 ## Cost
 
-App Engine is not a free service. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free), and as long as you stay within those limits, you won't incur billing. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
+App Engine is not a free service. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free), and as long as you stay within those limits, you won't incur any charges. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
 
 
 ## Why
@@ -60,25 +60,26 @@ The table below summarizes migration module resources currently available to dev
 
 ### Summary table
 
-Module | Topic | Video | Codelab | START repo | FINISH repo
---- | --- | --- | --- | --- | ---
-0|Baseline app| _TBD_ | _N/A_ | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
-1|Migrate to Flask| _TBD_ | _TBD_ | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-framework) (2.x)
-2|Migrate to Cloud NDB| _TBD_ | _TBD_ | Module 1 [code](/mod1-framework) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
-3|Migrate to Cloud Datastore| _TBD_ | _TBD_ | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
-4|Migrate to Cloud Run with Docker| _TBD_ | _TBD_ | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
-5|Migrate to Cloud Run with Buildpacks| _TBD_ | _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
-6|Migrate to Cloud Firestore| _TBD_ | _TBD_ | Module 3 [code]() (3.x) | Module 6 [code](/mod6-firestore) (3.x)
-7|Add App Engine push tasks| _TBD_ | _TBD_ | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
-8|Migrate to Cloud Tasks| _TBD_ | _TBD_ | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
-9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3clouddstasks) (3.x)
+Module | Topic | Codelab | START repo | FINISH repo
+--- | --- | --- | --- | ---
+0|Baseline app| _N/A_ (no migration; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
+1|Migrate to Flask| [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-framework) (2.x)
+2|Migrate to Cloud NDB| [link](http://g.co/codelabs/pae-migrate-cloudndb) | Module 1 [code](/mod1-framework) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
+3|Migrate to Cloud Datastore| [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
+4|Migrate to Cloud Run with Docker| [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
+5|Migrate to Cloud Run with Buildpacks| [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
+6|Migrate to Cloud Firestore| [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code]() (3.x) | Module 6 [code](/mod6-firestore) (3.x)
+7|Add App Engine push tasks| [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
+8|Migrate to Cloud Tasks| [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
+9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| [link](http://g.co/codelabs/pae-migrate-py3dstasks) | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3clouddstasks) (3.x)
 
 
 ### Table of contents
 
 If there is a logical codelab to do immediately after completing one, they will be designated as NEXT. Other recommended codelabs will be listed as RECOMMENDED, and the more optional ones will be labeled as OTHERS (and usually in some kind of priority order).
 
-- Module 1 codelab: **Migrate from `webapp2` to [Flask](https://flask.palletsprojects.com)**
+
+- [Module 1 codelab](http://g.co/codelabs/pae-migrate-flask): **Migrate from `webapp2` to [Flask](https://flask.palletsprojects.com)**
     - **Required** migration (can also pick your own framework)
         - `webapp2` does not do routing thus unsupported by App Engine (even though a [3.x port exists](https://github.com/fili/webapp2-gae-python37))
     - Python 2 only
@@ -86,7 +87,8 @@ If there is a logical codelab to do immediately after completing one, they will 
         - FINISH: [Module 1 code - Framework](/mod1-framework) (2.x)
     - NEXT: Module 2 codelab - migrate to Cloud NDB
 
-- Module 2 codelab: **Migrate from App Engine `ndb` to [Cloud NDB](https://googleapis.dev/python/python-ndb/latest)**
+
+- [Module 2 codelab](http://g.co/codelabs/pae-migrate-cloudndb): **Migrate from App Engine `ndb` to [Cloud NDB](https://googleapis.dev/python/python-ndb/latest)**
     - **Required** migration
         - Migration to Cloud NDB which is supported by Python 3 and the next-gen platform.
     - Python 2
@@ -97,18 +99,18 @@ If there is a logical codelab to do immediately after completing one, they will 
     - RECOMMENDED:
         - Module 7 codelab - add App Engine (push) tasks
     - OTHERS (somewhat priority order):
-        - Module 4 codelab - migrate to Cloud Run container with Docker
         - Module 5 codelab - migrate to Cloud Run container with Cloud Buildpacks
+        - Module 4 codelab - migrate to Cloud Run container with Docker
         - Module 3 codelab - migrate to Cloud Datastore
 
-- Module 7 codelab: **Add App Engine (push) Task Queues to App Engine `ndb` Flask app**
+- [Module 7 codelab](http://g.co/codelabs/pae-migrate-gaetasks): **Add App Engine (push) Task Queues to App Engine `ndb` Flask app**
     - **Not a migration**: add GAE Task Queues to prepare for migration to Cloud Tasks
     - Python 2
         - START:  [Module 1 code - Framework](/mod1-framework) (2.x)
         - FINISH: [Module 7 code - GAE Task Queues](/mod7-gaetasks) (2.x)
     - NEXT: Module 8 codelab - migrate App Engine push tasks to Cloud Tasks
 
-- Module 8 codelab: **Migrate from App Engine (push) Task Queues to [Cloud Tasks](http://cloud.google.com/tasks) v1**
+- [Module 8 codelab](http://g.co/codelabs/pae-migrate-cloudtasks): **Migrate from App Engine (push) Task Queues to [Cloud Tasks](http://cloud.google.com/tasks) v1**
     - **Required** migration
         - Migration to Cloud Tasks which is supported by Python 3 and the next-gen platform.
         - Note this is only push tasks... pull tasks will be handled in a different codelab.
@@ -117,20 +119,21 @@ If there is a logical codelab to do immediately after completing one, they will 
         - FINISH: [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - NEXT: Module 9 codelab - migrate to Python 3
 
-- Module 9 codelab: **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks app to a Python 3 Cloud Datastore app**
+- [Module 9 codelab](http://g.co/codelabs/pae-migrate-py3dstasks): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks app to a Python 3 Cloud Datastore app**
     - **Mixed migration recommendation**
         - Migrating to Python 3 is required, but...
         - Migrating to Cloud Datastore is optional as Cloud NDB works on 3.x; it's to give you the experience of doing it
-        - This codelab includes the migration in the [Module 3 codelab](), so skip it
+        - This codelab includes the [Module 3 migration codelab](http://g.co/codelabs/pae-migrate-datastore), so skip if you complete this one
     - Python 2
         - START:  [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - Python 3
         - FINISH: [Module 9 code - Cloud Datastore &amp; Tasks](/mod9-py3clouddstasks) (3.x)
     - RECOMMENDED:
-        - Module 4 codelab - migrate to Cloud Run container with Docker
         - Module 5 codelab - migrate to Cloud Run container with Cloud Buildpacks
+        - Module 4 codelab - migrate to Cloud Run container with Docker
+        - Module 6 codelab - migrate to Cloud Firestore
 
-- Module 4 codelab: **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Docker**
+- [Module 4 codelab](http://g.co/codelabs/pae-migrate-rundocker): **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Docker**
     - **Optional** migration
         - "Containerize" your app (migrate your app to a container) with Docker
     - Python 2
@@ -141,16 +144,22 @@ If there is a logical codelab to do immediately after completing one, they will 
         - FINISH: [Module 4 code - Cloud Run - Docker](/mod4b-rundocker) (3.x)
     - RECOMMENDED:
         - Module 5 codelab - migrate to Cloud Run container with Cloud Buildpacks
+    - OTHER OPTIONS (in somewhat priority order):
+        - Module 7 codelab - add App Engine (push) tasks
 
-- Module 5 codelab: **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Cloud Buildpacks**
+- [Module 5 codelab](http://g.co/codelabs/pae-migrate-runbldpks): **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Cloud Buildpacks**
     - **Optional** migration
         - "Containerize" your app (migrate your app to a container) with...
-        - [Cloud Buildpacks]() which lets you containerize your app without Dockerfiles
+        - [Cloud Buildpacks]() which lets you containerize your app without `Dockerfile`s
     - Python 3 only
         - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
         - FINISH: [Module 5 code - Cloud Run - Buildpacks 3.x](/mod5-runbldpks) (3.x)
+    - RECOMMENDED:
+        - Module 4 codelab - migrate to Cloud Run container with Docker
+    - OTHER OPTIONS (in somewhat priority order):
+        - Module 7 codelab - add App Engine (push) tasks
 
-- Module 3 codelab: **Migrate from Cloud NDB to Cloud Datastore**
+- [Module 3 codelab](http://g.co/codelabs/pae-migrate-datastore): **Migrate from Cloud NDB to Cloud Datastore**
     - **Optional** migration
         - Recommended only if using Cloud Datastore elsewhere (GAE *or* non-App Engine) apps
         - Helps w/code consistency &amp; reusability, reduces maintenance costs
@@ -160,12 +169,13 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Python 3
         - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
         - FINISH: [Module 3 code - Cloud Datastore](/mod3b-datastore) (3.x)
-    - OPTIONS (in somewhat priority order):
+    - RECOMMENDED:
         - Module 7 codelab - add App Engine (push) tasks
-        - Module 4 codelab - migrate to Cloud Run container with Docker
+    - OTHER OPTIONS (in somewhat priority order):
+        - Module 5 codelab - migrate to Cloud Run container with Cloud Buildpacks
         - Module 6 codelab - migrate to Cloud Firestore
 
-- Module 6 codelab: **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)**
+- [Module 6 codelab](http://g.co/codelabs/pae-migrate-firestore): **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)**
     - **Highly optional** migration (WARNING: infrequent/uncommon &amp; "expensive" migration)
         - Requires new project &amp; Datastore has better write performance (currently)
         - If you **must have** Firestore's Firebase features
@@ -175,7 +185,7 @@ If there is a logical codelab to do immediately after completing one, they will 
     - RECOMMENDED:
         - Module 7 codelab - add App Engine (push) tasks
     - OTHER OPTIONS (in somewhat priority order):
-        - Module 4 codelab - migrate to Cloud Run container with Docker
+        - Module 5 codelab - migrate to Cloud Run container with Cloud Buildpacks
 
 
 ## Considerations for mobile developers
