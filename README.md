@@ -63,15 +63,15 @@ The table below summarizes migration module resources currently available to dev
 Module | Topic | Codelab | START repo | FINISH repo
 --- | --- | --- | --- | ---
 0|Baseline app| _N/A_ (no migration; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
-1|Migrate to Flask| [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-framework) (2.x)
-2|Migrate to Cloud NDB| [link](http://g.co/codelabs/pae-migrate-cloudndb) | Module 1 [code](/mod1-framework) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
+1|Migrate to Flask| [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-flask) (2.x)
+2|Migrate to Cloud NDB| [link](http://g.co/codelabs/pae-migrate-cloudndb) | Module 1 [code](/mod1-flask) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
 3|Migrate to Cloud Datastore| [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
 4|Migrate to Cloud Run with Docker| [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
 5|Migrate to Cloud Run with Buildpacks| [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
 6|Migrate to Cloud Firestore| [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code]() (3.x) | Module 6 [code](/mod6-firestore) (3.x)
 7|Add App Engine push tasks| [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
 8|Migrate to Cloud Tasks| [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
-9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| [link](http://g.co/codelabs/pae-migrate-py3dstasks) | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3clouddstasks) (3.x)
+9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| [link](http://g.co/codelabs/pae-migrate-py3dstasks) | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3dstasks) (3.x)
 
 
 ### Table of contents
@@ -84,7 +84,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - `webapp2` does not do routing thus unsupported by App Engine (even though a [3.x port exists](https://github.com/fili/webapp2-gae-python37))
     - Python 2 only
         - START:  [Module 0 code - Baseline](/mod0-baseline) (2.x)
-        - FINISH: [Module 1 code - Framework](/mod1-framework) (2.x)
+        - FINISH: [Module 1 code - Framework](/mod1-flask) (2.x)
     - NEXT: Module 2 codelab - migrate to Cloud NDB
 
 
@@ -92,7 +92,7 @@ If there is a logical codelab to do immediately after completing one, they will 
     - **Required** migration
         - Migration to Cloud NDB which is supported by Python 3 and the next-gen platform.
     - Python 2
-        - START:  [Module 1 code - Framework](/mod1-framework) (2.x)
+        - START:  [Module 1 code - Framework](/mod1-flask) (2.x)
         - FINISH: [Module 2 code - Cloud NDB](/mod2a-cloudndb) (2.x)
     - Codelab bonus port to Python 3.x
         - FINISH: [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
@@ -106,7 +106,7 @@ If there is a logical codelab to do immediately after completing one, they will 
 - [Module 7 codelab](http://g.co/codelabs/pae-migrate-gaetasks): **Add App Engine (push) Task Queues to App Engine `ndb` Flask app**
     - **Not a migration**: add GAE Task Queues to prepare for migration to Cloud Tasks
     - Python 2
-        - START:  [Module 1 code - Framework](/mod1-framework) (2.x)
+        - START:  [Module 1 code - Framework](/mod1-flask) (2.x)
         - FINISH: [Module 7 code - GAE Task Queues](/mod7-gaetasks) (2.x)
     - NEXT: Module 8 codelab - migrate App Engine push tasks to Cloud Tasks
 
@@ -127,7 +127,7 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Python 2
         - START:  [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - Python 3
-        - FINISH: [Module 9 code - Cloud Datastore &amp; Tasks](/mod9-py3clouddstasks) (3.x)
+        - FINISH: [Module 9 code - Cloud Datastore &amp; Tasks](/mod9-py3dstasks) (3.x)
     - RECOMMENDED:
         - Module 5 codelab - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 codelab - migrate to Cloud Run container with Docker
