@@ -3,7 +3,7 @@
 
 [Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelabs (free, online, self-paced, hands-on tutorials) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes, with this repo managing the samples from those codelabs.
 
-Codelabs begin with a "START" code base then walks developers through that migration step, resulting in a "FINISH" repo. If you made any mistakes along the way, you can always go back to START or compare your code with that in the FINISH folder to see the differences. Since another goal is to port to Python 3, some codelabs have a bonus section for that purpose.
+Each codelab begins with a "START" code base then walks developers through that migration step, resulting in a "FINISH" repo. If you make any mistakes along the way, you can always go back to START or compare your code with what's in the FINISH folder to see the differences. We also want to help you port to the Python 3 runtime, so some codelabs contain a bonus section for that purpose.
 
 > **NOTE:** These migrations are *only* for those with Python 2 (2.7) App Engine apps.
 > 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so there's no need for you to be here unless you help 2.x developers migrate.
@@ -12,7 +12,7 @@ Codelabs begin with a "START" code base then walks developers through that migra
 
 ## Prerequisites
 
-- A Google account (G Suite accounts may require administrator approval)
+- A Google account (Google Workspace/G Suite accounts may require administrator approval)
 - A Google Cloud (GCP) project with an active billing account
 - Familiarity with operating system terminal/shell commands
 - Familiarity with developing &amp; deploying Python 2 apps to App Engine
@@ -26,12 +26,12 @@ App Engine is not a free service. While you may not have needed to enable billin
 
 ## Why
 
-In App Engine's early days, users wanted Google to make the platform more flexible for developers and make their apps more portable. As a result, the team made significant changes to its 2nd-generation service which launched in 2017. As a result, all previously built-in services have been removed, and users can either choose from new standalone Cloud products as replacements or best-of-breed replacements in the broader developer community. Summary:
+In App Engine's early days, users wanted Google to make the platform more flexible for developers and make their apps more portable. As a result, the team made significant changes to its 2nd-generation service which [launched in 2018](https://cloud.google.com/blog/products/gcp/introducing-app-engine-second-generation-runtimes-and-python-3-7). As a result, there are no longer any built-in services, allowing users to select from standalone GCP products or best-of-breed 3rd-party tools used by the broader community. Summary:
 
 - **Legacy platform**: *Python 2* only, proprietary built-in services
 - **Next generation**: *Python 3* only, external services, flexible platform
 
-The key issue is that developers looking to port their applications to Python 3 have two **huge** hurdles to overcome, migrating from Python 2 to 3 **and** migrating from built-in services to alternatives. On top of this, direct replacements are not available for all built-in services; alternatives come in 3 flavors:
+While the 2nd-gen platform is more flexible, users of the legacy platform have two challenges: migrating to unbundled services as well as porting to a more modern language release. On top of this, direct replacements are not available for all formerly built-in services; alternatives come in 3 flavors:
 
 1. **Direct replacement**: Legacy services which matured into their own Cloud products *(e.g., App Engine Datastore is now [Cloud Datastore](http://cloud.google.com/datastore))*
 1. **Partial replacement**: Some aspects of legacy services *(e.g., [Cloud Tasks](http://cloud.google.com/tasks) supports App Engine **push** tasks; for pull tasks, [Cloud Pub/Sub](http://cloud.google.com/pubsub) is recommended; use of [Cloud MemoryStore with REDIS](http://cloud.google.com/memorystore/docs/redis) as an alternative for Memcache)*
@@ -44,25 +44,25 @@ These are the challenges developers are facing, so the purpose of this content i
 
 ## Progression
 
-All codelabs begin with code in a START repo folder and end with code in a FINISH folder, implementing a single migration. Upon completion, users should confirm their code (for the most part) matches what's in the FINISH folder. The baseline migration sample app is a barebones Python 2.7 App Engine app that uses the `webapp2` web framework plus the `ndb` Datastore library. This is what's in the Module 0 repo folder (link below).
+All codelabs begin with code in a START repo folder and end with code in a FINISH folder, implementing a single migration. Upon completion, users should confirm their code (for the most part) matches what's in the FINISH folder. The baseline migration sample app (Module 0; link below) is a barebones Python 2.7 App Engine app that uses the `webapp2` web framework plus the `ndb` Datastore library.
 
-1. From there (Module 0 is START), the Module 1 codelab migrates from the `webapp2` web framework to Flask where the Module 1 repo folder is the FINISH point.
+1. With _Module 0_ as the STARTing point, the Module 1 codelab migrates from the `webapp2` web framework to Flask, FINISHing at code matching the _Module 1_ repo.
+1. Next, STARTing with the _Module 1_ application code (yours or ours), _Module 2_ migrates from  `ndb` to Cloud NDB, ending with code matching the (Module 2) FINISH repo folder. There's also has a bonus migration to Python 3, resulting in another FINISH repo folder, this one deployed on the next-generation platform.
+1. _Your_ Python 2 apps may be using other built-in services like Task Queues or Memcache, so additional migration modules follow, some more optional than others, and not all are available yet (keep checking back here for updates).
 
-1. The Module 2 codelab STARTs with the Module 1 code (yours or ours) and migrates away from  `ndb` to Cloud NDB, and ends with the Module 2 (Python 2) FINISH repo folder. There's also has a bonus migration to Python 3, resulting in another FINISH repo folder. Once you've deployed this Python 3 code, your app is modernized and runs on the next-generation platform.
-
-Of course, things aren't as simple in real life. Your Python 2 App Engine app may also be using Task Queues, Memcache, or many of the other original App Engine built-in services, so there will be additional migration modules (not all are available yet). With some exceptions, there's no specific order of what migrations you do next. It's just what you (or your apps) need. Here's full summary of what's currently available:
+Beyond Module 2, with some exceptions, **there is no specific order** of what migrations modules to tackle next. It depends on your needs (and your applications').
 
 
-## Migrations
+## Migration modules
 
-The table below summarizes migration module resources currently available to developers along with a more detailed table of contents below. Be sure to check back for updates as more resources are planned.
+The table below summarizes migration module resources currently available along with a more detailed table of contents below. Be sure to check back for updates as more resources are planned.
 
 
 ### Summary table
 
 Module | Topic | Codelab | START repo | FINISH repo
 --- | --- | --- | --- | ---
-0|Baseline app| _N/A_ (no migration; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
+0|Baseline app| _N/A_ (no tutorial; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
 1|Migrate to Flask| [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-flask) (2.x)
 2|Migrate to Cloud NDB| [link](http://g.co/codelabs/pae-migrate-cloudndb) | Module 1 [code](/mod1-flask) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
 3|Migrate to Cloud Datastore| [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
