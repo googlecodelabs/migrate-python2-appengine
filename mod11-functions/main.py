@@ -12,10 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Flask, render_template, request
+from flask import render_template
 from google.cloud import ndb
 
-app = Flask(__name__)
 ds_client = ndb.Client()
 
 class Visit(ndb.Model):
@@ -34,8 +33,7 @@ def fetch_visits(limit):
         return (v.to_dict() for v in Visit.query().order(
                 -Visit.timestamp).fetch(limit))
 
-@app.route('/')
-def root():
+def visitme(request):
     'main application (GET) handler'
     store_visit(request.remote_addr, request.user_agent)
     visits = fetch_visits(10)
