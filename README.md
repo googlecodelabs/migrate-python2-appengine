@@ -5,8 +5,8 @@
 
 Each codelab begins with a "START" code base then walks developers through that migration step, resulting in a "FINISH" repo. If you make any mistakes along the way, you can always go back to START or compare your code with what's in the FINISH folder to see the differences. We also want to help you port to the Python 3 runtime, so some codelabs contain a bonus section for that purpose.
 
-> **NOTE:** These migrations are *only* for those with Python 2 (2.7) App Engine apps.
-> 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so there's no need for you to be here unless you help 2.x developers migrate.
+> **NOTE:** These migrations are *typically* aimed at Python 2 users
+> 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so only for **non**-legacy service migrations
 > 1. *Python 2.5 App Engine users*: to revive apps from the original 2.5 runtime, [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25), you must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) and get those apps running on Python 2.7 before attempting these migrations.
 
 
@@ -30,18 +30,23 @@ Furthermore, deploying to GCP serverless platforms incur [minor build and storag
 
 In App Engine's early days, users wanted Google to make the platform more flexible for developers and make their apps more portable. As a result, the team made significant changes to its 2nd-generation service which [launched in 2018](https://cloud.google.com/blog/products/gcp/introducing-app-engine-second-generation-runtimes-and-python-3-7). As a result, there are no longer any built-in services, allowing users to select from standalone GCP products or best-of-breed 3rd-party tools used by the broader community. Summary:
 
-- **Legacy platform**: *Python 2* only, proprietary built-in services
+- **Legacy platform**: *Python 2* only, legacy built-in services
 - **Next generation**: *Python 3* only, external services, flexible platform
 
-While the 2nd-gen platform is more flexible, users of the legacy platform have two challenges: migrating to unbundled services as well as porting to a more modern language release. On top of this, direct replacements are not available for all formerly built-in services; alternatives come in 3 flavors:
+While the 2nd-gen platform is more flexible, users of the legacy platform have two challenges:
+
+1. Migrate to unbundled/standalone services
+1. Porting to a modern language release
+
+Neither upgrade may be particularly straightforward and can only be done serially. On top of this, direct replacements are not available for all formerly built-in services; alternatives come in 3 flavors:
 
 1. **Direct replacement**: Legacy services which matured into their own Cloud products *(e.g., App Engine Datastore is now [Cloud Datastore](http://cloud.google.com/datastore))*
 1. **Partial replacement**: Some aspects of legacy services *(e.g., [Cloud Tasks](http://cloud.google.com/tasks) supports App Engine **push** tasks; for pull tasks, [Cloud Pub/Sub](http://cloud.google.com/pubsub) is recommended; use of [Cloud MemoryStore with REDIS](http://cloud.google.com/memorystore/docs/redis) as an alternative for Memcache)*
 1. **No replacement**: No direct replacement available, so third-party or other tools recommended *(e.g., Search, Images, Users, Email)*
 
-These are the challenges developers are facing, so the purpose of this content is to make this process more smooth and prescriptive. Review the [runtimes chart](https://cloud.google.com/appengine/docs/standard/runtimes) to see the legacy services and current migration recommendation. The [migration guide overview](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrating-services) has more information.
+These are the challenges developers are facing, so the purpose of this content is to reduce the friction in this process and make things more prescriptive. Review the [runtimes chart](https://cloud.google.com/appengine/docs/standard/runtimes) to see the legacy services and current migration recommendation. The [migration guide overview](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrating-services) has more information.
 
-> **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a next-gen service but is not within the scope of these tutorials. Developers who are curious can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments).
+> **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a next-gen service but is not within the scope of these tutorials. Curious developers can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments) to find out more. Also, many of the Flexible use cases can now be handled by [Cloud Run](http://cloud.google.com/run).
 
 
 ## Progression (START and FINISH)
@@ -62,7 +67,7 @@ The table below summarizes migration module resources currently available along 
 
 ### Summary table
 
-Module | Topic | Codelab | START folder | FINISH folder
+Module | Topic | Codelab | START here | FINISH here
 --- | --- | --- | --- | ---
 0|Baseline app| _N/A_ (no tutorial; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
 1|Migrate to Flask| [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-flask) (2.x)
