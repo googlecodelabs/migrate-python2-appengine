@@ -1,12 +1,12 @@
 # Python App Engine app migration
 ### To modern runtime, Cloud services, Python 3, and Cloud Run containers
 
-[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelabs (free, online, self-paced, hands-on tutorials) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes, with this repo managing the samples from those codelabs.
+[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelabs (free, online, self-paced, hands-on tutorials) and corresponding videos (when available) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes, with this repo managing the samples from those codelabs.
 
 Each codelab begins with a "START" code base then walks developers through that migration step, resulting in a "FINISH" repo. If you make any mistakes along the way, you can always go back to START or compare your code with what's in the FINISH folder to see the differences. We also want to help you port to the Python 3 runtime, so some codelabs contain a bonus section for that purpose.
 
 > **NOTE:** These migrations are *typically* aimed at Python 2 users
-> 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so only for **non**-legacy service migrations
+> 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so only look for **non**-legacy service migrations
 > 1. *Python 2.5 App Engine users*: to revive apps from the original 2.5 runtime, [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25), you must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) and get those apps running on Python 2.7 before attempting these migrations.
 
 
@@ -67,20 +67,20 @@ The table below summarizes migration module resources currently available along 
 
 ### Summary table
 
-Module | Topic | Codelab | START here | FINISH here
---- | --- | --- | --- | ---
-0|Baseline app| _N/A_ (no tutorial; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
-1|Migrate to Flask| [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-flask) (2.x)
-2|Migrate to Cloud NDB| [link](http://g.co/codelabs/pae-migrate-cloudndb) | Module 1 [code](/mod1-flask) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
-3|Migrate to Cloud Datastore| [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
-4|Migrate to Cloud Run with Docker| [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
-5|Migrate to Cloud Run with Buildpacks| [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
-6|Migrate to Cloud Firestore (app)| [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
-7|Add App Engine push tasks| [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
-8|Migrate to Cloud Tasks| [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
-9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| [link](http://g.co/codelabs/pae-migrate-py3dstasks) | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3dstasks) (3.x)
-10|Migrate to Cloud Firestore (data)| _N/A_ | _N/A_ | _TBD_
-11|Migrate to Cloud Functions| _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
+Module | Topic | Video | Codelab | START here | FINISH here
+--- | --- | --- | --- | --- | ---
+0|Baseline app| [link](http://twitter.com/googledevs/status/1407755281786867714?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_smsintro_201023&utm_content=-) | _N/A_ (no tutorial; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
+1|Migrate to Flask| _TBD_ | [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-flask) (2.x)
+2|Migrate to Cloud NDB| _TBD_ | [link](http://g.co/codelabs/pae-migrate-cloudndb) | Module 1 [code](/mod1-flask) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
+3|Migrate to Cloud Datastore| _TBD_ | [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
+4|Migrate to Cloud Run with Docker| _TBD_ | [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
+5|Migrate to Cloud Run with Buildpacks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
+6|Migrate to Cloud Firestore (app)| _TBD_ | [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
+7|Add App Engine push tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
+8|Migrate to Cloud Tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
+9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| _TBD_ | [link](http://g.co/codelabs/pae-migrate-py3dstasks) | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3dstasks) (3.x)
+10|Migrate to Cloud Firestore (data)| _TBD_ | _N/A_ | _N/A_ | _TBD_
+11|Migrate to Cloud Functions| _TBD_ | _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
 
 
 ### Table of contents
