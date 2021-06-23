@@ -1,4 +1,4 @@
-# Python 2 App Engine app migration
+# Python App Engine app migration
 ### To modern runtime, Cloud services, Python 3, and Cloud Run containers
 
 [Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelabs (free, online, self-paced, hands-on tutorials) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes, with this repo managing the samples from those codelabs.
@@ -23,6 +23,8 @@ Each codelab begins with a "START" code base then walks developers through that 
 
 App Engine is not a free service. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits) and as long as you stay within those limits, you won't incur any charges. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
 
+Furthermore, deploying to GCP serverless platforms incur [minor build and storage costs](https://cloud.google.com/appengine/pricing#pricing-for-related-google-cloud-products). [Cloud Build](https://cloud.google.com/build/pricing) has its own free quota as does [Cloud Storage](https://cloud.google.com/storage/pricing#cloud-storage-always-free). For greater transparency, Cloud Build builds your application image which is than sent to the [Cloud Container Registry](https://cloud.google.com/container-registry/pricing); storage of that image uses up some of that (Cloud Storage) quota as does network egress when transferring that image to the service you're deploying to. However you may live in region that does not have such a free tier, so be aware of your storage usage to minimize potential costs. (You may look at what storage you're using and how much, including deleting build artifacts via [your Cloud Storage browser](https://console.cloud.google.com/storage/browser).)
+
 
 ## Why
 
@@ -42,7 +44,7 @@ These are the challenges developers are facing, so the purpose of this content i
 > **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a next-gen service but is not within the scope of these tutorials. Developers who are curious can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments).
 
 
-## Progression
+## Progression (START and FINISH)
 
 All codelabs begin with code in a START repo folder and end with code in a FINISH folder, implementing a single migration. Upon completion, users should confirm their code (for the most part) matches what's in the FINISH folder. The baseline migration sample app (Module 0; link below) is a barebones Python 2.7 App Engine app that uses the `webapp2` web framework plus the `ndb` Datastore library.
 
@@ -87,7 +89,8 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Python 2 only
         - START:  [Module 0 code - Baseline](/mod0-baseline) (2.x)
         - FINISH: [Module 1 code - Framework](/mod1-flask) (2.x)
-    - NEXT: Module 2 - migrate to Cloud NDB
+    - NEXT:
+        - Module 2 - migrate to Cloud NDB
 
 
 - [Module 2 codelab](http://g.co/codelabs/pae-migrate-cloudndb): **Migrate from App Engine `ndb` to [Cloud NDB](https://googleapis.dev/python/python-ndb/latest)**
@@ -135,7 +138,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Module 11 - migrate to Cloud Functions
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 - migrate to Cloud Run container with Docker
-        - Module 6 - migrate to Cloud Firestore
+        - Module 6 - migrate to Cloud Firestore (app)
 
 - [Module 4 codelab](http://g.co/codelabs/pae-migrate-rundocker): **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Docker**
     - **Optional** migration
@@ -165,7 +168,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Module 7 - add App Engine (push) tasks
         - Module 11 - migrate to Cloud Functions
 
-- [Module 3 codelab](http://g.co/codelabs/pae-migrate-datastore): **Migrate from Cloud NDB to Cloud Datastore**
+- [Module 3 codelab](http://g.co/codelabs/pae-migrate-datastore): **Migrate from Cloud NDB to [Cloud Datastore](http://cloud.google.com/datastore)**
     - **Optional** migration
         - Recommended only if using Cloud Datastore elsewhere (GAE *or* non-App Engine) apps
         - Helps w/code consistency &amp; reusability, reduces maintenance costs
@@ -181,21 +184,48 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Module 11 - migrate to Cloud Functions
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 - migrate to Cloud Run container with Docker
-        - Module 6 - migrate to Cloud Firestore
+        - Module 6 - migrate to Cloud Firestore (app)
 
-- [Module 6 codelab](http://g.co/codelabs/pae-migrate-firestore): **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)**
-    - **Highly optional** migration (WARNING: infrequent/uncommon &amp; "expensive" migration)
+- [Module 6 codelab](http://g.co/codelabs/pae-migrate-firestore): **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)** (app)
+    - **Highly optional** migration
         - Requires new project &amp; Datastore has better write performance (currently)
         - If you **must have** Firestore's Firebase features
     - Python 3 only
         - START:  [Module 3 code - Cloud Datastore](/mod3b-datastore) (3.x)
         - FINISH: [Module 6 code - Cloud Firestore](/mod6-firestore) (3.x)
+    - NEXT:
+        - Module 10 - migrate to Cloud Firestore (data)
     - RECOMMENDED:
         - Module 7 - add App Engine (push) tasks
     - OTHER OPTIONS (in somewhat priority order):
         - Module 11 - migrate to Cloud Functions
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 - migrate to Cloud Run container with Docker
+
+- **Module 10 codelab** (TBD): **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)** (data)
+    - **Highly optional** migration
+        - Requires new project &amp; Datastore has better write performance (currently)
+        - If you **must have** Firestore's Firebase features
+    - Python 3 only
+    - RECOMMENDED:
+        - Module 7 - add App Engine (push) tasks
+    - OTHER OPTIONS (in somewhat priority order):
+        - Module 11 - migrate to Cloud Functions
+        - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
+        - Module 4 - migrate to Cloud Run container with Docker
+
+- **Module 11 codelab** (TBD): **Migrate from App Engine to [Cloud Functions](http://cloud.google.com/run)**
+    - **Optional** migration
+        - Recommende for small apps or for breaking up large apps into multiple microservices
+    - Python 3 only
+        - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
+        - FINISH: [Module 11 code - Cloud Firestore](/mod11-functions) (3.x)
+    - RECOMMENDED:
+        - Module 7 - add App Engine (push) tasks
+    - OTHER OPTIONS (in somewhat priority order):
+        - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
+        - Module 4 - migrate to Cloud Run container with Docker
+        - Module 3 - migrate to Cloud Datastore
 
 
 ## Considerations for mobile developers

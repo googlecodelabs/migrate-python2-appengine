@@ -1,2 +1,2 @@
 flask==1.1.2
-google-cloud-datastore==2.1.2
+google-cloud-datastore==2.1.3
