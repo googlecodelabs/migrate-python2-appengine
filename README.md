@@ -78,7 +78,7 @@ Module | Topic | Video | Codelab | START here | FINISH here
 6|Migrate to Cloud Firestore (app)| _TBD_ | [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
 7|Add App Engine push tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
 8|Migrate to Cloud Tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
-9|Migrate to Python 3 (Cloud Datastore &amp; Cloud Tasks v2)| _TBD_ | [link](http://g.co/codelabs/pae-migrate-py3dstasks) | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3dstasks) (3.x)
+9|Migrate to Python 3, Cloud Firestore &amp; Cloud Tasks v2| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3fstasks) (3.x)
 10|Migrate to Cloud Firestore (data)| _TBD_ | _N/A_ | _N/A_ | _TBD_
 11|Migrate to Cloud Functions| _TBD_ | _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
 
@@ -130,20 +130,18 @@ If there is a logical codelab to do immediately after completing one, they will 
         - FINISH: [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - NEXT: Module 9 - migrate to Python 3 and Cloud Datastore
 
-- [Module 9 codelab](http://g.co/codelabs/pae-migrate-py3dstasks): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks app to a Python 3 Cloud Datastore app**
-    - **Mixed migration recommendation**
-        - Migrating to Python 3 is required, but...
-        - Migrating to Cloud Datastore is optional as Cloud NDB works on 3.x; it's to give you the experience of doing it
-        - This codelab includes the [Module 3 migration codelab](http://g.co/codelabs/pae-migrate-datastore), so skip if you complete this one
+- **Module 9 codelab** (TBD): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks (v1) app to a Python 3 Cloud Firestore &amp; Cloud Tasks (v2) app**
+    - **Optional** migrations
+        - Migrating to Python 3 is not required but recommended as Python 2 has been sunset
+        - Migrating to Cloud Firestore is *very* optional as Cloud NDB works on 3.x and most importantly, Cloud Firestore requires a completely new GCP project
     - Python 2
         - START:  [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - Python 3
-        - FINISH: [Module 9 code - Cloud Datastore &amp; Tasks](/mod9-py3dstasks) (3.x)
+        - FINISH: [Module 9 code - Cloud Firestore &amp; Tasks](/mod9-py3fstasks) (3.x)
     - RECOMMENDED:
         - Module 11 - migrate to Cloud Functions
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 - migrate to Cloud Run container with Docker
-        - Module 6 - migrate to Cloud Firestore (app)
 
 - [Module 4 codelab](http://g.co/codelabs/pae-migrate-rundocker): **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Docker**
     - **Optional** migration

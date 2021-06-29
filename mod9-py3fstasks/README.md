@@ -1,0 +1,3 @@
+# Module 9 - Migrate from Python 2 to 3 and Cloud NDB to Cloud Firestore
+
+This repo folder is the corresponding Python 3 code to the [Module 9 codelab](http://g.co/codelabs/pae-migrate-py3fstasks). The tutorial STARTs with the Python 2 code in the [Module 8 repo folder](/mod7-cloudtasks) and leads developers through migrating from Python 2 to 3, Cloud NDB to Cloud Firestore (skipping over a Cloud Datstore migration) plus any changes from Cloud Tasks v1 to v2, culminating in the code in this folder. One major addition to look for here vs. Module 8 is that App Engine `taskqueue` creates a `default` push queue while Cloud Tasks does not, so that now has to be done in code.
