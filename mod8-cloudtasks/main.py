@@ -17,13 +17,14 @@ import json
 import logging
 import time
 from flask import Flask, render_template, request
+import google.auth
 from google.cloud import ndb, tasks
 
 app = Flask(__name__)
 ds_client = ndb.Client()
 ts_client = tasks.CloudTasksClient()
 
-PROJECT_ID = 'PROJECT_ID'  # replace w/your own
+_, PROJECT_ID = google.auth.default()
 REGION_ID = 'REGION_ID'    # replace w/your own
 QUEUE_NAME = 'default'     # replace w/your own
 QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)

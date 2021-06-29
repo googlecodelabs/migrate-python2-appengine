@@ -16,32 +16,43 @@ from datetime import datetime
 import json
 import time
 from flask import Flask, render_template, request
-from google.cloud import datastore, tasks
+import google.auth
+from google.cloud import firestore, tasks
 
 app = Flask(__name__)
-ds_client = datastore.Client()
+fs_client = firestore.Client()
 ts_client = tasks.CloudTasksClient()
 
-PROJECT_ID = 'PROJECT_ID'  # replace w/your own
+_, PROJECT_ID = google.auth.default()
 REGION_ID = 'REGION_ID'    # replace w/your own
 QUEUE_NAME = 'default'     # replace w/your own
 QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)
+PATH_PREFIX = QUEUE_PATH.rsplit('/', 2)[0]
 
 def store_visit(remote_addr, user_agent):
-    'create new Visit entity in Datastore'
-    entity = datastore.Entity(key=ds_client.key('Visit'))
-    entity.update({
+    'create new Visit document in Firestore'
+    doc_ref = fs_client.collection('Visit')
+    doc_ref.add({
         'timestamp': datetime.now(),
         'visitor': '{}: {}'.format(remote_addr, user_agent),
     })
-    ds_client.put(entity)
+
+def create_queue_if():
+    'app-internal function creating default queue if it does not exist'
+    try:
+        ts_client.get_queue(name=QUEUE_PATH)
+    except Exception as e:
+        if 'does not exist' in str(e):
+            ts_client.create_queue(parent=PATH_PREFIX,
+                    queue={'name': QUEUE_PATH})
+    return True
 
 def fetch_visits(limit):
     'get most recent visits & add task to delete older visits'
-    query = ds_client.query(kind='Visit')
-    query.order = ['-timestamp']
-    data = list(query.fetch(limit=limit))
-    oldest = time.mktime(data[-1]['timestamp'].timetuple())
+    visits_ref = fs_client.collection('Visit')
+    visits = list(v.to_dict() for v in visits_ref.order_by('timestamp',
+            direction=firestore.Query.DESCENDING).limit(limit).stream())
+    oldest = time.mktime(visits[-1]['timestamp'].timetuple())
     oldest_str = time.ctime(oldest)
     print('Delete entities older than %s' % oldest_str)
     task = {
@@ -53,22 +64,27 @@ def fetch_visits(limit):
             },
         }
     }
-    ts_client.create_task(parent=QUEUE_PATH, task=task)
-    return data, oldest_str
+    if create_queue_if():
+        ts_client.create_task(parent=QUEUE_PATH, task=task)
+    return visits, oldest_str
+
+def _delete_docs(visits):
+    'app-internal generator deleteing all old FS visit documents'
+    for visit in visits:
+        visit.reference.delete()
+        yield visit.id
 
 @app.route('/trim', methods=['POST'])
 def trim():
     '(push) task queue handler to delete oldest visits'
     oldest = float(request.get_json().get('oldest'))
-    query = ds_client.query(kind='Visit')
-    query.add_filter('timestamp', '<', datetime.fromtimestamp(oldest))
-    query.keys_only()
-    keys = list(visit.key for visit in query.fetch())
-    nkeys = len(keys)
-    if nkeys:
-        print('Deleting %d entities: %s' % (
-                nkeys, ', '.join(str(k.id) for k in keys)))
-        ds_client.delete_multi(keys)
+    query = fs_client.collection('Visit')
+    visits = list(query.where('timestamp', '<',
+            datetime.fromtimestamp(oldest)).stream())
+    nvisits = len(visits)
+    if nvisits:
+        print('Deleting %d entities: ' % nvisits, end='')
+        print(', '.join(str(v_id) for v_id in _delete_docs(visits)))
     else:
         print('No entities older than: %s' % time.ctime(oldest))
     return ''   # need to return SOME string w/200
