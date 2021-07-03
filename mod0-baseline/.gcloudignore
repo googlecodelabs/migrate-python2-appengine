@@ -9,14 +9,13 @@
 .gcloudignore
 
 # Ignore source code control maintenance files
-.git
+.git/
 .gitignore
 .hgignore
 .hg/
 
 # Python files
-*.pyc
-*.pyo
+*.py[cod]
 __pycache__/
 /setup.cfg
 

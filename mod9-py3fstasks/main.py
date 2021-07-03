@@ -37,7 +37,7 @@ def store_visit(remote_addr, user_agent):
         'visitor': '{}: {}'.format(remote_addr, user_agent),
     })
 
-def create_queue_if():
+def _create_queue_if():
     'app-internal function creating default queue if it does not exist'
     try:
         ts_client.get_queue(name=QUEUE_PATH)
@@ -64,7 +64,7 @@ def fetch_visits(limit):
             },
         }
     }
-    if create_queue_if():
+    if _create_queue_if():
         ts_client.create_task(parent=QUEUE_PATH, task=task)
     return visits, oldest_str
 
@@ -79,12 +79,11 @@ def trim():
     '(push) task queue handler to delete oldest visits'
     oldest = float(request.get_json().get('oldest'))
     query = fs_client.collection('Visit')
-    visits = list(query.where('timestamp', '<',
-            datetime.fromtimestamp(oldest)).stream())
-    nvisits = len(visits)
-    if nvisits:
-        print('Deleting %d entities: ' % nvisits, end='')
-        print(', '.join(str(v_id) for v_id in _delete_docs(visits)))
+    visits = query.where('timestamp', '<',
+            datetime.fromtimestamp(oldest)).stream()
+    dlist = ', '.join(str(v_id) for v_id in _delete_docs(visits))
+    if dlist:
+        print('Deleting %d entities: %s' % (dlist.count(',')+1, dlist))
     else:
         print('No entities older than: %s' % time.ctime(oldest))
     return ''   # need to return SOME string w/200

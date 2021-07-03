@@ -246,8 +246,8 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 - This repo, along with corresponding codelabs &amp; videos are complementary to the official docs &amp; code samples.
     - The [official Python 2 to 3 migration documentation](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3)
     - [Canonical migration code samples repo](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration)
-        - Example: [GAE `ndb` to Cloud NDB](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview)
-        - Example: [GAE `taskqueue` to Cloud Tasks](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/taskqueue)
+        - *Example:* [GAE `ndb` to Cloud NDB](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview) (similar to Module 2)
+        - *Example:* [GAE `taskqueue` to Cloud Tasks](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/taskqueue) (similar to Module 8)
 
 
 ## References
@@ -255,15 +255,14 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 - App Engine Migration
     - [Migrate from Python 2 to 3](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3)
     - [Migrate from App Engine `ndb` to Cloud NDB](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrate-to-cloud-ndb) (Module 2)
-    - [App Engine `ndb` to Cloud NDB official sample app](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview) (Module 2)
     - [Migrate from App Engine `taskqueue` to Cloud Tasks](http://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrate-to-cloud-ndb) (Modules 7-9)
-    - [App Engine `app.yaml` to Cloud Run `service.yaml` tool](http://googlecloudplatform.github.io/app-engine-cloud-run-converter) (Modules 4 and 5)
     - [Migrate from App Engine `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) ("Module -1"; only for reviving "dead" Python 2.5 apps for 2.7)
     - [Community contributed migration samples](https://github.com/GoogleCloudPlatform/appengine-python2-3-migration)
 
 - Python App Engine
-    - [Python 2 App Engine (Standard)](https://cloud.google.com/appengine/docs/standard/python/runtime)
-    - [Python 3 App Engine (Standard)](https://cloud.google.com/appengine/docs/standard/python3/runtime)
+    - [App Engine 1st vs. 2nd generation runtimes](https://cloud.google.com/appengine/docs/standard/runtimes)
+    - [Python 2 App Engine (Standard) runtime](https://cloud.google.com/appengine/docs/standard/python/runtime)
+    - [Python 3 App Engine (Standard) runtime](https://cloud.google.com/appengine/docs/standard/python3/runtime)
     - [Python App Engine (Flexible)](https://cloud.google.com/appengine/docs/flexible/python)
 
 - Google Cloud Platform (GCP)
