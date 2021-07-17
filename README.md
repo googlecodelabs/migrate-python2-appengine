@@ -70,7 +70,7 @@ The table below summarizes migration module resources currently available along 
 Module | Topic | Video | Codelab | START here | FINISH here
 --- | --- | --- | --- | --- | ---
 0|Baseline app| [link](http://twitter.com/googledevs/status/1407755281786867714?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_smsintro_201023&utm_content=-) | _N/A_ (no tutorial; just review the code) | _N/A_ | Module 0 [code](/mod0-baseline) (2.x)
-1|Migrate to Flask| _TBD_ | [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-flask) (2.x)
+1|Migrate to Flask| _TBD_ | [link](http://g.co/codelabs/pae-migrate-flask) | Module 0 [code](/mod0-baseline) (2.x) | Module 1 [code](/mod1-flask) (2.x) &amp; [code](/mod1b-flask) (3.x)
 2|Migrate to Cloud NDB| _TBD_ | [link](http://g.co/codelabs/pae-migrate-cloudndb) | Module 1 [code](/mod1-flask) (2.x) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x)
 3|Migrate to Cloud Datastore| _TBD_ | [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
 4|Migrate to Cloud Run with Docker| _TBD_ | [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
@@ -241,13 +241,18 @@ If your original app users does *not* have a user interface, i.e., mobile backen
     - [Firebase mobile &amp; web app platform](https://firebase.google.com) (and [Cloud Functions for Firebase](https://firebase.google.com/products/functions) [customized for Firebase])
 
 
-### Canonical code samples
+## Canonical code samples
 
 - This repo, along with corresponding codelabs &amp; videos are complementary to the official docs &amp; code samples.
     - The [official Python 2 to 3 migration documentation](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3)
     - [Canonical migration code samples repo](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration)
         - *Example:* [GAE `ndb` to Cloud NDB](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/ndb/overview) (similar to Module 2)
         - *Example:* [GAE `taskqueue` to Cloud Tasks](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/taskqueue) (similar to Module 8)
+
+
+## Accessing legacy service in second generation
+
+Legacy App Engine services created for the first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) are available on a limited basis for second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) as part of an early-access program. There is no video or codelab available yet, however, the Module 1 Flask migration [Python 2 sample](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. (See its README to sign-up if interested.)
 
 
 ## References

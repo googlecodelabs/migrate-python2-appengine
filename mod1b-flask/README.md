@@ -1,0 +1,5 @@
+# Module 1 - Migrate from `webapp2` to Flask
+
+This repo folder is the corresponding Python 3 code to the [Module 1 codelab](http://g.co/codelabs/pae-migrate-flask). The tutorial STARTs with the Python 2 code in the [Module 0 repo folder](/mod0-baseline) and leads developers through migrating away from App Engine's `webapp2` web framework to Flask, culminating in the code in the [mod1-flask](/mod1-flask) folder. That is followed by a BONUS migration to Python 3, culminating in the code in *this* (`mod1b-flask`) folder. In the [next (Module 2) codelab](http://g.co/codelabs/pae-migrate-cloudndb), you will convert this app from the bundled `ndb` library to the Cloud NDB library for Datastore access.
+
+**NOTE**: Accessing a legacy service such as App Engine `ndb` from Python 3 (and next generation App Engine in general) is currently in private preview and requires access. Please complete [this form](https://docs.google.com/forms/d/e/1FAIpQLSd1hFLA2UFSYwIMxm9ZI3pwigORZBgjJRH0qrnhtE7nvhhRCQ/viewform) to register for this early-access program. Doing so opts you into the preview and give you access to the documentation.
