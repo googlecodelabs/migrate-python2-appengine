@@ -31,7 +31,9 @@ Furthermore, deploying to GCP serverless platforms incur [minor build and storag
 In App Engine's early days, users wanted Google to make the platform more flexible for developers and make their apps more portable. As a result, the team made significant changes to its 2nd-generation service which [launched in 2018](https://cloud.google.com/blog/products/gcp/introducing-app-engine-second-generation-runtimes-and-python-3-7). As a result, there are no longer any built-in services, allowing users to select from standalone GCP products or best-of-breed 3rd-party tools used by the broader community. Summary:
 
 - **Legacy platform**: *Python 2* only, legacy built-in services
-- **Next generation**: *Python 3* only, external services, flexible platform
+- **Next generation**: *Python 3* only, use standalone services, flexible platform, some* built-in services available
+
+<sup>*</sup> see [Legacy services](#accessing-legacy-services-in-second-generation) section below
 
 While the 2nd-gen platform is more flexible, users of the legacy platform have two challenges:
 
@@ -250,9 +252,9 @@ If your original app users does *not* have a user interface, i.e., mobile backen
         - *Example:* [GAE `taskqueue` to Cloud Tasks](https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/appengine/standard/migration/taskqueue) (similar to Module 8)
 
 
-## Accessing legacy service in second generation
+## Accessing legacy services in second generation
 
-Legacy App Engine services created for the first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) are available on a limited basis for second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) as part of an early-access program. There is no video or codelab available yet, however, the Module 1 Flask migration [Python 2 sample](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. (See its README to sign-up if interested.)
+Some legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available on a limited basis to second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) as part of an early-access program. There is no video or codelab available yet, however the Module 1 Flask migration [Python 2 sample](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. (See its README to sign-up if interested.)
 
 
 ## References
