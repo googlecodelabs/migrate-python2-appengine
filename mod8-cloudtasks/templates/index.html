@@ -12,7 +12,7 @@
 {% endfor %}
 </ul>
 
-{% if oldest %}
+{% if oldest is defined %}
     <b>Deleting visits older than:</b> {{ oldest }}</p>
 {% endif %}
 </body>

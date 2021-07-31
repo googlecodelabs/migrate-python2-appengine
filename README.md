@@ -78,11 +78,12 @@ Module | Topic | Video | Codelab | START here | FINISH here
 4|Migrate to Cloud Run with Docker| _TBD_ | [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
 5|Migrate to Cloud Run with Buildpacks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
 6|Migrate to Cloud Firestore (app)| _TBD_ | [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
-7|Add App Engine push tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code]() (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
+7|Add App Engine push tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code](/mod1-flask) (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
 8|Migrate to Cloud Tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
 9|Migrate to Python 3, Cloud Firestore &amp; Cloud Tasks v2| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3fstasks) (3.x)
 10|Migrate to Cloud Firestore (data)| _TBD_ | _N/A_ | _N/A_ | _TBD_
 11|Migrate to Cloud Functions| _TBD_ | _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
+12|Add App Engine `memcache`| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12a-memcache) (2.x)
 
 
 ### Table of contents
