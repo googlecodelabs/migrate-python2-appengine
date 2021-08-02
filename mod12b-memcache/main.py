@@ -13,10 +13,11 @@
 # limitations under the License.
 
 from flask import Flask, render_template, request
-from google.appengine.api import memcache
+from google.appengine.api import memcache, wrap_wsgi_app
 from google.appengine.ext import ndb
 
 app = Flask(__name__)
+app.wsgi_app = wrap_wsgi_app(app.wsgi_app)
 HOUR = 3600
 
 class Visit(ndb.Model):

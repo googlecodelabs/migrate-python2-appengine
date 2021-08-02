@@ -48,7 +48,7 @@ Neither upgrade may be particularly straightforward and can only be done seriall
 
 These are the challenges developers are facing, so the purpose of this content is to reduce the friction in this process and make things more prescriptive. Review the [runtimes chart](https://cloud.google.com/appengine/docs/standard/runtimes) to see the legacy services and current migration recommendation. The [migration guide overview](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrating-services) has more information.
 
-> **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a next-gen service but is not within the scope of these tutorials. Curious developers can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments) to find out more. Also, many of the Flexible use cases can now be handled by [Cloud Run](http://cloud.google.com/run).
+> **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a next-gen service but is not within the scope of these tutorials. Curious developers can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments) to find out more. Also, many of the Flexible use cases can now be handled by [Cloud Run](http://cloud.run).
 
 
 ## Progression (START and FINISH)
@@ -78,12 +78,12 @@ Module | Topic | Video | Codelab | START here | FINISH here
 4|Migrate to Cloud Run with Docker| _TBD_ | [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
 5|Migrate to Cloud Run with Buildpacks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
 6|Migrate to Cloud Firestore (app)| _TBD_ | [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
-7|Add App Engine push tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code](/mod1-flask) (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
+7|Add App Engine `taskqueue` push tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code](/mod1-flask) (2.x) | Module 7 [code](/mod7-gaetasks) (2.x)
 8|Migrate to Cloud Tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
 9|Migrate to Python 3, Cloud Firestore &amp; Cloud Tasks v2| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3fstasks) (3.x)
 10|Migrate to Cloud Firestore (data)| _TBD_ | _N/A_ | _N/A_ | _TBD_
 11|Migrate to Cloud Functions| _TBD_ | _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
-12|Add App Engine `memcache`| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12a-memcache) (2.x)
+12|Add App Engine `memcache`| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12a-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x)
 
 
 ### Table of contents
@@ -146,7 +146,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 - migrate to Cloud Run container with Docker
 
-- [Module 4 codelab](http://g.co/codelabs/pae-migrate-rundocker): **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Docker**
+- [Module 4 codelab](http://g.co/codelabs/pae-migrate-rundocker): **Migrate from App Engine to Cloud Run with Docker**
     - **Optional** migration
         - "Containerize" your app (migrate your app to a container) with Docker
     - Python 2
@@ -161,7 +161,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Module 7 - add App Engine (push) tasks
         - Module 11 - migrate to Cloud Functions
 
-- [Module 5 codelab](http://g.co/codelabs/pae-migrate-runbldpks): **Migrate from App Engine to [Cloud Run](http://cloud.google.com/run) with Cloud Buildpacks**
+- [Module 5 codelab](http://g.co/codelabs/pae-migrate-runbldpks): **Migrate from App Engine to Cloud Run with Cloud Buildpacks**
     - **Optional** migration
         - "Containerize" your app (migrate your app to a container) with...
         - [Cloud Buildpacks]() which lets you containerize your app without `Dockerfile`s
@@ -220,7 +220,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 - migrate to Cloud Run container with Docker
 
-- **Module 11 codelab** (TBD): **Migrate from App Engine to [Cloud Functions](http://cloud.google.com/run)**
+- **Module 11 codelab** (TBD): **Migrate from App Engine to Cloud Functions**
     - **Optional** migration
         - Recommende for small apps or for breaking up large apps into multiple microservices
     - Python 3 only
@@ -255,7 +255,7 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 
 ## Accessing legacy services in second generation
 
-Some legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available on a limited basis to second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) as part of an early-access program. There is no video or codelab available yet, however the Module 1 Flask migration [Python 2 sample](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. (See its README to sign-up if interested.)
+Some legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available on a limited basis to second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) as part of an early-access program. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample ](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, the Module 12 addition of App Engine `memcache` [Python 2 sample](/mod12a-memcache) is also available in [Python 3](/mod12b-memcache). See their respective `README` files for more info and to sign-up if interested.
 
 
 ## References
