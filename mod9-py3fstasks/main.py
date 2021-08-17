@@ -69,7 +69,7 @@ def fetch_visits(limit):
     return visits, oldest_str
 
 def _delete_docs(visits):
-    'app-internal generator deleteing all old FS visit documents'
+    'app-internal generator deleting old FS visit documents'
     for visit in visits:
         visit.reference.delete()
         yield visit.id
