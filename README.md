@@ -29,7 +29,7 @@ Each codelab begins with a "START" code base then walks developers through that 
 
 App Engine, Cloud Functions, and Cloud Run are not free services. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits) and as long as you stay within those limits, you won't incur any charges. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
 
-Furthermore, deploying to GCP serverless platforms incur [minor build and storage costs](https://cloud.google.com/appengine/pricing#pricing-for-related-google-cloud-products). [Cloud Build](https://cloud.google.com/build/pricing) has its own free quota as does [Cloud Storage](https://cloud.google.com/storage/pricing#cloud-storage-always-free). For greater transparency, Cloud Build builds your application image which is than sent to the [Cloud Container Registry](https://cloud.google.com/container-registry/pricing) or [Artifact Registry](https://cloud.google.com/artifact-registry/pricing), its successor; storage of that image uses up some of that (Cloud Storage) quota as does network egress when transferring that image to the service you're deploying to. However you may live in region that does not have such a free tier, so be aware of your storage usage to minimize potential costs. (You may look at what storage you're using and how much, including deleting build artifacts via [your Cloud Storage browser](https://console.cloud.google.com/storage/browser).)
+Furthermore, deploying to GCP serverless platforms incur [minor build and storage costs](https://cloud.google.com/appengine/pricing#pricing-for-related-google-cloud-products). [Cloud Build](https://cloud.google.com/build/pricing) has its own free quota as does [Cloud Storage](https://cloud.google.com/storage/pricing#cloud-storage-always-free). For greater transparency, Cloud Build builds your application image which is than sent to the [Cloud Container Registry](https://cloud.google.com/container-registry/pricing), or [Artifact Registry](https://cloud.google.com/artifact-registry/pricing), its successor; storage of that image uses up some of that (Cloud Storage) quota as does network egress when transferring that image to the service you're deploying to. However you may live in region that does not have such a free tier, so be aware of your storage usage to minimize potential costs. (You may look at what storage you're using and how much, including deleting build artifacts via [your Cloud Storage browser](https://console.cloud.google.com/storage/browser).)
 
 
 ## Why
@@ -83,9 +83,9 @@ Module | Topic | Video | Codelab | START here | FINISH here
 3|Migrate to Cloud Datastore| [link](http://twitter.com/googledevs/status/1422966928910393347?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudds_201003&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
 4|Migrate to Cloud Run with Docker| [link](https://twitter.com/googledevs/status/1428041270702735362?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcrdckr_sms_201017&utm_content=-)| [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
 5|Migrate to Cloud Run with Buildpacks| [link](https://twitter.com/googledevs/status/1433113274984271875?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcrbdpk_sms_201031&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
-6|Migrate to Cloud Firestore (app)| _TBD_ | [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
-7|Add App Engine `taskqueue` push tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code](/mod1-flask) (2.x) | Module 7 [code](/mod7-gaetasks) (2.x) &amp; [code](/mod7b-gaetasks) (3.x)
-8|Migrate to Cloud Tasks| _TBD_ | [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
+6|Migrate to Cloud Firestore (app)| [link](http://youtu.be/wNs36kukVOQ?list=PL2pQQBHvYcs0PEecTcLD9_VaLvuhK0_VQ?utm_source=youtube&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudfsam_sms_201014&utm_content=info_card) | [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
+7|Add App Engine `taskqueue` push tasks| [link](https://twitter.com/googledevs/status/1443410302113099778?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrgaetasks_sms_201028&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code](/mod1-flask) (2.x) | Module 7 [code](/mod7-gaetasks) (2.x) &amp; [code](/mod7b-gaetasks) (3.x)
+8|Migrate to Cloud Tasks| [link](https://twitter.com/googledevs/status/1450960021018267656?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudtasks_sms_201112&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
 9|Migrate to Python 3, Cloud Firestore &amp; Cloud Tasks v2| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3fstasks) (3.x)
 10|Migrate to Cloud Firestore (data)| _TBD_ | _N/A_ | _N/A_ | _TBD_
 11|Migrate to Cloud Functions| _TBD_ | _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
@@ -196,12 +196,11 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Module 11 - migrate to Cloud Functions
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
         - Module 4 - migrate to Cloud Run container with Docker
-        - Module 6 - migrate to Cloud Firestore (app)
 
 - [Module 6 codelab](http://g.co/codelabs/pae-migrate-firestore): **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)** (app)
     - **Highly optional** migration
-        - Requires new project &amp; Datastore has better write performance (currently)
-        - If you **must have** Firestore's Firebase features
+        - Requires new project &amp; Datastore has better write performance (currently) and is a fully-supported product and will get new features, including some Firestore native features
+        - If you **must have** Firestore's Firebase features now and can't wait
     - Python 3 only
         - START:  [Module 3 code - Cloud Datastore](/mod3b-datastore) (3.x)
         - FINISH: [Module 6 code - Cloud Firestore](/mod6-firestore) (3.x)
@@ -261,7 +260,7 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 
 ## Accessing legacy services in second generation
 
-Some legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available on a limited basis to second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) as part of an early-access program. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample ](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, Python 3 editions are also available for Modules 7 and 12 which add usage of App Engine `taskqueue` and `memcache`, respectively. See their respective `README` files for more info and to sign-up if interested.
+Many legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available ([as of Sep 2021](https://twitter.com/googledevs/status/1445916786755571712) for second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) in a public preview. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample ](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, Python 3 editions are also available for Modules 7 and 12 which add usage of App Engine `taskqueue` and `memcache`, respectively.
 
 
 ## References
