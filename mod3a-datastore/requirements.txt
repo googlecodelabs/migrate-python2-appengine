@@ -1,2 +1,2 @@
-flask==1.1.2
+flask
 google-cloud-datastore==1.15.3

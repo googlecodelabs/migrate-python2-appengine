@@ -12,12 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import pickle
 from flask import Flask, render_template, request
-from google.appengine.api import memcache
-from google.appengine.ext import ndb
+from google.cloud import ndb
+import redis
 
 app = Flask(__name__)
+ds_client = ndb.Client()
 HOUR = 3600
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
+REDIS = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
 class Visit(ndb.Model):
     'Visit entity registers visitor IP address & timestamp'
@@ -26,12 +32,14 @@ class Visit(ndb.Model):
 
 def store_visit(remote_addr, user_agent):
     'create new Visit entity in Datastore'
-    Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
+    with ds_client.context():
+        Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
 
 def fetch_visits(limit):
     'get most recent visits'
-    return (v.to_dict() for v in Visit.query().order(
-            -Visit.timestamp).fetch(limit))
+    with ds_client.context():
+        return (v.to_dict() for v in Visit.query().order(
+                -Visit.timestamp).fetch(limit))
 
 @app.route('/')
 def root():
@@ -39,12 +47,13 @@ def root():
     # check for (hour-)cached visits
     ip_addr, usr_agt = request.remote_addr, request.user_agent
     visitor = '{}: {}'.format(ip_addr, usr_agt)
-    visits = memcache.get('visits')
+    rsp = REDIS.get('visits')
+    visits = pickle.loads(rsp) if rsp else None
 
     # register visit & run DB query if cache empty or new visitor
     if not visits or visits[0]['visitor'] != visitor:
         store_visit(ip_addr, usr_agt)
         visits = list(fetch_visits(10))
-        memcache.set('visits', visits, HOUR)  # set() not add()
+        REDIS.set('visits', pickle.dumps(visits), ex=HOUR)  # set() not add()
 
     return render_template('index.html', visits=visits)

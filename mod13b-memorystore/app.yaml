@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from google.appengine.ext import vendor
+runtime: python39
 
-# Set PATH to your libraries folder.
-PATH = 'lib'
-# Add libraries installed in the PATH folder.
-vendor.add(PATH)
+env_variables:
+    REDIS_HOST: 'YOUR_REDIS_HOST'
+    REDIS_PORT: 'YOUR_REDIS_PORT'
+
+vpc_access_connector:
+    name: projects/PROJECT_ID/locations/REGION/connectors/CONNECTOR
