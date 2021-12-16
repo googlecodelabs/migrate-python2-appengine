@@ -83,13 +83,14 @@ Module | Topic | Video | Codelab | START here | FINISH here
 3|Migrate to Cloud Datastore| [link](http://twitter.com/googledevs/status/1422966928910393347?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudds_201003&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-datastore) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; [code](/mod2b-cloudndb) (3.x) | Module 3 [code](/mod3a-datastore) (2.x) &amp; [code](/mod3b-datastore) (3.x)
 4|Migrate to Cloud Run with Docker| [link](https://twitter.com/googledevs/status/1428041270702735362?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcrdckr_sms_201017&utm_content=-)| [link](http://g.co/codelabs/pae-migrate-rundocker) | Module 2 [code](/mod2a-cloudndb) (2.x) &amp; Module 3 [code](/mod3b-datastore) (3.x) | Module 4 [code](/mod4a-rundocker) (2.x) &amp; [code](/mod4b-rundocker) (3.x)
 5|Migrate to Cloud Run with Buildpacks| [link](https://twitter.com/googledevs/status/1433113274984271875?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcrbdpk_sms_201031&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-runbldpks) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 5 [code](/mod5-runbldpks) (3.x)
-6|Migrate to Cloud Firestore (app)| [link](http://youtu.be/wNs36kukVOQ?list=PL2pQQBHvYcs0PEecTcLD9_VaLvuhK0_VQ?utm_source=youtube&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudfsam_sms_201014&utm_content=info_card) | [link](http://g.co/codelabs/pae-migrate-firestore) | Module 3 [code](/mod3b-datastore) (3.x) | Module 6 [code](/mod6-firestore) (3.x)
+6|Migrate to Cloud Firestore| _N/A_ | _N/A_ | Module 3 [code](/mod3b-datastore) (3.x) | _no work required; Datastore upgrade automatic_
 7|Add App Engine `taskqueue` push tasks| [link](https://twitter.com/googledevs/status/1443410302113099778?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrgaetasks_sms_201028&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-gaetasks) | Module 1 [code](/mod1-flask) (2.x) | Module 7 [code](/mod7-gaetasks) (2.x) &amp; [code](/mod7b-gaetasks) (3.x)
 8|Migrate to Cloud Tasks| [link](https://twitter.com/googledevs/status/1450960021018267656?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudtasks_sms_201112&utm_content=-) | [link](http://g.co/codelabs/pae-migrate-cloudtasks) | Module 7 [code](/mod7-gaetasks) (2.x) | Module 8 [code](/mod8-cloudtasks) (2.x)
-9|Migrate to Python 3, Cloud Firestore &amp; Cloud Tasks v2| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3fstasks) (3.x)
-10|Migrate to Cloud Firestore (data)| _TBD_ | _N/A_ | _N/A_ | _TBD_
+9|Migrate to Python 3, Cloud Datastore &amp; Cloud Tasks v2| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | _TBD_
+10|Migrate Datastore/Firestore data to another project| _TBD_ | _N/A_ | _N/A_ | _TBD_
 11|Migrate to Cloud Functions| _TBD_ | _TBD_ | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
 12|Add App Engine `memcache`| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x)
+13|Migrate to Cloud Memorystore| _TBD_ | _TBD_ | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x) | Module 13 [code](/mod13a-memorystore) (2.x) &amp; [code](/mod13b-memorystore) (3.x)
 
 
 ### Table of contents
@@ -139,14 +140,14 @@ If there is a logical codelab to do immediately after completing one, they will 
         - FINISH: [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - NEXT: Module 9 - migrate to Python 3 and Cloud Datastore
 
-- **Module 9 codelab** (TBD): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks (v1) app to a Python 3 Cloud Firestore &amp; Cloud Tasks (v2) app**
+- **Module 9 codelab** (TBD): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks (v1) app to a Python 3 Cloud Datastore &amp; Cloud Tasks (v2) app**
     - **Optional** migrations
         - Migrating to Python 3 is not required but recommended as Python 2 has been sunset
         - Migrating to Cloud Firestore is *very* optional as Cloud NDB works on 3.x and most importantly, Cloud Firestore requires a completely new GCP project
     - Python 2
         - START:  [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - Python 3
-        - FINISH: [Module 9 code - Cloud Firestore &amp; Tasks](/mod9-py3fstasks) (3.x)
+        - FINISH: _TBD_
     - RECOMMENDED:
         - Module 11 - migrate to Cloud Functions
         - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
@@ -190,34 +191,6 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Python 3
         - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
         - FINISH: [Module 3 code - Cloud Datastore](/mod3b-datastore) (3.x)
-    - RECOMMENDED:
-        - Module 7 - add App Engine (push) tasks
-    - OTHER OPTIONS (in somewhat priority order):
-        - Module 11 - migrate to Cloud Functions
-        - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
-        - Module 4 - migrate to Cloud Run container with Docker
-
-- [Module 6 codelab](http://g.co/codelabs/pae-migrate-firestore): **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)** (app)
-    - **Highly optional** migration
-        - Requires new project &amp; Datastore has better write performance (currently) and is a fully-supported product and will get new features, including some Firestore native features
-        - If you **must have** Firestore's Firebase features now and can't wait
-    - Python 3 only
-        - START:  [Module 3 code - Cloud Datastore](/mod3b-datastore) (3.x)
-        - FINISH: [Module 6 code - Cloud Firestore](/mod6-firestore) (3.x)
-    - NEXT:
-        - Module 10 - migrate to Cloud Firestore (data)
-    - RECOMMENDED:
-        - Module 7 - add App Engine (push) tasks
-    - OTHER OPTIONS (in somewhat priority order):
-        - Module 11 - migrate to Cloud Functions
-        - Module 5 - migrate to Cloud Run container with Cloud Buildpacks
-        - Module 4 - migrate to Cloud Run container with Docker
-
-- **Module 10 codelab** (TBD): **Migrate from Cloud Datastore to [Cloud Firestore](http://cloud.google.com/firestore)** (data)
-    - **Highly optional** migration
-        - Requires new project &amp; Datastore has better write performance (currently)
-        - If you **must have** Firestore's Firebase features
-    - Python 3 only
     - RECOMMENDED:
         - Module 7 - add App Engine (push) tasks
     - OTHER OPTIONS (in somewhat priority order):
