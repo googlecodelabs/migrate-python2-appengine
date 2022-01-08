@@ -17,10 +17,10 @@ import json
 import time
 from flask import Flask, render_template, request
 import google.auth
-from google.cloud import firestore, tasks
+from google.cloud import datastore, tasks
 
 app = Flask(__name__)
-fs_client = firestore.Client()
+ds_client = datastore.Client()
 ts_client = tasks.CloudTasksClient()
 
 _, PROJECT_ID = google.auth.default()
@@ -30,12 +30,13 @@ QUEUE_PATH = ts_client.queue_path(PROJECT_ID, REGION_ID, QUEUE_NAME)
 PATH_PREFIX = QUEUE_PATH.rsplit('/', 2)[0]
 
 def store_visit(remote_addr, user_agent):
-    'create new Visit document in Firestore'
-    doc_ref = fs_client.collection('Visit')
-    doc_ref.add({
+    'create new Visit entity in Datastore'
+    entity = datastore.Entity(key=ds_client.key('Visit'))
+    entity.update({
         'timestamp': datetime.now(),
         'visitor': '{}: {}'.format(remote_addr, user_agent),
     })
+    ds_client.put(entity)
 
 def _create_queue_if():
     'app-internal function creating default queue if it does not exist'
@@ -49,9 +50,9 @@ def _create_queue_if():
 
 def fetch_visits(limit):
     'get most recent visits & add task to delete older visits'
-    visits_ref = fs_client.collection('Visit')
-    visits = list(v.to_dict() for v in visits_ref.order_by('timestamp',
-            direction=firestore.Query.DESCENDING).limit(limit).stream())
+    query = ds_client.query(kind='Visit')
+    query.order = ['-timestamp']
+    visits = query.fetch(limit=limit)
     oldest = time.mktime(visits[-1]['timestamp'].timetuple())
     oldest_str = time.ctime(oldest)
     print('Delete entities older than %s' % oldest_str)
@@ -78,7 +79,7 @@ def _delete_docs(visits):
 def trim():
     '(push) task queue handler to delete oldest visits'
     oldest = float(request.get_json().get('oldest'))
-    query = fs_client.collection('Visit')
+    query = ds_client.collection('Visit')
     visits = query.where('timestamp', '<',
             datetime.fromtimestamp(oldest)).stream()
     dlist = ', '.join(str(v_id) for v_id in _delete_docs(visits))

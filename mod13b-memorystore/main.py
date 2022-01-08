@@ -12,34 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import datetime
 import os
 import pickle
 from flask import Flask, render_template, request
-from google.cloud import datastore
+from google.cloud import ndb
 import redis
 
 app = Flask(__name__)
-ds_client = datastore.Client()
+ds_client = ndb.Client()
 HOUR = 3600
 REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
 REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
 REDIS = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
+class Visit(ndb.Model):
+    'Visit entity registers visitor IP address & timestamp'
+    visitor   = ndb.StringProperty()
+    timestamp = ndb.DateTimeProperty(auto_now_add=True)
+
 def store_visit(remote_addr, user_agent):
     'create new Visit entity in Datastore'
-    entity = datastore.Entity(key=ds_client.key('Visit'))
-    entity.update({
-        'timestamp': datetime.now(),
-        'visitor': '{}: {}'.format(remote_addr, user_agent),
-    })
-    ds_client.put(entity)
+    with ds_client.context():
+        Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
 
 def fetch_visits(limit):
     'get most recent visits'
-    query = ds_client.query(kind='Visit')
-    query.order = ['-timestamp']
-    return query.fetch(limit=limit)
+    with ds_client.context():
+        return (v.to_dict() for v in Visit.query().order(
+                -Visit.timestamp).fetch(limit))
 
 @app.route('/')
 def root():
