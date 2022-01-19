@@ -1,2 +1,2 @@
 flask
-google-cloud-ndb==1.11.1
+google-cloud-ndb

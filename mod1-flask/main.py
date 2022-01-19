@@ -28,8 +28,7 @@ def store_visit(remote_addr, user_agent):
 
 def fetch_visits(limit):
     'get most recent visits'
-    return (v.to_dict() for v in Visit.query().order(
-            -Visit.timestamp).fetch(limit))
+    return Visit.query().order(-Visit.timestamp).fetch(limit)
 
 @app.route('/')
 def root():

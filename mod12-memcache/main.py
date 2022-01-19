@@ -30,8 +30,7 @@ def store_visit(remote_addr, user_agent):
 
 def fetch_visits(limit):
     'get most recent visits'
-    return (v.to_dict() for v in Visit.query().order(
-            -Visit.timestamp).fetch(limit))
+    return Visit.query().order(-Visit.timestamp).fetch(limit)
 
 @app.route('/')
 def root():
@@ -42,7 +41,7 @@ def root():
     visits = memcache.get('visits')
 
     # register visit & run DB query if cache empty or new visitor
-    if not visits or visits[0]['visitor'] != visitor:
+    if not visits or visits[0].visitor != visitor:
         store_visit(ip_addr, usr_agt)
         visits = list(fetch_visits(10))
         memcache.set('visits', visits, HOUR)  # set() not add()

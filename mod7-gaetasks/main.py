@@ -37,7 +37,7 @@ def fetch_visits(limit):
     oldest_str = time.ctime(oldest)
     logging.info('Delete entities older than %s' % oldest_str)
     taskqueue.add(url='/trim', params={'oldest': oldest})
-    return (v.to_dict() for v in data), oldest_str
+    return data, oldest_str
 
 @app.route('/trim', methods=['POST'])
 def trim():

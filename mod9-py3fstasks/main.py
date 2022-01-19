@@ -52,7 +52,7 @@ def fetch_visits(limit):
     'get most recent visits & add task to delete older visits'
     query = ds_client.query(kind='Visit')
     query.order = ['-timestamp']
-    visits = query.fetch(limit=limit)
+    visits = list(query.fetch(limit=limit))
     oldest = time.mktime(visits[-1]['timestamp'].timetuple())
     oldest_str = time.ctime(oldest)
     print('Delete entities older than %s' % oldest_str)
@@ -69,22 +69,19 @@ def fetch_visits(limit):
         ts_client.create_task(parent=QUEUE_PATH, task=task)
     return visits, oldest_str
 
-def _delete_docs(visits):
-    'app-internal generator deleting old FS visit documents'
-    for visit in visits:
-        visit.reference.delete()
-        yield visit.id
-
 @app.route('/trim', methods=['POST'])
 def trim():
     '(push) task queue handler to delete oldest visits'
     oldest = float(request.get_json().get('oldest'))
-    query = ds_client.collection('Visit')
-    visits = query.where('timestamp', '<',
-            datetime.fromtimestamp(oldest)).stream()
-    dlist = ', '.join(str(v_id) for v_id in _delete_docs(visits))
-    if dlist:
-        print('Deleting %d entities: %s' % (dlist.count(',')+1, dlist))
+    query = ds_client.query(kind='Visit')
+    query.add_filter('timestamp', '<', datetime.fromtimestamp(oldest))
+    query.keys_only()
+    keys = list(visit.key for visit in query.fetch())
+    nkeys = len(keys)
+    if nkeys:
+        print('Deleting %d entities: %s' % (
+                nkeys, ', '.join(str(k.id) for k in keys)))
+        ds_client.delete_multi(keys)
     else:
         print('No entities older than: %s' % time.ctime(oldest))
     return ''   # need to return SOME string w/200

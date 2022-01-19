@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pkg_resources
 from google.appengine.ext import vendor
 
 # Set PATH to your libraries folder.
 PATH = 'lib'
 # Add libraries installed in the PATH folder.
 vendor.add(PATH)
+# Add libraries to pkg_resources working set to find the distribution.
+pkg_resources.working_set.add_entry(PATH)

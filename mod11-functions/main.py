@@ -30,8 +30,7 @@ def store_visit(remote_addr, user_agent):
 def fetch_visits(limit):
     'get most recent visits'
     with ds_client.context():
-        return (v.to_dict() for v in Visit.query().order(
-                -Visit.timestamp).fetch(limit))
+        return Visit.query().order(-Visit.timestamp).fetch(limit)
 
 def visitme(request):
     'main application (GET) handler'

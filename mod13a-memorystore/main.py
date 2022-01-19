@@ -38,8 +38,7 @@ def store_visit(remote_addr, user_agent):
 def fetch_visits(limit):
     'get most recent visits'
     with ds_client.context():
-        return (v.to_dict() for v in Visit.query().order(
-                -Visit.timestamp).fetch(limit))
+        return Visit.query().order(-Visit.timestamp).fetch(limit)
 
 @app.route('/')
 def root():
@@ -51,7 +50,7 @@ def root():
     visits = pickle.loads(rsp) if rsp else None
 
     # register visit & run DB query if cache empty or new visitor
-    if not visits or visits[0]['visitor'] != visitor:
+    if not visits or visits[0].visitor != visitor:
         store_visit(ip_addr, usr_agt)
         visits = list(fetch_visits(10))
         REDIS.set('visits', pickle.dumps(visits), ex=HOUR)

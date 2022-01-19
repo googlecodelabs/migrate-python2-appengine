@@ -56,7 +56,7 @@ def fetch_visits(limit):
         }
     }
     ts_client.create_task(parent=QUEUE_PATH, task=task)
-    return (v.to_dict() for v in data), oldest_str
+    return data, oldest_str
 
 @app.route('/trim', methods=['POST'])
 def trim():

@@ -1,7 +1,7 @@
 # Modernizing Google Cloud serverless compute applications
 ### To the latest Cloud services and serverless platforms
 
-This is the corresponding repository to the [Serverless Migration Station](https://bit.ly/3xk2Swi) video series whose goal is to help users on a Google Cloud serverless compute platform modernize to newer Cloud products or other serverless compute platforms. Each modernization migration aims to feature a video, codelab (self-paced, hands-on tutorial), and code samples. The content initially focuses on App Engine and Google's earliest Cloud users.
+This is the corresponding repository to the [Serverless Migration Station](https://bit.ly/3xk2Swi) video series whose goal is to help users on a Google Cloud serverless compute platform modernize to newer Cloud products or other serverless compute platforms. Each modernization migration aims to feature a video, codelab (self-paced, hands-on tutorial), and code samples. The content initially focuses on App Engine and Google's earliest Cloud users. Read more about the [codelabs in this announcement](https://developers.googleblog.com/2021/03/modernizing-your-google-app-engine-applications.html?utm_source=ext&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_modernizegae_codelabsannounce_201031&utm_content=-) as well as [this one introducing the video series](https://developers.googleblog.com/2021/06/introducing-serverless-migration.html?utm_source=blog&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_smsintro_201023).
 
 [Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelabs (free, online, self-paced, hands-on tutorials) and corresponding videos (when available) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes, with this repo managing the samples from those codelabs. Codelab content typically falls into one of these three topics:
 
@@ -142,7 +142,7 @@ If there is a logical codelab to do immediately after completing one, they will 
 - **Module 9 codelab** (TBD): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks (v1) app to a Python 3 Cloud Datastore &amp; Cloud Tasks (v2) app**
     - **Optional** migrations
         - Migrating to Python 3 is not required but recommended as Python 2 has been sunset
-        - Migrating to Cloud Firestore is *very* optional as Cloud NDB works on 3.x and most importantly, Cloud Firestore requires a completely new GCP project
+        - Migrating to Cloud Datastore is optional as Cloud NDB works on 3.x
     - Python 2
         - START:  [Module 8 code - Cloud Tasks](/mod8-cloudtasks) (2.x)
     - Python 3
@@ -202,7 +202,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - Recommende for small apps or for breaking up large apps into multiple microservices
     - Python 3 only
         - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
-        - FINISH: [Module 11 code - Cloud Firestore](/mod11-functions) (3.x)
+        - FINISH: [Module 11 code - Cloud Functions](/mod11-functions) (3.x)
     - RECOMMENDED:
         - Module 7 - add App Engine (push) tasks
     - OTHER OPTIONS (in somewhat priority order):
