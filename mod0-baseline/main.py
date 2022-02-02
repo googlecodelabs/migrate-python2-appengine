@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# [START mod0_baseline]
 import os
 import webapp2
 from google.appengine.ext import ndb
@@ -41,3 +42,4 @@ class MainHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
 ], debug=True)
+# [END mod0_baseline]
