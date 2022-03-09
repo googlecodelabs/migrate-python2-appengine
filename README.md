@@ -85,6 +85,8 @@ Datastore | 2 [&rArr; 3 [&rArr; 6]] | Moving off App Engine `ndb` makes your app
 Memcache | [12 &rArr;] 13 | Moving off App Engine `memcache` makes your apps more portable, so the **Module 13** Cloud Memorystore (for Redis) migration is _recommended_ for those using `memcache`. Those unfamiliar with `memcache` should do **Module 12** first to add its usage to the sample app.
 Cloud Functions | 11 | Cloud Functions does not support Python 2, so after the Module 1 migration, you need to upgrade your app to Python 3 before attempting this migration, recommended if you have a very small App Engine app, or it has only one function/feature.
 Cloud Run | 4 or 5 | **Module 4** covers migrating to Cloud Run with Docker. Those unfamiliar with containers or do not wish to create/maintain a `Dockerfile` should do **Module 5**. Those doing **Module 4** will get additional information about Cloud Run in **Module 5** not covered in **Module 4**.
+Blobstore | [15 &rArr;] 16 | Moving off App Engine `blobstore` makes your apps more portable, so the **Module 16** Cloud Storage migration is _recommended_ for those using `blobstore`. Those unfamiliar with `blobstore` should do **Module 15** first to add its usage to the sample app.
+general migration | [6 &rArr;] 10 [&rArr; 14] | This series is more generic and not targeting a specific feature migration, but rather if you need to migrate your App Engine apps from one running project to another. It starts with **Module 6** if you need to migrate your code, say from Datastore to Firestore. **Module 10** is if you need to migrate your data from one project to another, and finally, **Module 14** is after you're done migrating your app, your data, or both, and need to migrate a running service on one GCP project to another.
 
 
 ## Migration modules
@@ -108,8 +110,11 @@ Module | Topic | Video | Codelab | START here | FINISH here
 9|Migrate to Python 3, Cloud Datastore &amp; Cloud Tasks v2| _TBD_ | _TBD_ | Module 8 [code](/mod8-cloudtasks) (2.x) | Module 9 [code](/mod9-py3dstasks)
 10|Migrate Datastore/Firestore data to another project| _TBD_ | _N/A_ | _N/A_ | _TBD_
 11|Migrate to Cloud Functions| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-11-functions?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudfuncs_sms_202006&utm_content=-) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
-12|Add App Engine `memcache`| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-12-memcache?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudfuncs_sms_202006&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x)
+12|Add App Engine `memcache`| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-12-memcache?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemcache_sms_202006&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x)
 13|Migrate to Cloud Memorystore| _TBD_ | _TBD_ | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x) | Module 13 [code](/mod13a-memorystore) (2.x) &amp; [code](/mod13b-memorystore) (3.x)
+14|Migrate service between projects| _TBD_ | _TBD_ | _TBD_ | _TBD_
+15|Add App Engine `blobstore`| _TBD_ | _TBD_ | Module 0 [code](/mod0-baseline) (2.x) | Module 15 [code](/mod15-blobstore) (2.x)
+16|Migrate to Cloud Storage| _TBD_ | _TBD_ | Module 15 [code](/mod15-blobstore) (2.x) | Module 16 [code](/mod16a-cloudstorage) (2.x)
 
 
 ### Table of contents
@@ -218,7 +223,7 @@ If there is a logical codelab to do immediately after completing one, they will 
 
 - [Module 11 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-11-functions?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudfuncs_sms_202006&utm_content=-): **Migrate from App Engine to Cloud Functions**
     - **Optional** migration
-        - Recommende for small apps or for breaking up large apps into multiple microservices
+        - Recommended for small apps or for breaking up large apps into multiple microservices
     - Python 3 only
         - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
         - FINISH: [Module 11 code - Cloud Functions](/mod11-functions) (3.x)
