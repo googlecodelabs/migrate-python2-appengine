@@ -114,7 +114,7 @@ Module | Topic | Video | Codelab | START here | FINISH here
 13|Migrate to Cloud Memorystore| _TBD_ | _TBD_ | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x) | Module 13 [code](/mod13a-memorystore) (2.x) &amp; [code](/mod13b-memorystore) (3.x)
 14|Migrate service between projects| _TBD_ | _TBD_ | _TBD_ | _TBD_
 15|Add App Engine `blobstore`| _TBD_ | _TBD_ | Module 0 [code](/mod0-baseline) (2.x) | Module 15 [code](/mod15-blobstore) (2.x)
-16|Migrate to Cloud Storage| _TBD_ | _TBD_ | Module 15 [code](/mod15-blobstore) (2.x) | Module 16 [code](/mod16a-cloudstorage) (2.x)
+16|Migrate to Cloud Storage| _TBD_ | _TBD_ | Module 15 [code](/mod15-blobstore) (2.x) | Module 16 [code](/mod16-cloudstorage) (2.x & 3.x)
 
 
 ### Table of contents

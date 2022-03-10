@@ -7,3 +7,8 @@ This repo folder is the corresponding code to the [Module 16 codelab](http://g.c
 1. Migrate from App Engine `blobstore` to Cloud Storage
 
 The reason why the web framework requires migration is because `blobstore` has dependencies on `webapp` and `webapp2`, so we could not start directly from a Flask app.
+
+This app is fully Python 2-3 compatible. To do a Python 3 deployment of this app:
+
+1. Edit `app.yaml` by enabling/uncommenting the `runtime: python39` line
+1. Delete all other lines in `app.yaml`, save, and deploy with `gcloud app deploy`
