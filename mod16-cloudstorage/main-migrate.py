@@ -13,14 +13,13 @@
 # limitations under the License.
 
 import io
-import logging
 
 from flask import (Flask, abort, redirect, render_template,
         request, send_file, url_for)
 from werkzeug.utils import secure_filename
 
 import google.auth
-from google.cloud import ndb, storage, exceptions
+from google.cloud import exceptions, ndb, storage
 
 app = Flask(__name__)
 ds_client = ndb.Client()
@@ -28,10 +27,6 @@ gcs_client = storage.Client()
 _, PROJECT_ID = google.auth.default()
 BUCKET = '%s.appspot.com' % PROJECT_ID
 
-
-def store_blob(fname, media):
-    blob = gcs_client.bucket(BUCKET).blob(fname)
-    blob.upload_from_file(media, content_type=media.content_type)
 
 
 class Visit(ndb.Model):
@@ -59,10 +54,11 @@ def fetch_visits(limit):
 def upload():
     'Upload blob (POST) handler'
     fname = None
-    uploaded_file = request.files.get('file', None)
-    if uploaded_file:
-        fname = secure_filename(uploaded_file.filename)
-        store_blob(fname, uploaded_file)
+    upload = request.files.get('file', None)
+    if upload:
+        fname = secure_filename(upload.filename)
+        blob = gcs_client.bucket(BUCKET).blob(fname)
+        blob.upload_from_file(upload, content_type=upload.content_type)
     store_visit(request.remote_addr, request.user_agent, fname)
     return redirect(url_for('root'), code=307)
 
@@ -73,7 +69,7 @@ def view(fname):
     blob = gcs_client.bucket(BUCKET).blob(fname)
     try:
         media = blob.download_as_bytes()
-    except exceptions.NotFound as e:
+    except exceptions.NotFound:
         abort(404)
     return send_file(io.BytesIO(media), mimetype=blob.content_type)
 
