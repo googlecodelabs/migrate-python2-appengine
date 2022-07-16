@@ -6,25 +6,25 @@
 # Modernizing Google Cloud serverless compute applications
 ### To the latest Cloud services and serverless platforms
 
-This is the corresponding repository to the [Serverless Migration Station](https://bit.ly/3xk2Swi) video series whose goal is to help users on a Google Cloud serverless compute platform modernize to newer Cloud products or other serverless compute platforms. Each modernization migration aims to feature a video, codelab (self-paced, hands-on tutorial), and code samples. The content initially focuses on App Engine and Google's earliest Cloud users. Read more about the [codelabs in this announcement](https://developers.googleblog.com/2021/03/modernizing-your-google-app-engine-applications.html?utm_source=ext&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_modernizegae_codelabsannounce_201031&utm_content=-) as well as [this one introducing the video series](https://developers.googleblog.com/2021/06/introducing-serverless-migration.html?utm_source=blog&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_smsintro_201023).
+This is the corresponding repository to the [Serverless Migration Station](https://bit.ly/3xk2Swi) video series whose goal is to help users on a Google Cloud serverless compute platform modernize to other Cloud or serverless products. Modernization steps generally feature a video, codelab (self-paced, hands-on tutorial), and code samples. The content initially focuses on App Engine and Google's earliest Cloud users. Read more about the [codelabs in this announcement](https://developers.googleblog.com/2021/03/modernizing-your-google-app-engine-applications.html?utm_source=ext&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_modernizegae_codelabsannounce_201031&utm_content=-) as well as [this one introducing the video series](https://developers.googleblog.com/2021/06/introducing-serverless-migration.html?utm_source=blog&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_smsintro_201023). This repo is for Python developers; there is another repo for Java developers.
 
-[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of codelabs (free, online, self-paced, hands-on tutorials) and corresponding videos (when available) to show developers how to perform individual migrations they can apply to modernize their apps for the latest runtimes, with this repo managing the samples from those codelabs. Codelab content typically falls into one of these three topics:
+[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of resources showing developers how to perform individual migrations that can be applied to modernize their apps for the latest runtimes. The content falls into one of these topics:
 
-1. Migrate from a legacy App Engine service to a Cloud equivalent product
-1. Migrate to a newer Cloud product, service, or API client library
-1. Migrate to another or newer Google Cloud serverless compute platform
+1. Migrate from a legacy App Engine service to a similar Cloud product
+1. Shift to another Cloud serverless compute platform (e.g., from App Engine to Cloud Run)
+1. General app, data, or service migration steps and best practices
 
-Each codelab begins with a "START" code base then walks developers through that migration step, resulting in a "FINISH" repo. If you make any mistakes along the way, you can always go back to START or compare your code with what's in the FINISH folder to see the differences. We also want to help you port to the Python 3 runtime, so some codelabs contain a bonus section for that purpose.
+Each codelab begins with a sample app in a "START" repo folder then walks developers through that migration, resulting in code in a "FINISH" repo. If you make mistakes along the way, you can always go back to START or compare your code with what's in the corresponding FINISH folder. The baseline apps are in Python 2, and since we also want to help you port to Python 3, some codelabs contain additional steps to do so.
 
-> **NOTE:** These migrations are *typically* aimed at Python 2 users
-> 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so only look for **non**-legacy service migrations
+> **NOTEs:**
+> 1. These migrations are *typically* aimed at our earliest users, e.g., Python 2
+> 1. *Python 3.x App Engine users*: You're *already* on the next-gen platform, so you would focus on migrating away from the legacy bundled services
 > 1. *Python 2.5 App Engine users*: to revive apps from the original 2.5 runtime, [deprecated in 2013](http://googleappengine.blogspot.com/2013/03/python-25-thanks-for-good-times.html) and [shutdown in 2017](https://cloud.google.com/appengine/docs/standard/python/python25), you must [migrate from `db` to `ndb`](http://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb) and get those apps running on Python 2.7 before attempting these migrations.
 
 
 ## Prerequisites
 
-- A Google account (Google Workspace/G Suite accounts may require administrator approval)
-- A Google Cloud (GCP) project with an active billing account
+- A Google account and Cloud (GCP) project with an active billing account
 - Familiarity with operating system terminal/shell commands
 - Familiarity with developing &amp; deploying Python 2 apps to App Engine
 - General skills in Python 2 and 3
@@ -32,34 +32,30 @@ Each codelab begins with a "START" code base then walks developers through that 
 
 ## Cost
 
-App Engine, Cloud Functions, and Cloud Run are not free services. While you may not have needed to enable billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits) and as long as you stay within those limits, you won't incur any charges. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
+App Engine, Cloud Functions, and Cloud Run are not free services. While you may not have enabled billing in App Engine's early days, [all applications now require an active billing account](https://cloud.google.com/appengine/docs/standard/payment-instrument) backed by a financial instrument (usually a credit card). Don't worry, App Engine (and other GCP products) still have an ["Always Free" tier](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits) and as long as you stay within those limits, you won't incur any charges. Also check the App Engine [pricing](https://cloud.google.com/appengine/pricing) and [quotas](https://cloud.google.com/appengine/quotas) pages for more information.
 
 Furthermore, deploying to GCP serverless platforms incur [minor build and storage costs](https://cloud.google.com/appengine/pricing#pricing-for-related-google-cloud-products). [Cloud Build](https://cloud.google.com/build/pricing) has its own free quota as does [Cloud Storage](https://cloud.google.com/storage/pricing#cloud-storage-always-free). For greater transparency, Cloud Build builds your application image which is than sent to the [Cloud Container Registry](https://cloud.google.com/container-registry/pricing), or [Artifact Registry](https://cloud.google.com/artifact-registry/pricing), its successor; storage of that image uses up some of that (Cloud Storage) quota as does network egress when transferring that image to the service you're deploying to. However you may live in region that does not have such a free tier, so be aware of your storage usage to minimize potential costs. (You may look at what storage you're using and how much, including deleting build artifacts via [your Cloud Storage browser](https://console.cloud.google.com/storage/browser).)
 
 
 ## Why
 
-In App Engine's early days, users wanted Google to make the platform more flexible for developers and make their apps more portable. As a result, the team made significant changes to its 2nd-generation service which [launched in 2018](https://cloud.google.com/blog/products/gcp/introducing-app-engine-second-generation-runtimes-and-python-3-7). As a result, there are no longer any built-in services, allowing users to select from standalone GCP products or best-of-breed 3rd-party tools used by the broader community. Summary:
+App Engine initially [elaunched in 2008](http://googleappengine.blogspot.com/2008/04/introducing-google-app-engine-our-new.html) ([video](http://youtu.be/3Ztr-HhWX1c)), providing a suite of bundled services making it convenient for developers to access a database (Datastore), caching (Memcache), independent task execution (TaskQueue), large "blob" storage (Blobstore) to allow for end-user file uploads or to serve large media files, and other companion services. However, apps leveraging those services can only run their apps on App Engine.
 
-- **Legacy platform**: *Python 2* only, legacy built-in services
-- **Next generation**: *Python 3* only, use standalone services, flexible platform, some* built-in services available
 
-<sup>*</sup> see [Legacy services](#accessing-legacy-services-in-second-generation) section below
+To increase app portability, its 2nd-generation service [launched in 2018](https://cloud.google.com/blog/products/gcp/introducing-app-engine-second-generation-runtimes-and-python-3-7), initially removing those legacy bundled services. The main reason to move to the 2nd generation service is that it allows developers to upgrade to the latest language runtimes, such as moving from Python 2 to 3 or Java 8 to 17. Unfortunately, it was mutually exclusive to do so, meaning while you could upgrade language releases, you lost access to those bundled services, making it a showstopper for many users.
 
-While the 2nd-gen platform is more flexible, users of the legacy platform have two challenges:
+However, due to their popularity _and_ to help users upgrade, the App Engine team restored access to many (but not all) of those services in Fall 2021. For more on this, see the [Legacy services](#accessing-legacy-services-in-second-generation) section below. As Google is continually striving to have the most [open cloud](https://cloud.google.com/open-cloud) on the market, and while many of those services are now available again, apps can _still_ be more portable if they migrated away from the legacy services to similar Cloud or 3rd-party oferings. Another issue with the bundled services is that they're only available in 2nd generation runtimes that have a 1st generation service (Python, Java, Go, PHP), excluding 2nd generation-only runtimes like Ruby and Node.js.
 
-1. Migrate to unbundled/standalone services
-1. Porting to a modern language release
+Once apps have moved away from App Engine bundled services to similar Cloud or 3rd-party services. apps are portable enough to:
 
-Neither upgrade may be particularly straightforward and can only be done serially. On top of this, direct replacements are not available for all formerly built-in services; alternatives come in 3 flavors:
+1. Run on the [2nd generation App Engine service](https://cloud.google.com/appengine/docs/standard/runtimes)
+1. Shift across to other serverless platforms, like [Cloud Functions](https://developers.googleblog.com/2022/04/how-can-app-engine-users-take-advantage-of-cloud-functions.html?utm_source=blog&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_mgrcloudfuncs_sms_202006) or Cloud Run ([with](https://developers.googleblog.com/2021/08/containerizing-google-app-engine-apps-for-cloud-run.html?utm_source=blog&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_mgrcrdckr_sms_201017) or [without](https://developers.googleblog.com/2021/09/an-easier-way-to-move-your-app-engine-to-cloud-run.html?utm_source=blog&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_mgrcrbdpk_sms_201031) Docker), or
+1. Move to VM-based services like [GKE](https://cloud.google.com/gke) or [Compute Engine](https://cloud.google.com/compute), or to other compute platforms
 
-1. **Direct replacement**: Legacy services which matured into their own Cloud products *(e.g., App Engine Datastore is now [Cloud Datastore](http://cloud.google.com/datastore))*
-1. **Partial replacement**: Some aspects of legacy services *(e.g., [Cloud Tasks](http://cloud.google.com/tasks) supports App Engine **push** tasks; for pull tasks, [Cloud Pub/Sub](http://cloud.google.com/pubsub) is recommended; use of [Cloud MemoryStore with REDIS](http://cloud.google.com/memorystore/docs/redis) as an alternative for Memcache)*
-1. **No replacement**: No direct replacement available, so third-party or other tools recommended *(e.g., Search, Images, Users, Email)*
-
-These are the challenges developers are facing, so the purpose of this content is to reduce the friction in this process and make things more prescriptive. Review the [runtimes chart](https://cloud.google.com/appengine/docs/standard/runtimes) to see the legacy services and current migration recommendation. The [migration guide overview](https://cloud.google.com/appengine/docs/standard/python/migrate-to-python3/migrating-services) has more information.
-
-> **NOTE:** App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a next-gen service but is not within the scope of these tutorials. Curious developers can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments) to find out more. Also, many of the Flexible use cases can now be handled by [Cloud Run](http://cloud.run).
+> **NOTEs:**
+> 1. App Engine ([Flexible](https://cloud.google.com/appengine/docs/flexible/python/runtime?hl=en#interpreter)) is a next-gen service but is not within the scope of these tutorials. Curious developers can compare App Engine [Standard vs. Flexible](https://cloud.google.com/appengine/docs/the-appengine-environments) to find out more.
+> 1. Many use cases for Flexible or a desire for containerization can be handled by [Cloud Run](http://cloud.run).
+> 1. Small apps or large monolithic apps broken up into multiple, independent microservices can consider migrating to [Cloud Functions](https://cloud.google.com/functions).
 
 
 ## Progression (what order to do things)
@@ -80,13 +76,15 @@ Topic | Module ordering | Description
 --- | --- | ---
 Baseline | 0 &rArr; 1 | Not a migration but a description of the baseline application (review this material before doing any migrations)
 Web framework | 1 &rArr; _everything else_ | Current App Engine runtimes do not come with a web framework, so this must be the first migration performed. All migrations below can be performed after this one.
+Bundled services | 17 | This module is for Python bundled services users interested in how to access those services from Python 3.
 Datastore | 2 [&rArr; 3 [&rArr; 6]] | Moving off App Engine `ndb` makes your apps more portable, so the **Module 2** Cloud NDB migration is _recommended_. **Module 3:** Migrating to Cloud Datastore (Firestore in Datastore mode) is _optional_ and only recommended if you have other code using Cloud Datastore. **Module 6**: Migrating to Cloud Firestore (Native mode) is generally _not recommended_ unless you must have the Firebase features it has, and those features will eventually be integrated into Cloud Datastore.
 (Push) Task Queues | [7 &rArr;] 8 [&rArr; 9] | Moving off App Engine `taskqueue` makes your apps more portable, so the **Module 8** Cloud Tasks migration is _recommended_ for those using push tasks. Those unfamiliar with push tasks should do **Module 7** first to add push tasks to the sample app. **Module 9:** Migrating to Cloud Datastore (Firestore in Datastore mode), Cloud Tasks (v2), and Python 3 is _optional_ and only recommended if you have other code using Cloud Datastore and considering upgrading to Python 3.
+(Pull) Task Queues | [18 &rArr;] 19 | Moving off App Engine `taskqueue` makes your apps more portable, so the **Module 19** Cloud Pub/Sub migration is _recommended_ for those using pull tasks. The app is also ported to Python 3. Those unfamiliar with pull tasks should do **Module 18** first to add pull tasks to the sample app.
 Memcache | [12 &rArr;] 13 | Moving off App Engine `memcache` makes your apps more portable, so the **Module 13** Cloud Memorystore (for Redis) migration is _recommended_ for those using `memcache`. Those unfamiliar with `memcache` should do **Module 12** first to add its usage to the sample app.
 Cloud Functions | 11 | Cloud Functions does not support Python 2, so after the Module 1 migration, you need to upgrade your app to Python 3 before attempting this migration, recommended if you have a very small App Engine app, or it has only one function/feature.
 Cloud Run | 4 or 5 | **Module 4** covers migrating to Cloud Run with Docker. Those unfamiliar with containers or do not wish to create/maintain a `Dockerfile` should do **Module 5**. Those doing **Module 4** will get additional information about Cloud Run in **Module 5** not covered in **Module 4**.
 Blobstore | [15 &rArr;] 16 | Moving off App Engine `blobstore` makes your apps more portable, so the **Module 16** Cloud Storage migration is _recommended_ for those using `blobstore`. Those unfamiliar with `blobstore` should do **Module 15** first to add its usage to the sample app.
-general migration | [6 &rArr;] 10 [&rArr; 14] | This series is more generic and not targeting a specific feature migration, but rather if you need to migrate your App Engine apps from one running project to another. It starts with **Module 6** if you need to migrate your code, say from Datastore to Firestore. **Module 10** is if you need to migrate your data from one project to another, and finally, **Module 14** is after you're done migrating your app, your data, or both, and need to migrate a running service on one GCP project to another.
+General migration | 6 &rArr; 10 &rArr; 14 | This series is more generic and not targeting a specific feature migration, but rather if you need to migrate your App Engine apps from one running project to another. It starts with **Module 6** if you need to migrate your code, say from Datastore to Firestore. **Module 10** is if you need to migrate your data from one project to another, and finally, **Module 14** is after you're done migrating your app, your data, or both, and need to migrate a running service on one GCP project to another.
 
 
 ## Migration modules
@@ -111,11 +109,13 @@ Module | Topic | Video | Codelab | START here | FINISH here
 10|Migrate Datastore/Firestore data to another project| _TBD_ | _N/A_ | _N/A_ | _TBD_
 11|Migrate to Cloud Functions| [link](https://twitter.com/googledevs/status/1520206298834481153?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudfuncs_sms_202006&utm_content=-) | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-11-functions?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudfuncs_sms_202006&utm_content=-) | Module 2 [code](/mod2b-cloudndb) (3.x) | Module 11 [code](/mod11-functions) (3.x)
 12|Add App Engine `memcache`| [link](https://twitter.com/googledevs/status/1527303061953126402?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrmemcache_sms_202006&utm_content=-) | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-12-memcache?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemcache_sms_202006&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x)
-13|Migrate to Cloud Memorystore| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-13-memorystore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemorystore_sms_202029&utm_content=-) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x) | Module 13 [code](/mod13a-memorystore) (2.x) &amp; [code](/mod13b-memorystore) (3.x)
+13|Migrate to Cloud Memorystore| [link](https://twitter.com/googledevs/status/1537132939426799616?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrmemorystore_sms_202029&utm_content=-) | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-13-memorystore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemorystore_sms_202029&utm_content=-) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x) | Module 13 [code](/mod13a-memorystore) (2.x) &amp; [code](/mod13b-memorystore) (3.x)
 14|Migrate service between projects| _TBD_ | _TBD_ | _TBD_ | _TBD_
 15|Add App Engine `blobstore`| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-15-blobstore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrblobstore_sms_202029&utm_content=-) | Module 0 [code](/mod0-baseline) (2.x) | Module 15 [code](/mod15-blobstore) (2.x)
 16|Migrate to Cloud Storage| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-16-cloudstorage?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudstorage_sms_202029&utm_content=-) | Module 15 [code](/mod15-blobstore) (2.x) | Module 16 [code](/mod16-cloudstorage) (2.x & 3.x)
 17|Migrate to Python 3 bundled services| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 1 [code](/mod1b-flask) (3.x)
+18|Add App Engine `taskqueue` pull tasks| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 18 [code](/mod18-gaepull) (2.x)
+19|Migrate to Cloud Pub/Sub| _TBD_ | _TBD_ | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod9-pubsub) (3.x)
 
 
 ### Table of contents
@@ -149,15 +149,18 @@ If there is a logical codelab to do immediately after completing one, they will 
     - **Not a migration**: add GAE Task Queues to prepare for migration to Cloud Tasks
     - Python 2
         - START:  [Module 1 code - Framework](/mod1-flask)
-        - FINISH: [Module 7 code - GAE Task Queues](/mod7-gaetasks)
+        - FINISH: [Module 7 code - GAE TaskQueue (push tasks)](/mod7-gaetasks)
     - NEXT: Module 8 - migrate App Engine push tasks to Cloud Tasks
 
 - [Module 8 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-8-cloudtasks?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudtasks_sms_201112&utm_content=-): **Migrate from App Engine (push) Task Queues to [Cloud Tasks](http://cloud.google.com/tasks) v1**
-    - Note only covers push tasks... pull tasks will be handled in a different codelab.
     - Python 2
-        - START:  [Module 7 code - GAE Task Queues](/mod7-gaetasks)
+        - START:  [Module 7 code - GAE TaskQueue (push tasks)](/mod7-gaetasks)
         - FINISH: [Module 8 code - Cloud Tasks](/mod8-cloudtasks)
-    - NEXT: Module 9 - migrate to Python 3 and Cloud Datastore
+    - RECOMMENDED:
+        - Module 9 - migrate to Python 3 and Cloud Datastore
+        - Module 18 - add App Engine TaskQueue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
+        - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
+        - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
 
 - **Module 9 codelab** (TBD): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks (v1) app to a Python 3 Cloud Datastore &amp; Cloud Tasks (v2) app**
     - **Optional** migrations
@@ -168,6 +171,24 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Python 3
         - FINISH: _TBD_
     - RECOMMENDED:
+        - Module 18 - add App Engine TaskQueue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
+        - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
+        - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
+
+- **Module 18 codelab** (TBD): **Add App Engine (pull) Task Queues to existing sample app**
+    - **Not a migration**: add GAE Task Queues to prepare for migration to Cloud Tasks
+    - Python 2
+        - START:  [Module 1 code - Framework](/mod1-flask)
+        - FINISH: [Module 18 code - GAE TaskQueue (pull tasks)](/mod18-gaepull)
+    - NEXT: Module 19 - migrate App Engine pull tasks to Cloud Pub/Sub
+
+- **Module 19 codelab** (TBD): **Migrate from App Engine (pull) Task Queues to [Cloud Pub/Sub](http://cloud.google.com/pubsub)**
+    - Python 2
+        - START:  [Module 18 code - GAE TaskQueue (pull tasks)](/mod18-gaepull)
+    - Python 3
+        - FINISH: [Module 19 code - Cloud Pub/Sub](/mod19-pubsub)
+    - RECOMMENDED:
+        - Module 7 - add App Engine TaskQueue push tasks (and migrate to Cloud Tasks in Module 8)
         - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
         - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
 
@@ -283,7 +304,7 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 
 ## Accessing legacy services in second generation
 
-Many legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available ([as of Sep 2021](https://twitter.com/googledevs/status/1445916786755571712) for second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) in a public preview. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample ](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, Python 3 editions are also available for Modules 7 and 12 which add usage of App Engine `taskqueue` and `memcache`, respectively.
+Many legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available ([as of Sep 2021](https://twitter.com/googledevs/status/1445916786755571712) for second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) in a public preview. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample ](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, Python 3 editions are also available for Modules 7 and 12 which add usage of App Engine `taskqueue` and `memcache`, respectively. Also see the [documentation on accessing bundled services from Python 3](https://cloud.google.com/appengine/docs/standard/python3/services/access).
 
 
 ## References

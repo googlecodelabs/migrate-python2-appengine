@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<title>VisitMe Example</title>
+<body>
+
+<h1>VisitMe example</h1>
+
+<h3>Top {{ limit }} visitors</h3>
+<table border=1 cellspacing=0 cellpadding=2>
+    <tr><th>Visitor</th><th>Visits</th></tr>
+{% for count in counts %}
+    <tr><td>{{ count.visitor|e }}</td><td align="center">{{ count.counter }}</td></tr>
+{% endfor %}
+</table>
+
+<h3>Last {{ limit }} visits</h3>
+<ul>
+{% for visit in visits %}
+    <li>{{ visit.timestamp.ctime() }} from {{ visit.visitor }}</li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
