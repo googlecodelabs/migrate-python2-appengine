@@ -304,7 +304,7 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 
 ## Accessing legacy services in second generation
 
-Many legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available ([as of Sep 2021](https://twitter.com/googledevs/status/1445916786755571712) for second generation runtimes (Python 3, Java 11, PHP 7, and Go 1.12 &amp; newer) in a public preview. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample ](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, Python 3 editions are also available for Modules 7 and 12 which add usage of App Engine `taskqueue` and `memcache`, respectively. Also see the [documentation on accessing bundled services from Python 3](https://cloud.google.com/appengine/docs/standard/python3/services/access).
+Many legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available ([as of Sep 2021](https://twitter.com/googledevs/status/1445916786755571712) for second generation runtimes (Python 3, Java 11/17, PHP 7/8, and Go 1.12 &amp; newer) in a public preview. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, Python 3 editions are also available for Modules 7 and 12 which add usage of App Engine `taskqueue` and `memcache`, respectively. Also see the [documentation on accessing bundled services from Python 3](https://cloud.google.com/appengine/docs/standard/python3/services/access).
 
 
 ## References
