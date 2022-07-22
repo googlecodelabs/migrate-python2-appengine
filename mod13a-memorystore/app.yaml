@@ -22,9 +22,9 @@ handlers:
 
 libraries:
 - name: grpcio
-  version: 1.0.0
+  version: latest
 - name: setuptools
-  version: 36.6.0
+  version: latest
 
 env_variables:
     REDIS_HOST: 'YOUR_REDIS_HOST'

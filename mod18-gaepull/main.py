@@ -58,7 +58,8 @@ def log_visitors():
     for task in tasks:
         visitor = task.payload
         tallies[visitor] = tallies.get(visitor, 0) + 1
-    q.delete_tasks(tasks)
+    if tasks:
+        q.delete_tasks(tasks)
 
     # increment those counts in Datastore and return
     for visitor in tallies:

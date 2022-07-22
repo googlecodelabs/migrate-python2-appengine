@@ -70,17 +70,19 @@ def log_visitors():
             acks.add(rcvd_msg.ack_id)
             visitor = rcvd_msg.message.data.decode('utf-8')
             tallies[visitor] = tallies.get(visitor, 0) + 1
-        psc_client.acknowledge(subscription=SUB_PATH, ack_ids=acks)
+        if acks:
+            psc_client.acknowledge(subscription=SUB_PATH, ack_ids=acks)
 
     # increment those counts in Datastore and return
-    with ds_client.context():
-        for visitor in tallies:
-            counter = VisitorCount.query(VisitorCount.visitor == visitor).get()
-            if not counter:
-                counter = VisitorCount(visitor=visitor, counter=0)
+    if tallies:
+        with ds_client.context():
+            for visitor in tallies:
+                counter = VisitorCount.query(VisitorCount.visitor == visitor).get()
+                if not counter:
+                    counter = VisitorCount(visitor=visitor, counter=0)
+                    counter.put()
+                counter.counter += tallies[visitor]
                 counter.put()
-            counter.counter += tallies[visitor]
-            counter.put()
     return 'DONE (with %d task[s] logging %d visitor[s])\r\n' % (len(msgs), len(tallies))
 
 
