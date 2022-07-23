@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#runtime: python310
-runtime: python27
-threadsafe: yes
-api_version: 1
+import pkg_resources
+from google.appengine.ext import vendor
 
-handlers:
-- url: /.*
-  script: main.app
-
-libraries:
-- name: setuptools
-  version: latest
-- name: grpcio
-  version: latest
+# Set PATH to your libraries folder.
+PATH = 'lib'
+# Add libraries installed in the PATH folder.
+vendor.add(PATH)
+# Add libraries to pkg_resources working set to find the distribution.
+pkg_resources.working_set.add_entry(PATH)

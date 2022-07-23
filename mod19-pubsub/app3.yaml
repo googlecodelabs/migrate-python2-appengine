@@ -12,17 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#runtime: python310
-runtime: python27
-threadsafe: yes
-api_version: 1
-
-handlers:
-- url: /.*
-  script: main.app
-
-libraries:
-- name: setuptools
-  version: latest
-- name: grpcio
-  version: latest
+runtime: python310

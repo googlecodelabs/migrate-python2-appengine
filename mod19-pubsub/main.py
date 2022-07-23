@@ -63,15 +63,20 @@ def log_visitors():
     # tally recent visitor counts from queue then delete those tasks
     tallies = {}
     acks = set()
-    with psc_client:
-        rsp = psc_client.pull(subscription=SUB_PATH, max_messages=TASKS)
-        msgs = rsp.received_messages
-        for rcvd_msg in msgs:
-            acks.add(rcvd_msg.ack_id)
-            visitor = rcvd_msg.message.data.decode('utf-8')
-            tallies[visitor] = tallies.get(visitor, 0) + 1
-        if acks:
-            psc_client.acknowledge(subscription=SUB_PATH, ack_ids=acks)
+    #with psc_client:
+    rsp = psc_client.pull(subscription=SUB_PATH, max_messages=TASKS)
+    msgs = rsp.received_messages
+    for rcvd_msg in msgs:
+        acks.add(rcvd_msg.ack_id)
+        visitor = rcvd_msg.message.data.decode('utf-8')
+        tallies[visitor] = tallies.get(visitor, 0) + 1
+    if acks:
+        psc_client.acknowledge(subscription=SUB_PATH, ack_ids=acks)
+    if hasattr(psc_client, 'close'):
+        try:
+            psc_client.close()
+        except AttributeError:
+            pass
 
     # increment those counts in Datastore and return
     if tallies:
