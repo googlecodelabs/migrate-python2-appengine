@@ -115,7 +115,7 @@ Module | Topic | Video | Codelab | START here | FINISH here
 16|Migrate to Cloud Storage| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-16-cloudstorage?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudstorage_sms_202029&utm_content=-) | Module 15 [code](/mod15-blobstore) (2.x) | Module 16 [code](/mod16-cloudstorage) (2.x & 3.x)
 17|Migrate to Python 3 bundled services| _TBD_ | [link](http://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-17-bundled?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrwormhole_sms_202002&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 1 [code](/mod1b-flask) (3.x)
 18|Add App Engine `taskqueue` pull tasks| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 18 [code](/mod18-gaepull) (2.x)
-19|Migrate to Cloud Pub/Sub| _TBD_ | _TBD_ | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod9-pubsub) (3.x)
+19|Migrate to Cloud Pub/Sub| _TBD_ | _TBD_ | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod19-pubsub) (2.x & 3.x)
 
 
 ### Table of contents
