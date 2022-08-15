@@ -111,10 +111,10 @@ Module | Topic | Video | Codelab | START here | FINISH here
 12|Add App Engine `memcache`| [link](https://twitter.com/googledevs/status/1527303061953126402?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrmemcache_sms_202006&utm_content=-) | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-12-memcache?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemcache_sms_202006&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x)
 13|Migrate to Cloud Memorystore| [link](https://twitter.com/googledevs/status/1537132939426799616?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrmemorystore_sms_202029&utm_content=-) | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-13-memorystore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemorystore_sms_202029&utm_content=-) | Module 12 [code](/mod12-memcache) (2.x) &amp; [code](/mod12b-memcache) (3.x) | Module 13 [code](/mod13a-memorystore) (2.x) &amp; [code](/mod13b-memorystore) (3.x)
 14|Migrate service between projects| _TBD_ | _TBD_ | _TBD_ | _TBD_
-15|Add App Engine `blobstore`| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-15-blobstore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrblobstore_sms_202029&utm_content=-) | Module 0 [code](/mod0-baseline) (2.x) | Module 15 [code](/mod15-blobstore) (2.x)
-16|Migrate to Cloud Storage| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-16-cloudstorage?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudstorage_sms_202029&utm_content=-) | Module 15 [code](/mod15-blobstore) (2.x) | Module 16 [code](/mod16-cloudstorage) (2.x & 3.x)
+15|Add App Engine `blobstore`| [link](https://twitter.com/googledevs/status/1552384740052934657?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrblobstore_sms_202029&utm_content=-) | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-15-blobstore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrblobstore_sms_202029&utm_content=-) | Module 0 [code](/mod0-baseline) (2.x) | Module 15 [code](/mod15-blobstore) (2.x)
+16|Migrate to Cloud Storage| [link](https://twitter.com/googledevs/status/1559285905961123845?utm_source=twitter&utm_medium=unpaidsoc&utm_campaign=CDR_wes_aap-serverless_mgrcloudstorage_sms_202029&utm_content=-) | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-16-cloudstorage?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudstorage_sms_202029&utm_content=-) | Module 15 [code](/mod15-blobstore) (2.x) | Module 16 [code](/mod16-cloudstorage) (2.x & 3.x)
 17|Migrate to Python 3 bundled services| _TBD_ | [link](http://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-17-bundled?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrwormhole_sms_202002&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 1 [code](/mod1b-flask) (3.x)
-18|Add App Engine `taskqueue` pull tasks| _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 18 [code](/mod18-gaepull) (2.x)
+18|Add App Engine `taskqueue` pull tasks| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-18-gaepull?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaepull_sms_202013&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 18 [code](/mod18-gaepull) (2.x)
 19|Migrate to Cloud Pub/Sub| _TBD_ | _TBD_ | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod19-pubsub) (2.x & 3.x)
 
 
@@ -305,6 +305,14 @@ If your original app users does *not* have a user interface, i.e., mobile backen
 ## Accessing legacy services in second generation
 
 Many legacy App Engine first generation platform (Python 2, Java 8, PHP 5, and Go 1.11 &amp; older) services are available ([as of Sep 2021](https://twitter.com/googledevs/status/1445916786755571712) for second generation runtimes (Python 3, Java 11/17, PHP 7/8, and Go 1.12 &amp; newer) in a public preview. There are no videos or codelabs yet, however the Module 1 Flask migration using App Engine `ndb` [Python 2 sample](/mod1-flask) is available in [Python 3](/mod1b-flask) if you have access. Similarly, Python 3 editions are also available for Modules 7 and 12 which add usage of App Engine `taskqueue` and `memcache`, respectively. Also see the [documentation on accessing bundled services from Python 3](https://cloud.google.com/appengine/docs/standard/python3/services/access).
+
+
+## Community
+
+Python App Engine developers hang out in various online communities, including these:
+- [Slack](https://googlecloud-community.slack.com) (`#app-engine`, `#python`, and other channels); visit [this link](https://join.slack.com/t/googlecloud-community/shared_invite/zt-ywj8ieuc-BrAaHC~qe5IgelXS9vzNRA) to join
+- [Reddit](http://reddit.com) in the [Google Cloud](https://reddit.com/googlecloud) or [App Engine](https://reddit.com/appengine) subs (subReddits).
+- [App Engine mailing list](http://groups.google.com/group/google-appengine)
 
 
 ## References

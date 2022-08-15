@@ -21,6 +21,7 @@ LICENSE
 # Tests/results (not in .gitignore)
 noxfile.py
 test_translate.py
+maker.py
 pylintrc
 pylintrc.test
 
