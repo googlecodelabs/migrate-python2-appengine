@@ -69,7 +69,8 @@ def log_visitors():
             counter.put()
         counter.counter += tallies[visitor]
         counter.put()
-    return 'DONE (with %d task[s] logging %d visitor[s])\r\n' % (len(tasks), len(tallies))
+    return 'DONE (with %d task[s] logging %d visitor[s])\r\n' % (
+            len(tasks), len(tallies))
 
 
 @app.route('/')

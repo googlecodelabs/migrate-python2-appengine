@@ -63,7 +63,6 @@ def log_visitors():
     # tally recent visitor counts from queue then delete those tasks
     tallies = {}
     acks = set()
-    #with psc_client:
     rsp = psc_client.pull(subscription=SUB_PATH, max_messages=TASKS)
     msgs = rsp.received_messages
     for rcvd_msg in msgs:
@@ -72,11 +71,10 @@ def log_visitors():
         tallies[visitor] = tallies.get(visitor, 0) + 1
     if acks:
         psc_client.acknowledge(subscription=SUB_PATH, ack_ids=acks)
-    if hasattr(psc_client, 'close'):
-        try:
-            psc_client.close()
-        except AttributeError:
-            pass
+    try:
+        psc_client.close()
+    except AttributeError:  # special handler for grpcio<1.12.0
+        pass
 
     # increment those counts in Datastore and return
     if tallies:
@@ -88,7 +86,8 @@ def log_visitors():
                     counter.put()
                 counter.counter += tallies[visitor]
                 counter.put()
-    return 'DONE (with %d task[s] logging %d visitor[s])\r\n' % (len(msgs), len(tallies))
+    return 'DONE (with %d task[s] logging %d visitor[s])\r\n' % (
+            len(msgs), len(tallies))
 
 
 @app.route('/')
