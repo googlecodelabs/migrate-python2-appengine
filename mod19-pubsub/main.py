@@ -73,7 +73,7 @@ def log_visitors():
         psc_client.acknowledge(subscription=SUB_PATH, ack_ids=acks)
     try:
         psc_client.close()
-    except AttributeError:  # special handler for grpcio<1.12.0
+    except AttributeError:  # special Py2 handler for grpcio<1.12.0
         pass
 
     # increment those counts in Datastore and return

@@ -33,12 +33,15 @@ def make_top():
         print('Topic %r already exists at %r' % (TOPIC, TOP_PATH))
 
 def make_sub():
-    with psc_client:
-        try:
-            sub = psc_client.create_subscription(name=SUB_PATH, topic=TOP_PATH)
-            print('Subscription created %r (%s)' % (SBSCR, sub.name))
-        except exceptions.AlreadyExists:
-            print('Subscription %r already exists at %r' % (SBSCR, SUB_PATH))
+    try:
+        sub = psc_client.create_subscription(name=SUB_PATH, topic=TOP_PATH)
+        print('Subscription created %r (%s)' % (SBSCR, sub.name))
+    except exceptions.AlreadyExists:
+        print('Subscription %r already exists at %r' % (SBSCR, SUB_PATH))
+    try:
+        psc_client.close()
+    except AttributeError:  # special Py2 handler for grpcio<1.12.0
+        pass
 
 make_top()
 make_sub()

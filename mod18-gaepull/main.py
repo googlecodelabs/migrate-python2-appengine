@@ -19,7 +19,8 @@ from google.appengine.ext import ndb
 HOUR = 3600
 LIMIT = 10
 TASKS = 1000
-QUEUE = 'pullq'
+QNAME = 'pullq'
+QUEUE = taskqueue.Queue(QNAME)
 app = Flask(__name__)
 
 
@@ -31,8 +32,7 @@ class Visit(ndb.Model):
 def store_visit(remote_addr, user_agent):
     'create new Visit in Datastore and queue request to bump visitor count'
     Visit(visitor='{}: {}'.format(remote_addr, user_agent)).put()
-    q = taskqueue.Queue(QUEUE)
-    q.add(taskqueue.Task(payload=remote_addr, method='PULL'))
+    QUEUE.add(taskqueue.Task(payload=remote_addr, method='PULL'))
 
 def fetch_visits(limit):
     'get most recent visits'
@@ -53,13 +53,12 @@ def log_visitors():
     'worker processes recent visitor counts and updates them in Datastore'
     # tally recent visitor counts from queue then delete those tasks
     tallies = {}
-    q = taskqueue.Queue(QUEUE)
-    tasks = q.lease_tasks(HOUR, TASKS)
+    tasks = QUEUE.lease_tasks(HOUR, TASKS)
     for task in tasks:
         visitor = task.payload
         tallies[visitor] = tallies.get(visitor, 0) + 1
     if tasks:
-        q.delete_tasks(tasks)
+        QUEUE.delete_tasks(tasks)
 
     # increment those counts in Datastore and return
     for visitor in tallies:
