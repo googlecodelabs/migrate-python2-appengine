@@ -8,6 +8,9 @@
 #
 .gcloudignore
 
+# Special files in this dir
+main-migrate.py
+
 # Source code control files
 .git/
 .gitignore
@@ -20,7 +23,6 @@ LICENSE
 
 # Tests/results (not in .gitignore)
 noxfile.py
-test_translate.py
 pylintrc
 pylintrc.test
 

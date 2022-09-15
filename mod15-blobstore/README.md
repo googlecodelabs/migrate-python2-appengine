@@ -1,6 +1,6 @@
 # Module 15 - Add usage of App Engine `blobstore` to `webapp2 ndb` sample app
 
-This repo folder is the corresponding code to the (forthcoming) Module 15 codelab. The tutorial STARTs with the Python 2 code in the [Module 0 repo folder](/mod0-baseline) and leads developers through adding use of App Engine `blobstore`. Unlike other sample apps, this does not use the default Django templating system, but instead, uses Jinja2, which is supported in `webapp2_extras`.
+This repo folder is the corresponding code to the [Module 15 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-15-blobstore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrblobstore_sms_202029&utm_content=-). The tutorial STARTs with the Python 2 code in the [Module 0 repo folder](/mod0-baseline) and leads developers through adding use of App Engine `blobstore`, resulting in the code in _this_ folder. Unlike other sample apps, this does not use the default Django templating system, but instead, uses Jinja2, which is supported in `webapp2_extras`.
 
 Blobstore evolved into [Google Cloud Storage](https://cloud.google.com/storage), and all blobs/files created using the Blobstore API go into the default Cloud Storage bucket for your project. It's named the same as the `appspot` domain name given to your app. For example, if your project is named `my-project`, your default bucket would be `my-project.appspot.com`. The default GCS bucket name is programmatically accessible via `google.appengine.api.app_identity.get_default_gcs_bucket_name()`.
 

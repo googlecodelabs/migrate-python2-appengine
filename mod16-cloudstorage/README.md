@@ -2,7 +2,7 @@
 
 ## Migrations
 
-This repo folder is the corresponding code to the [Module 16 codelab](http://g.co/codelabs/pae-migrate-blobstore). The tutorial STARTs with the Python 2 code in the [Module 15 repo folder](/mod15-blobstore) and leads developers through a set of migrations, culminating in the code in this folder. In addition to migrating to Cloud Storage, a few others are done to get from Modules 15 to 16... here is the complete list:
+This repo folder is the corresponding code to the [Module 16 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-16-cloudstorage?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudstorage_sms_202029&utm_content=-). The tutorial STARTs with the Python 2 code in the [Module 15 repo folder](/mod15-blobstore) and leads developers through a set of migrations, culminating in the code in _this_ folder. In addition to migrating to Cloud Storage, a few others are done to get from Modules 15 to 16... here is the complete list:
 
 1. Migrate from App Engine `webapp2` to Flask
 1. Migrate from App Engine `ndb` to Cloud NDB

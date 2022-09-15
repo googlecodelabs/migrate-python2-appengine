@@ -8,6 +8,9 @@
 #
 .gcloudignore
 
+# Special files in this dir
+maker.py
+
 # Source code control files
 .git/
 .gitignore
@@ -20,8 +23,6 @@ LICENSE
 
 # Tests/results (not in .gitignore)
 noxfile.py
-test_translate.py
-maker.py
 pylintrc
 pylintrc.test
 
