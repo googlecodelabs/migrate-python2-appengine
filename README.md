@@ -84,6 +84,7 @@ Memcache | [12 &rArr;] 13 | Moving off App Engine `memcache` makes your apps mor
 Cloud Functions | 11 | Cloud Functions does not support Python 2, so after the Module 1 migration, you need to upgrade your app to Python 3 before attempting this migration, recommended if you have a very small App Engine app, or it has only one function/feature.
 Cloud Run | 4 or 5 | **Module 4** covers migrating to Cloud Run with Docker. Those unfamiliar with containers or do not wish to create/maintain a `Dockerfile` should do **Module 5**. Those doing **Module 4** will get additional information about Cloud Run in **Module 5** not covered in **Module 4**.
 Blobstore | [15 &rArr;] 16 | Moving off App Engine `blobstore` makes your apps more portable, so the **Module 16** Cloud Storage migration is _recommended_ for those using `blobstore`. Those unfamiliar with `blobstore` should do **Module 15** first to add its usage to the sample app.
+Users | [20 &rArr;] 21 | Moving off App Engine `users` makes your apps more portable, so the **Module 21** Cloud Storage migration is _recommended_ for those using `users`. Those unfamiliar with `users` should do **Module 20** first to add its usage to the sample app.
 General migration | 6 &rArr; 10 &rArr; 14 | This series is more generic and not targeting a specific feature migration, but rather if you need to migrate your App Engine apps from one running project to another. It starts with **Module 6** if you need to migrate your code, say from Datastore to Firestore. **Module 10** is if you need to migrate your data from one project to another, and finally, **Module 14** is after you're done migrating your app, your data, or both, and need to migrate a running service on one GCP project to another.
 
 
@@ -116,6 +117,8 @@ Module | Topic | Video | Codelab | START here | FINISH here
 17|Migrate to Python 3 bundled services| _TBD_ | [link](http://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-17-bundled?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrwormhole_sms_202002&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 1 [code](/mod1b-flask) (3.x)
 18|Add App Engine `taskqueue` pull tasks| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-18-gaepull?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaepull_sms_202013&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 18 [code](/mod18-gaepull) (2.x)
 19|Migrate to Cloud Pub/Sub| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-19-pubsub?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrpubsub_sms_202016&utm_content=-) | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod19-pubsub) (2.x & 3.x)
+20|Add App Engine `users` | _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 20 [code](/mod20-gaeusers) (2.x)
+21|Migrate to Cloud Identity Platform | _TBD_ | _TBD_ | Module 20 [code](/mod20-gaeusers) (2.x) | _TBD_
 
 
 ### Table of contents

@@ -3,7 +3,11 @@
 <head>
 <title>VisitMe Example</title>
 </head>
+
 <body>
+<p>
+Welcome, {{ who }} <code>{{ admin }}</code> <button id="loginbtn">{{ sign }}</button>
+</p><hr>
 
 <h1>VisitMe example</h1>
 <h3>Last 10 visits</h3>
@@ -13,8 +17,10 @@
 {% endfor %}
 </ul>
 
-{% if oldest is defined %}
-    <b>Deleting visits older than:</b> {{ oldest }}</p>
-{% endif %}
+<script>
+document.getElementById("loginbtn").onclick = () => {
+    window.location.href = '{{ link }}';
+};
+</script>
 </body>
 </html>
