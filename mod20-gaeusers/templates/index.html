@@ -3,10 +3,10 @@
 <head>
 <title>VisitMe Example</title>
 </head>
-
 <body>
 <p>
-Welcome, {{ who }} <code>{{ admin }}</code> <button id="loginbtn">{{ sign }}</button>
+Welcome, {{ who }} <code>{{ admin }}</code>
+<button id="logbtn">{{ sign }}</button>
 </p><hr>
 
 <h1>VisitMe example</h1>
@@ -18,7 +18,7 @@ Welcome, {{ who }} <code>{{ admin }}</code> <button id="loginbtn">{{ sign }}</bu
 </ul>
 
 <script>
-document.getElementById("loginbtn").onclick = () => {
+document.getElementById("logbtn").onclick = () => {
     window.location.href = '{{ link }}';
 };
 </script>

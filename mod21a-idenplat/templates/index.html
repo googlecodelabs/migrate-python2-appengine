@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<title>VisitMe Example</title>
+
+<script type="module">
+// import Firebase module attributes
+import {
+        initializeApp
+} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+import {
+        GoogleAuthProvider,
+        getAuth,
+        onAuthStateChanged,
+        signInWithPopup,
+        signOut
+} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+
+// Firebase config: at least 'apiKey' & 'authDomain' are required; go to
+// console.firebase.google.com/project/PROJECT_ID/settings/general/web OR
+// console.firebase.google.com/project/_/settings/general/web & pick project
+var firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+};
+
+// initialize Firebase app & auth components
+initializeApp(firebaseConfig);
+var auth = getAuth();
+var provider = new GoogleAuthProvider();
+
+// define login and logout button functions
+function login() {
+    signInWithPopup(auth, provider);
+};
+
+function logout() {
+    signOut(auth);
+};
+
+// check if admin & switch to logout button on login; reset everything on logout
+onAuthStateChanged(auth, async (user) => {
+    if (user && user != null) {
+        var email = user.email;
+        who.innerHTML = email;
+        logbtn.onclick = logout;
+        logbtn.innerHTML = "Logout";
+        var idToken = await user.getIdToken();
+        var rsp = await fetch("/is_admin", {
+                method: "POST",
+                headers: {Authorization: idToken}
+        });
+        var data = await rsp.json();
+        if (data.admin) {
+            admin.style.display = "inline";
+        }
+    } else {
+        who.innerHTML = "user";
+        admin.style.display = "none";
+        logbtn.onclick = login;
+        logbtn.innerHTML = "Login";
+    }
+});
+</script>
+</head>
+
+<body>
+<p>
+Welcome, <span id="who"></span> <span id="admin"><code>(admin)</code></span>
+<button id="logbtn"></button>
+</p><hr>
+
+<h1>VisitMe example</h1>
+<h3>Last 10 visits</h3>
+<ul>
+{% for visit in visits %}
+    <li>{{ visit.timestamp.ctime() }} from {{ visit.visitor }}</li>
+{% endfor %}
+</ul>
+
+<script>
+var who    = document.getElementById("who");
+var admin  = document.getElementById("admin");
+var logbtn = document.getElementById("logbtn");
+</script>
+</body>
+</html>

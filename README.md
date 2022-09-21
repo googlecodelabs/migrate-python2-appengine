@@ -118,7 +118,7 @@ Module | Topic | Video | Codelab | START here | FINISH here
 18|Add App Engine `taskqueue` pull tasks| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-18-gaepull?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaepull_sms_202013&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 18 [code](/mod18-gaepull) (2.x)
 19|Migrate to Cloud Pub/Sub| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-19-pubsub?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrpubsub_sms_202016&utm_content=-) | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod19-pubsub) (2.x & 3.x)
 20|Add App Engine `users` | _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 20 [code](/mod20-gaeusers) (2.x)
-21|Migrate to Cloud Identity Platform | _TBD_ | _TBD_ | Module 20 [code](/mod20-gaeusers) (2.x) | _TBD_
+21|Migrate to Cloud Identity Platform | _TBD_ | _TBD_ | Module 20 [code](/mod20-gaeusers) (2.x) |  Module 21 [code](/mod21a-idenplat) (2.x) &amp; [code](/mod21b-idenplat) (3.x)
 
 
 ### Table of contents

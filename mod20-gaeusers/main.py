@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from flask import Flask, render_template, request
-from google.appengine.api import app_identity, users
+from google.appengine.api import users
 from google.appengine.ext import ndb
 
 app = Flask(__name__)
@@ -45,8 +45,10 @@ def root():
         'who':   user.nickname(),
         'admin': '(admin)' if users.is_current_user_admin() else '',
         'sign':  'Logout',
-        'link':  '/_ah/logout?continue=https://%s/' % \
-                app_identity.get_default_version_hostname()
+        'link':  '/_ah/logout?continue=%s://%s/' % (
+                      request.environ['wsgi.url_scheme'],
+                      request.environ['HTTP_HOST'],
+                  ),  # alternative to users.create_logout_url()
     } if user else {  # not logged in
         'who':   'user',
         'admin': '',
@@ -55,5 +57,5 @@ def root():
     }
 
     # add visits to context and render template
-    context['visits'] = visits
+    context['visits'] = visits  # display whether logged in or not
     return render_template('index.html', **context)

@@ -1,0 +1,3 @@
+# Module 21 - Migrate from App Engine `users` to Cloud Identity Platform
+
+This repo folder is the corresponding Python 2 code to the _forthcoming_ Module 21 codelab. The tutorial STARTs with the Python 2 code in the [Module 20 repo folder](/mod20-gaeusers) and leads developers through a migration to Cloud Identity Platform, culminating in the code in this (`mod21a-idenplat`) folder. Also included is a migration from App Engine `ndb` to Google Cloud NDB, mirroring the content covered in [Module 2](http://g.co/codelabs/pae-migrate-cloudndb). There is also a Python 3 version of the app in the [Module 21b](/mod21b-idenplat) folder.

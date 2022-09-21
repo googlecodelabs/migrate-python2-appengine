@@ -1,0 +1,13 @@
+grpcio==1.0.0
+protobuf<3.18.0
+six>=1.13.0
+flask
+google-gax<0.13.0
+google-api-core==1.31.1
+google-api-python-client<=1.11.0
+google-auth<2.0dev
+google-cloud-datastore==1.15.3
+google-cloud-firestore==1.9.0
+google-cloud-ndb
+google-cloud-pubsub==1.7.0
+firebase-admin
