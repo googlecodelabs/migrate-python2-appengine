@@ -1,5 +1,5 @@
 flask
-google-api-python-client
 google-auth
 google-cloud-ndb
+google-cloud-resource-manager
 firebase-admin

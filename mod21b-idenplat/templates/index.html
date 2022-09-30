@@ -16,9 +16,11 @@ import {
         signOut
 } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
-// Firebase config: at least 'apiKey' & 'authDomain' are required; go to
-// console.firebase.google.com/project/PROJECT_ID/settings/general/web OR
-// console.firebase.google.com/project/_/settings/general/web & pick project
+// Firebase config:
+// 1a. Go to: console.cloud.google.com/customer-identity/providers
+// 1b. May be prompted to enable GCIP and upgrade from Firebase
+// 2. Click: "Application Setup Details" button
+// 3. Copy: 'apiKey' and 'authDomain' from 'config' variable
 var firebaseConfig = {
         apiKey: "YOUR_API_KEY",
         authDomain: "YOUR_AUTH_DOMAIN",
@@ -28,6 +30,7 @@ var firebaseConfig = {
 initializeApp(firebaseConfig);
 var auth = getAuth();
 var provider = new GoogleAuthProvider();
+//provider.setCustomParameters({prompt: 'select_account'});
 
 // define login and logout button functions
 function login() {

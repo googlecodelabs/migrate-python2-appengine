@@ -14,16 +14,20 @@
 
 from flask import Flask, render_template, request
 from google.auth import default
-from google.cloud import ndb
-from googleapiclient import discovery
+from google.cloud import ndb, resourcemanager
 from firebase_admin import auth, initialize_app
+
+# initialize Flask and Cloud NDB API client
+app = Flask(__name__)
+ds_client = ndb.Client()
+
 
 def _get_gae_admins():
     'return set of App Engine admins'
-    # setup constants for calling Cloud IAM Resource Manager
-    CREDS, PROJ_ID = default(  # Application Default Credentials and project ID
-            ['https://www.googleapis.com/auth/cloud-platform'])
-    IAM = discovery.build('cloudresourcemanager', 'v1', credentials=CREDS)
+    # setup constants for calling Cloud IAM Resource Manager API
+    _, PROJ_ID = default(  # Application Default Credentials and project ID
+            ['https://www.googleapis.com/auth/cloudplatformprojects.readonly'])
+    rm_client = resourcemanager.ProjectsClient()
     _TARGETS = frozenset((     # App Engine admin roles
             'roles/viewer',
             'roles/editor',
@@ -31,12 +35,12 @@ def _get_gae_admins():
             'roles/appengine.appAdmin',
     ))
 
-    # collate all users who are members of at least one GAE admin role (TARGETS)
-    admins = set()             # set of all App Engine admins
-    allow_policy = IAM.projects().getIamPolicy(resource=PROJ_ID).execute()
-    for b in allow_policy['bindings']:  # bindings in IAM allow policy
-        if b['role'] in _TARGETS:       # only look at GAE admin roles
-            admins.update(user.split(':', 1)[1] for user in b['members'])
+    # collate all users who are members of at least one GAE admin role (_TARGETS)
+    admins = set()                      # set of all App Engine admins
+    allow_policy = rm_client.get_iam_policy(resource='projects/%s' % PROJ_ID)
+    for b in allow_policy.bindings:     # bindings in IAM allow policy
+        if b.role in _TARGETS:          # only look at GAE admin roles
+            admins.update(user.split(':', 1).pop() for user in b.members)
     return admins
 
 @app.route('/is_admin', methods=['POST'])
@@ -47,10 +51,8 @@ def is_admin():
     return {'admin': email in _ADMINS}, 200
 
 
-# initialize Flask, Firebase, Cloud NDB; fetch set of App Engine admins
-app = Flask(__name__)
+# initialize Firebase and fetch set of App Engine admins
 initialize_app()
-ds_client = ndb.Client()
 _ADMINS = _get_gae_admins()
 
 
