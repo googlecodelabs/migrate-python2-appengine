@@ -25,9 +25,9 @@ ds_client = ndb.Client()
 
 def _get_gae_admins():
     'return set of App Engine admins'
-    # setup constants for calling Cloud IAM Resource Manager API
+    # setup constants for calling Cloud Resource Manager API
     CREDS, PROJ_ID = default(  # Application Default Credentials and project ID
-            ['https://www.googleapis.com/auth/cloud-platform'])
+            ['https://www.googleapis.com/auth/cloudplatformprojects.readonly'])
     rm_client = discovery.build('cloudresourcemanager', 'v1', credentials=CREDS)
     _TARGETS = frozenset((     # App Engine admin roles
             'roles/viewer',
@@ -36,7 +36,7 @@ def _get_gae_admins():
             'roles/appengine.appAdmin',
     ))
 
-    # collate all users who are members of at least one GAE admin role (_TARGETS)
+    # collate users who are members of at least one GAE admin role (_TARGETS)
     admins = set()                      # set of all App Engine admins
     allow_policy = rm_client.projects().getIamPolicy(resource=PROJ_ID).execute()
     for b in allow_policy['bindings']:  # bindings in IAM allow policy
