@@ -8,7 +8,7 @@
 
 This is the corresponding repository to the [Serverless Migration Station](https://bit.ly/3xk2Swi) video series whose goal is to help users on a Google Cloud serverless compute platform modernize to other Cloud or serverless products. Modernization steps generally feature a video, codelab (self-paced, hands-on tutorial), and code samples. The content initially focuses on App Engine and Google's earliest Cloud users. Read more about the [codelabs in this announcement](https://developers.googleblog.com/2021/03/modernizing-your-google-app-engine-applications.html?utm_source=ext&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_modernizegae_codelabsannounce_201031&utm_content=-) as well as [this one introducing the video series](https://developers.googleblog.com/2021/06/introducing-serverless-migration.html?utm_source=blog&utm_medium=partner&utm_campaign=CDR_wes_aap-serverless_smsintro_201023). This repo is for Python developers; there is another repo for Java developers.
 
-[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of resources showing developers how to perform individual migrations that can be applied to modernize their apps for the latest runtimes. The content falls into one of these topics:
+[Google App Engine](https://cloud.google.com/appengine) (Standard) has undergone significant changes between the legacy and next generation platforms. To address this, we've created a set of resources showing developers how to perform individual migrations that can be applied to modernize their apps for the latest runtimes, meaning to Python 3 even though [Google expressed long-term support for legacy runtimes](https://cloud.google.com/appengine/docs/standard/long-term-support) like Python 2. The content falls into one of these topics:
 
 1. Migrate from a legacy App Engine service to a similar Cloud product
 1. Shift to another Cloud serverless compute platform (e.g., from App Engine to Cloud Run)
@@ -39,12 +39,12 @@ Furthermore, deploying to GCP serverless platforms incur [minor build and storag
 
 ## Why
 
-App Engine initially [elaunched in 2008](http://googleappengine.blogspot.com/2008/04/introducing-google-app-engine-our-new.html) ([video](http://youtu.be/3Ztr-HhWX1c)), providing a suite of bundled services making it convenient for developers to access a database (Datastore), caching (Memcache), independent task execution (TaskQueue), large "blob" storage (Blobstore) to allow for end-user file uploads or to serve large media files, and other companion services. However, apps leveraging those services can only run their apps on App Engine.
+App Engine initially [launched in 2008](http://googleappengine.blogspot.com/2008/04/introducing-google-app-engine-our-new.html) ([video](http://youtu.be/3Ztr-HhWX1c)), providing a suite of bundled services making it convenient for developers to access a database (Datastore), caching (Memcache), independent task execution (Task Queue), large "blob" storage (Blobstore) to allow for end-user file uploads or to serve large media files, and other companion services. However, apps leveraging those services can only run their apps on App Engine.
 
 
 To increase app portability, its 2nd-generation service [launched in 2018](https://cloud.google.com/blog/products/gcp/introducing-app-engine-second-generation-runtimes-and-python-3-7), initially removing those legacy bundled services. The main reason to move to the 2nd generation service is that it allows developers to upgrade to the latest language runtimes, such as moving from Python 2 to 3 or Java 8 to 17. Unfortunately, it was mutually exclusive to do so, meaning while you could upgrade language releases, you lost access to those bundled services, making it a showstopper for many users.
 
-However, due to their popularity _and_ to help users upgrade, the App Engine team restored access to many (but not all) of those services in Fall 2021. For more on this, see the [Legacy services](#accessing-legacy-services-in-second-generation) section below. As Google is continually striving to have the most [open cloud](https://cloud.google.com/open-cloud) on the market, and while many of those services are now available again, apps can _still_ be more portable if they migrated away from the legacy services to similar Cloud or 3rd-party oferings. Another issue with the bundled services is that they're only available in 2nd generation runtimes that have a 1st generation service (Python, Java, Go, PHP), excluding 2nd generation-only runtimes like Ruby and Node.js.
+However, due to their popularity _and_ to help users upgrade, the App Engine team [restored access to many (but not all) of those services in Fall 2021](https://cloud.google.com/blog/products/serverless/support-for-app-engine-services-in-second-generation-runtimes). For more on this, see the [Legacy services](#accessing-legacy-services-in-second-generation) section below. As Google is continually striving to have the most [open cloud](https://cloud.google.com/open-cloud) on the market, and while many of those services are now available again, apps can _still_ be more portable if they migrated away from the legacy services to similar Cloud or 3rd-party oferings. Another issue with the bundled services is that they're only available in 2nd generation runtimes that have a 1st generation service (Python, Java, Go, PHP), excluding 2nd generation-only runtimes like Ruby and Node.js.
 
 Once apps have moved away from App Engine bundled services to similar Cloud or 3rd-party services. apps are portable enough to:
 
@@ -117,8 +117,8 @@ Module | Topic | Video | Codelab | START here | FINISH here
 17|Migrate to Python 3 bundled services| _TBD_ | [link](http://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-17-bundled?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrwormhole_sms_202002&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 1 [code](/mod1b-flask) (3.x)
 18|Add App Engine `taskqueue` pull tasks| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-18-gaepull?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaepull_sms_202013&utm_content=-) | Module 1 [code](/mod1-flask) (2.x) | Module 18 [code](/mod18-gaepull) (2.x)
 19|Migrate to Cloud Pub/Sub| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-19-pubsub?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrpubsub_sms_202016&utm_content=-) | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod19-pubsub) (2.x & 3.x)
-20|Add App Engine `users` | _TBD_ | _TBD_ | Module 1 [code](/mod1-flask) (2.x) | Module 20 [code](/mod20-gaeusers) (2.x)
-21|Migrate to Cloud Identity Platform | _TBD_ | _TBD_ | Module 20 [code](/mod20-gaeusers) (2.x) |  Module 21 [code](/mod21a-idenplat) (2.x) &amp; [code](/mod21b-idenplat) (3.x)
+20|Add App Engine `users` | _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-20-gaeusers?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaeusers_sms_202119&utm_content=-)| Module 1 [code](/mod1-flask) (2.x) | Module 20 [code](/mod20-gaeusers) (2.x)
+21|Migrate to Cloud Identity Platform | _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-21-idenplat?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgridenplat_sms_202119&utm_content=-)| Module 20 [code](/mod20-gaeusers) (2.x) |  Module 21 [code](/mod21a-idenplat) (2.x) &amp; [code](/mod21b-idenplat) (3.x)
 
 
 ### Table of contents
@@ -135,7 +135,7 @@ If there is a logical codelab to do immediately after completing one, they will 
         - START:  [Module 0 code - Baseline](/mod0-baseline)
         - FINISH: [Module 1 code - Framework](/mod1-flask)
     - NEXT:
-        - Module 2 - migrate to Cloud NDB
+        - Module 2 - migrate from App Engine NDB to Cloud NDB (for Datastore access)
 
 - [Module 2 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-2-cloudndb?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudndb_201021&utm_content=-): **Migrate from App Engine `ndb` to [Cloud NDB](https://googleapis.dev/python/python-ndb/latest)**
     - Python 2
@@ -144,56 +144,62 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Codelab bonus port to Python 3.x
         - FINISH: [Module 2 code - Cloud NDB](/mod2b-cloudndb) (3.x)
     - RECOMMENDED:
-        - Module 7 - add App Engine (push) tasks (and migrate to Cloud Tasks in Module 8)
-        - Module 12 - add App Engine `memcache` (and migrate to Cloud Memorystore in Module 13)
-        - Module 15 - add App Engine `blobstore` (and migrate to Cloud Storage in Module 16)
+        - Module 7 - add App Engine Task Queue push tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
+        - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
+        - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
+        - Module 20 - add App Engine Users (and migrate to Cloud Identity Platform in Module 21)
 
-- [Module 7 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-7-gaetasks?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaetasks_sms_201028&utm_content=-): **Add App Engine (push) Task Queues to existing sample app**
+- [Module 7 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-7-gaetasks?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaetasks_sms_201028&utm_content=-): **Add App Engine Task Queues push tasks to existing sample app**
     - **Not a migration**: add GAE Task Queues to prepare for migration to Cloud Tasks
     - Python 2
         - START:  [Module 1 code - Framework](/mod1-flask)
-        - FINISH: [Module 7 code - GAE TaskQueue (push tasks)](/mod7-gaetasks)
-    - NEXT: Module 8 - migrate App Engine push tasks to Cloud Tasks
+        - FINISH: [Module 7 code - GAE Task Queue push tasks](/mod7-gaetasks)
+    - NEXT:
+        - Module 8 - migrate App Engine Task Queue push tasks to Cloud Tasks
 
-- [Module 8 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-8-cloudtasks?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudtasks_sms_201112&utm_content=-): **Migrate from App Engine (push) Task Queues to [Cloud Tasks](http://cloud.google.com/tasks) v1**
+- [Module 8 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-8-cloudtasks?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudtasks_sms_201112&utm_content=-): **Migrate from App Engine Task Queues push tasks to [Cloud Tasks](http://cloud.google.com/tasks) v1**
     - Python 2
-        - START:  [Module 7 code - GAE TaskQueue (push tasks)](/mod7-gaetasks)
+        - START:  [Module 7 code - GAE Task Queue push tasks](/mod7-gaetasks)
         - FINISH: [Module 8 code - Cloud Tasks](/mod8-cloudtasks)
     - RECOMMENDED:
         - Module 9 - migrate to Python 3 and Cloud Datastore
-        - Module 18 - add App Engine TaskQueue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
         - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
         - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
+        - Module 20 - add App Engine Users (and migrate to Cloud Identity Platform in Module 21)
 
 - [Module 9 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-9-py3dstasks?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrpy3fstasks_sms_201126&utm_content=-): **Migrate a Python 2 Cloud NDB &amp; Cloud Tasks (v1) app to a Python 3 Cloud Datastore &amp; Cloud Tasks (v2) app**
     - **Optional** migrations
-        - Migrating to Python 3 is not required but recommended as Python 2 has been sunset
+        - Migrating to Python 3 is not required but recommended as [Python 2 has been sunset](http://python.org/doc/sunset-python-2)
         - Migrating to Cloud Datastore is optional as Cloud NDB works on 3.x
     - Python 2
         - START:  [Module 8 code - Cloud Tasks](/mod8-cloudtasks)
     - Python 3
         - FINISH: _TBD_
     - RECOMMENDED:
-        - Module 18 - add App Engine TaskQueue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
         - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
         - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
+        - Module 20 - add App Engine Users (and migrate to Cloud Identity Platform in Module 21)
 
-- [Module 18 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-18-gaepull?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaepull_sms_202013&utm_content=-): **Add App Engine (pull) Task Queues to existing sample app**
+- [Module 18 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-18-gaepull?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaepull_sms_202013&utm_content=-): **Add App Engine Task Queues pull tasks to existing sample app**
     - **Not a migration**: add GAE Task Queues to prepare for migration to Cloud Tasks
     - Python 2
         - START:  [Module 1 code - Framework](/mod1-flask)
-        - FINISH: [Module 18 code - GAE TaskQueue (pull tasks)](/mod18-gaepull)
+        - FINISH: [Module 18 code - GAE Task Queue pull tasks](/mod18-gaepull)
     - NEXT: Module 19 - migrate App Engine pull tasks to Cloud Pub/Sub
 
-- **Module 19 codelab** (TBD): **Migrate from App Engine (pull) Task Queues to [Cloud Pub/Sub](http://cloud.google.com/pubsub)**
+- [Module 19 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-19-pubsub?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrpubsub_sms_202016&utm_content=-): **Migrate from App Engine Task Queues pull tasks to [Cloud Pub/Sub](http://cloud.google.com/pubsub)**
     - Python 2
-        - START:  [Module 18 code - GAE TaskQueue (pull tasks)](/mod18-gaepull)
+        - START:  [Module 18 code - GAE Task Queue pull tasks](/mod18-gaepull)
     - Python 3
         - FINISH: [Module 19 code - Cloud Pub/Sub](/mod19-pubsub)
     - RECOMMENDED:
-        - Module 7 - add App Engine TaskQueue push tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 7 - add App Engine Task Queue push tasks (and migrate to Cloud Tasks in Module 8)
         - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
         - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
+        - Module 20 - add App Engine `users` (and migrate to Cloud Identity Platform in Module 21)
 
 - [Module 12 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-12-memcache?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemcache_sms_202006&utm_content=-): **Add App Engine Memcache to existing sample app**
     - **Not a migration**: add GAE Memcache to prepare for migration to Cloud Memorystore
@@ -209,15 +215,17 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Python 3
         - FINISH: [Module 13 code - Cloud Tasks](/mod13b-memorystore)
     - RECOMMENDED:
-        - Module 7 - add App Engine (push) tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 7 - add App Engine Task Queue push tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
         - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
+        - Module 20 - add App Engine `users` (and migrate to Cloud Identity Platform in Module 21)
 
 - [Module 15 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-12-memcache?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemcache_sms_202006&utm_content=-): **Add App Engine Blobstore to existing sample app**
     - **Not a migration**: add GAE Blobstore to prepare for migration to Cloud Storage
     - Python 2
         - START:  [Module 0 code - Baseline](/mod0-baseline)
         - FINISH: [Module 15 code - GAE Blobstore](/mod15-blobstore)
-    - NEXT: Module 13 - migrate App Engine Blobstore to Cloud Storage
+    - NEXT: Module 16 - migrate App Engine Blobstore to Cloud Storage
 
 - [Module 16 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-13-memorystore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrmemorystore_sms_202029&utm_content=-): **Migrate from App Engine Blobstore to [Cloud Storage (for Redis)](http://cloud.google.com/storage) v1**
     - Python 2
@@ -226,8 +234,30 @@ If there is a logical codelab to do immediately after completing one, they will 
     - Python 3
         - FINISH: [Module 16 code - Cloud Storage](/mod16-cloudstorage) (_same as Python 2 version_)
     - RECOMMENDED:
-        - Module 7 - add App Engine (push) tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 7 - add App Engine Task Queue push tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
         - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
+        - Module 20 - add App Engine Users (and migrate to Cloud Identity Platform in Module 21)
+
+- [Module 20 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-20-gaeusers?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaeusers_sms_202119&utm_content=-): **Add App Engine Users to existing sample app**
+    - **Not a migration**: add GAE Users to prepare for migration to Cloud Identity Platform/Firebase Auth
+    - Python 2
+        - START:  [Module 1 code - Framework](/mod1-flask)
+        - FINISH: [Module 20 code - GAE Users](/mod20-gaeusers)
+    - NEXT:
+        - Module 21 - migrate App Engine Users to Cloud Identity Platform/Firebase Auth
+
+- [Module 21 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-21-idenplat?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgridenplat_sms_202119&utm_content=-): **Migrate from App Engine Users to [Cloud Identity Platform](http://cloud.google.com/identity-platform)/Firebase Auth**
+    - Python 2
+        - START:  [Module 20 code - GAE Users](/mod20-gaeusers)
+        - FINISH: [Module 21 code - Cloud Identity Platform](/mod21a-idenplat)/Firebase Auth
+    - Python 3
+        - FINISH: [Module 21 code - Cloud Identity Platform](/mod21b-idenplat)/Firebase Auth
+    - RECOMMENDED:
+        - Module 7 - add App Engine Task Queue push tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
+        - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
+        - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
 
 
 - [Module 3 codelab](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-3-datastore?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrcloudds_201003&utm_content=-): **Migrate from Cloud NDB to [Cloud Datastore](http://cloud.google.com/datastore)**
@@ -241,9 +271,11 @@ If there is a logical codelab to do immediately after completing one, they will 
         - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb)
         - FINISH: [Module 3 code - Cloud Datastore](/mod3b-datastore)
     - RECOMMENDED:
-        - Module 7 - add App Engine (push) tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 7 - add App Engine Task Queue push tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
         - Module 12 - add App Engine Memcache (and migrate to Cloud Memorystore in Module 13)
         - Module 15 - add App Engine Blobstore (and migrate to Cloud Storage in Module 16)
+        - Module 20 - add App Engine Users (and migrate to Cloud Identity Platform in Module 21)
 
 
 #### Migrations to other Cloud serverless platforms
@@ -279,7 +311,8 @@ If there is a logical codelab to do immediately after completing one, they will 
         - START:  [Module 2 code - Cloud NDB](/mod2b-cloudndb)
         - FINISH: [Module 11 code - Cloud Functions](/mod11-functions)
     - RECOMMENDED:
-        - Module 7 - add App Engine (push) tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 7 - add App Engine Task Queue push tasks (and migrate to Cloud Tasks in Module 8)
+        - Module 18 - add App Engine Task Queue pull tasks (and migrate to Cloud Pub/Sub in Module 19)
         - Module 12 - add App Engine `memcache` (and migrate to Cloud Memorystore in Module 13)
         - Module 15 - add App Engine `blobstore` (and migrate to Cloud Storage in Module 16)
     - OTHER OPTIONS (in somewhat priority order):
