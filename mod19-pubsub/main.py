@@ -16,8 +16,8 @@ from flask import Flask, render_template, request
 import google.auth
 from google.cloud import ndb, pubsub
 
-LIMIT = 10
 TASKS = 1000
+LIMIT = 10
 TOPIC = 'pullq'
 SBSCR = 'worker'
 

@@ -17,8 +17,8 @@ from google.appengine.api import taskqueue
 from google.appengine.ext import ndb
 
 HOUR = 3600
-LIMIT = 10
 TASKS = 1000
+LIMIT = 10
 QNAME = 'pullq'
 QUEUE = taskqueue.Queue(QNAME)
 app = Flask(__name__)
