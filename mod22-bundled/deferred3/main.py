@@ -17,6 +17,10 @@ from google.appengine.api import wrap_wsgi_app
 from google.appengine.ext import deferred, ndb
 
 KEY_NAME = 'SECRET'
+OUTPUT = '''\
+<title>Module 22 Deferred sample app</title>
+Counter at %d... bump requested.
+'''
 app = Flask(__name__)
 app.wsgi_app = wrap_wsgi_app(app.wsgi_app, use_deferred=True)
 
@@ -36,7 +40,6 @@ def bump_counter_later(key):
 def root():
     'main application (GET) handler'
     entity = Counter.get_by_id(KEY_NAME)
-    output = 'Counter at %d... bump requested.' % (
-            entity.count if entity else 0)
+    output = OUTPUT % (entity.count if entity else 0)
     deferred.defer(bump_counter_later, KEY_NAME)
     return output

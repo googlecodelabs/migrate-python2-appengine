@@ -17,6 +17,7 @@ from google.appengine.api import wrap_wsgi_app
 from google.appengine.ext import blobstore, ndb
 
 UPLOAD_FORM = '''\
+<title>Module 22 Blobstore sample app</title>
 <h2>Upload photo:</h2>
 <form action="%s" method="POST" enctype="multipart/form-data">
     <input type="file" name="file"><p></p><input type="submit">

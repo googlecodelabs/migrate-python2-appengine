@@ -16,6 +16,10 @@ import webapp2
 from google.appengine.ext import deferred, ndb
 
 KEY_NAME = 'SECRET'
+OUTPUT = '''\
+<title>Module 22 Deferred sample app</title>
+Counter at %d... bump requested.
+'''
 
 class Counter(ndb.Model):
     'Counter entity: autoincrement integer'
@@ -33,8 +37,7 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         'main application (GET) handler'
         entity = Counter.get_by_id(KEY_NAME)
-        self.response.write('Counter at %d... bump requested.' % (
-                entity.count if entity else 0))
+        self.response.write(OUTPUT % (entity.count if entity else 0))
         deferred.defer(bump_counter_later, KEY_NAME)
 
 

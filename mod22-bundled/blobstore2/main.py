@@ -17,6 +17,7 @@ from google.appengine.ext import blobstore, ndb
 from google.appengine.ext.webapp import blobstore_handlers
 
 UPLOAD_FORM = '''\
+<title>Module 22 Blobstore sample app</title>
 <h2>Upload photo:</h2>
 <form action="%s" method="POST" enctype="multipart/form-data">
     <input type="file" name="file"><p></p><input type="submit">

@@ -20,6 +20,7 @@ from google.appengine.ext import ndb
 KEY_NAME = 'SECRET'
 FIELDS = frozenset(('sender', 'subject', 'date'))
 MSG_TMPL = '''\
+<title>Module 22 Mail sample app</title>
 <h2>Last message received:</h2><p></p>
 <pre>
 From: %(sender)s

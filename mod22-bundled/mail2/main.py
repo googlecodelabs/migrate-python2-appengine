@@ -20,6 +20,7 @@ from google.appengine.ext.webapp import mail_handlers
 KEY_NAME = 'SECRET'
 FIELDS = frozenset(('sender', 'subject', 'date'))
 MSG_TMPL = '''\
+<title>Module 22 Mail sample app</title>
 <h2>Last message received:</h2><p></p>
 <pre>
 From: %(sender)s
@@ -66,8 +67,8 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         last_msg = LastMsg.get_by_id(KEY_NAME)
         msg_dict = last_msg.to_dict()
-        self.response.write(
-                MSG_TMPL % dict((k, escape(msg_dict[k])) for k in msg_dict))
+        self.response.write(MSG_TMPL %
+                dict((k, escape(msg_dict[k])) for k in msg_dict))
 
 
 app = webapp2.WSGIApplication([

@@ -76,7 +76,7 @@ Topic | Module ordering | Description
 --- | --- | ---
 Baseline | 0 &rArr; 1 | Not a migration but a description of the baseline application (review this material before doing any migrations)
 Web framework | 1 &rArr; _everything else_ | Current App Engine runtimes do not come with a web framework, so this must be the first migration performed. All migrations below can be performed after this one.
-Bundled services | 17 | This module is for Python bundled services users interested in how to access those services from Python 3.
+Bundled services | 17 &rArr; 22 | These modules are for those who want to continue using Python bundled services from Python 3 App Engine.
 Datastore | 2 [&rArr; 3 [&rArr; 6]] | Moving off App Engine `ndb` makes your apps more portable, so the **Module 2** Cloud NDB migration is _recommended_. **Module 3:** Migrating to Cloud Datastore (Firestore in Datastore mode) is _optional_ and only recommended if you have other code using Cloud Datastore. **Module 6**: Migrating to Cloud Firestore (Native mode) is generally _not recommended_ unless you must have the Firebase features it has, and those features will eventually be integrated into Cloud Datastore.
 (Push) Task Queues | [7 &rArr;] 8 [&rArr; 9] | Moving off App Engine `taskqueue` makes your apps more portable, so the **Module 8** Cloud Tasks migration is _recommended_ for those using push tasks. Those unfamiliar with push tasks should do **Module 7** first to add push tasks to the sample app. **Module 9:** Migrating to Cloud Datastore (Firestore in Datastore mode), Cloud Tasks (v2), and Python 3 is _optional_ and only recommended if you have other code using Cloud Datastore and considering upgrading to Python 3.
 (Pull) Task Queues | [18 &rArr;] 19 | Moving off App Engine `taskqueue` makes your apps more portable, so the **Module 19** Cloud Pub/Sub migration is _recommended_ for those using pull tasks. The app is also ported to Python 3. Those unfamiliar with pull tasks should do **Module 18** first to add pull tasks to the sample app.
@@ -119,7 +119,7 @@ Module | Topic | Video | Codelab | START here | FINISH here
 19|Migrate to Cloud Pub/Sub| _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-19-pubsub?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrpubsub_sms_202016&utm_content=-) | Module 18 [code](/mod18-gaepull) (2.x) | Module 19 [code](/mod19-pubsub) (2.x & 3.x)
 20|Add App Engine `users` | _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-20-gaeusers?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgrgaeusers_sms_202119&utm_content=-)| Module 1 [code](/mod1-flask) (2.x) | Module 20 [code](/mod20-gaeusers) (2.x)
 21|Migrate to Cloud Identity Platform | _TBD_ | [link](https://codelabs.developers.google.com/codelabs/cloud-gae-python-migrate-21-idenplat?utm_source=codelabs&utm_medium=et&utm_campaign=CDR_wes_aap-serverless_mgridenplat_sms_202119&utm_content=-)| Module 20 [code](/mod20-gaeusers) (2.x) |  Module 21 [code](/mod21a-idenplat) (2.x) &amp; [code](/mod21b-idenplat) (3.x)
-22|Migrate to Python 3 bundled services (Part 2)| _TBD_ | _N/A_ | Module 22  [code](/mod22-bundled) (2.x & 3.x) | _(same)_
+22|Migrate to Python 3 bundled services (Part 2)| _TBD_ | _N/A_ | Module 22  [code](/mod22-bundled) (2.x & 3.x) | _(&lArr; same folder)_
 
 
 ### Table of contents
