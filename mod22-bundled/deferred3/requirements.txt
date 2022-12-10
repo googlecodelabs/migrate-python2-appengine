@@ -1,0 +1,2 @@
+flask
+appengine-python-standard
