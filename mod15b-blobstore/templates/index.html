@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<title>VisitMe Example</title>
+</head>
+<body>
+
+<h1>VisitMe example</h1>
+{% if upload_url %}
+
+<h3>Welcome... upload a file? (optional)</h3>
+<form action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file"><p></p>
+    <input type="submit"> <input type="submit" value="Skip">
+</form>
+
+{% else %}
+
+<h3>Last 10 visits</h3>
+<ul>
+{% for visit in visits %}
+<li>{{ visit.timestamp.ctime() }}
+    <i><code>
+    {% if visit.file_blob %}
+        (<a href="/view/{{ visit.file_blob }}" target="_blank">view</a>)
+    {% else %}
+        (none)
+    {% endif %}
+    </code></i>
+    from {{ visit.visitor }}
+</li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+</body>
+</html>
